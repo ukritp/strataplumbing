@@ -31,7 +31,7 @@
               <li><a href="#">Pending Approval - Jess Gunther</a></li>
               <li><a href="#">Pending Approval - Johan Becker</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="#">Issued / QB Invoices</a></li>
+              <li><a href="{{url('invoices/index/0' )}}">Issued / QB Invoices</a></li>
             </ul>
           </li>
         @else
