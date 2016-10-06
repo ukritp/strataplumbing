@@ -84,7 +84,7 @@
                                 aria-haspopup="true" aria-expanded="false">
                                 <i class="glyphicon glyphicon-plus"></i>
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-right">
+                            <ul class="dropdown-menu dropdown-menu-button-right">
                                 <li>{!! Html::linkRoute('technicians.show', 'View', array($technician->id), array('class'=>''))!!}</li>
                                 @can('technician-gate', $technician)
                                 <li>{!! Html::linkRoute('technicians.edit', 'Edit', array($technician->id), array('class'=>''))!!}</li>

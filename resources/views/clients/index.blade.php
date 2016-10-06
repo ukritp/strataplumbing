@@ -71,7 +71,7 @@
                                     aria-haspopup="true" aria-expanded="false">
                                     <i class="glyphicon glyphicon-plus"></i>
                                 </button>
-                                <ul class="dropdown-menu dropdown-menu-right">
+                                <ul class="dropdown-menu dropdown-menu-button-right">
                                     <li>{!! Html::linkRoute('clients.show', 'View', array($client->id), array('class'=>'')) !!}</li>
                                     <li>{!! Html::linkRoute('clients.edit', 'Edit', array($client->id), array('class'=>'')) !!}</li>
                                     <li>{!! Html::linkRoute('jobs.create', 'Create Job', array($client->id,'client'), array('class'=>'')) !!}

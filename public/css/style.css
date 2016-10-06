@@ -31,7 +31,7 @@ h1.page_title{
 .btn:hover{
 	 transition: all 0.6s;
 }
-.dropdown-menu-right{
+.dropdown-menu-button-right{
     top: -10%;
     left: 105%;
     min-width: 120px;
@@ -372,7 +372,7 @@ table.mobile-table th.td-activity-subject{
 		width:100%;
 	}
 
-    .dropdown-menu-right{
+    .dropdown-menu-button-right{
         left: auto;
         right: 105%;
     }
