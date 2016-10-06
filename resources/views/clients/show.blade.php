@@ -1,0 +1,145 @@
+@extends('main')
+
+@section('title', '| View Client')
+
+@section('content')
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page_title"> CLIENT SUMMARY </h1>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-8">
+            <!-- https://www.virendrachandak.com/techtalk/php-isset-vs-empty-vs-is_null/ -->
+            @if(!empty($client->company_name)) <h2>Company: {{$client->company_name}}</h1> @endif
+            @if(!empty($client->strata_plan_number)) <h2>Strata Plan #: {{$client->strata_plan_number}}</h1> @endif
+            <h2>Name: {{$client->first_name.' '.$client->last_name}}</h2>
+            <p class="lead" class="lead">Title: {{$client->title}}</p>
+            <hr>
+            @if(!empty($client->home_number)) <p class="lead"><b>Home:</b> {{$client->home_number}}</p> @endif
+            @if(!empty($client->cell_number)) <p class="lead"><b>Cell:</b> {{$client->cell_number}}</p> @endif
+            @if(!empty($client->work_number)) <p class="lead"><b>Work:</b> {{$client->work_number}}</p> @endif
+            @if(!empty($client->fax_number))  <p class="lead"><b>Fax:</b>  {{$client->fax_number}}</p>  @endif
+            <p class="lead"><b>Email:</b> {{$client->email}}</p>
+            @if(!empty($client->alternate_emai)) <p class="lead"><b>Alternate Email:</b> {{$client->alternate_email}}</p> @endif
+            <p class="lead"><b>Address:</b> {{
+                ucwords(strtolower($client->mailing_address)).', '.
+                ucwords(strtolower($client->mailing_city)).', '.
+                strtoupper($client->mailing_province).' '.
+                strtoupper($client->mailing_postalcode)
+            }}
+            </p>
+            @if(!empty($client->buzzer_code)) <p class="lead"><b>Buzzer Code:</b> {{$client->buzzer_code}}</p> @endif
+            <p class="lead"><b>Billing Address:</b>
+            @if(!empty($client->billing_address)) {{
+                ucwords(strtolower($client->billing_address)).', '.
+                ucwords(strtolower($client->billing_city)).', '.
+                strtoupper($client->billing_province).' '.
+                strtoupper($client->billing_postalcode)
+            }}
+            @endif
+            </p>
+            @if(!empty($client->quoted_rates)) <p class="lead"><b>Quoted Rates:</b> {{$client->quoted_rates}}</p> @endif
+            @if(!empty($client->property_note)) <p class="lead paragraph-wrap"><b>Property Note:</b><br>{{$client->property_note}}</p> @endif
+
+        </div>
+
+        <!-- Side bar -->
+        <div class="col-md-4">
+            <div class="well">
+                <dl class="dl-horizontal">
+                    <dt>Creat at:</dt>
+                    <!-- http://php.net/manual/en/function.date.php -->
+                    <!-- http://php.net/manual/en/function.strtotime.php -->
+                    <dd>{{ date('M j, Y - H:i', strtotime($client->created_at)) }}</dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Last Update at:</dt>
+                    <dd>{{ date('M j, Y - H:i', strtotime($client->updated_at)) }}</dd>
+                </dl>
+                <hr>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        {!! Html::linkRoute('clients.edit', 'Edit', array($client->id), array('class'=>'btn btn-primary btn-margin btn-block') ) !!}
+                    </div>
+                    <div class="col-sm-6">
+                        {!! Form::open(['route' => ['clients.destroy',$client->id], 'method'=>'DELETE']) !!}
+                        {{ Form::submit('Delete', array('class' => 'btn btn-danger btn-margin btn-block confirm-delete-modal', 'id'=>'delete'))}}
+                        {!! Form::close() !!}
+                        <div class="modal modal-effect-blur" id="modal-1">
+                            <div class="modal-content">
+                                <h3>Are you sure you want to delete?</h3>
+                                <p class="text-center">*everything related to this Client will be delete as well</p>
+                                <div>
+                                    <button class="modal-delete">Delete</button>
+                                    <button class="modal-delete-cancel">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-overlay"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        {!! Html::linkRoute('sites.create', 'Add Site', array($client->id), array('class'=>'btn btn-default btn-block btn-margin') ) !!}
+                    </div>
+                    <div class="col-sm-12">
+                        {!! Html::linkRoute('jobs.create', 'Create Job from this Client', array($client->id,'client'), array('class'=>'btn btn-default btn-block btn-margin') ) !!}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- /.row -->
+    <!-- List of sites -->
+    <div class="row">
+        <hr>
+        <h2 class="text-center">Sites</h2>
+        <hr>
+        <div class="col-md-12">
+            <table class="table table-hover mobile-table">
+                <thead>
+                    <th>Address</th>
+                    <th>Name</th>
+                    <th>Relationship</th>
+
+                    <th>Cellphone</th>
+                    <th class="text-right">Action</th>
+                </thead>
+                <tbody>
+
+                    @foreach($client->sites as $site)
+
+                        <tr>
+                            <td data-label="Address">{{
+                            ucwords(strtolower($site->mailing_address)).', '.
+                            ucwords(strtolower($site->mailing_city))
+                            }}</td>
+                            <td data-label="Name">{!! Html::linkRoute('sites.show',$site->first_name.' '.$site->last_name, array($site->id), array() ) !!}</td>
+                            <td data-label="Relationship">{{(!empty($site->relationship))?$site->relationship:'-'}}</td>
+
+                            <td data-label="Cellphone">{{(!empty($site->cell_number))?$site->cell_number:'-'}}</td>
+                            <td data-label="Action" class="text-right">
+                            {!! Html::linkRoute('sites.show', 'View', array($site->id), array('class'=>'btn btn-default btn-sm') ) !!}
+                            {!! Html::linkRoute('sites.edit', 'Edit', array($site->id), array('class'=>'btn btn-default btn-sm') ) !!}
+                            {!! Html::linkRoute('jobs.create', 'Create Job from this Site', array($site->id,'site'), array('class'=>'btn btn-default btn-sm') ) !!}</td>
+                        </tr>
+
+                    @endforeach
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+@endsection
+
+@section('scripts')
+    {!! Html::script('js/default.js') !!}
+@endsection

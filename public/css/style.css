@@ -1,0 +1,457 @@
+/* set h1 for home page */
+html, body {
+    height: 100%;
+}
+.container{
+	display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.main-row{
+	flex: 1;
+}
+.footer-msg{
+	padding: 1rem;
+	text-align: center;
+}
+.home-header{
+	color:#72533e;
+	border: 1px solid #72533e;
+	padding: 10px 0;
+	border-radius: 4px;
+}
+h1.page_title{
+    text-align: center;
+    background-color: #e9e9e9;
+    color:#72533e;
+    margin: 0;
+    padding: 20px 0;
+}
+/* make button transition slower */
+.btn:hover{
+	 transition: all 0.6s;
+}
+.dropdown-menu-right{
+    top: -10%;
+    left: 105%;
+    min-width: 120px;
+}
+/* add some color to tabel on top of bootstrap */
+.table-hover-blue tbody tr:hover td, .table-hover-blue tbody tr:hover th {
+  background-color: #E0FAFD;
+}
+.form-group.required .control-label:after {
+   content:"*";
+   color:red;
+}
+.paragraph-wrap{
+	white-space: pre-wrap;
+}
+.search-bar{
+	/*border:1px solid #ddd;*/
+	margin-top:20px;
+}
+.search-bar .input-group{
+	margin-right: 10px;
+}
+.search-bar .input-group input[type="text"]{
+	width:100px;
+}
+.search-bar  ul.parsley-errors-list{
+	display:none;
+}
+.search-bar  .search-buttom{
+	margin-left:20px;
+}
+/* give top margin to button */
+.btn-margin{
+	margin:20px 0 0;
+}
+.btn-margin-lg{
+	margin-top:50px;
+}
+
+.material-table{
+	width: 85%;
+	margin: 30px auto 0;
+}
+.invoice-truck{
+	margin-bottom: 30px;
+}
+.invoice-truck .total-cost{
+	text-align: right;
+}
+.invoice-truck .invoice-truck-text p{
+	padding-left:25px;
+}
+.invoice-subtotal{
+	margin-bottom: 40px;
+}
+.total-cost{
+	margin-right: 8px;
+}
+.invoice-grandtotal{
+	font-weight: bold;
+	text-align: right;
+}
+
+/* get rid of margin at the bottom from bootstrap */
+.thumbnail-logo{
+	margin-bottom:0;
+}
+
+/* make company profile in estimate page look good */
+.dl-estimate dt{
+	width:20%;
+}
+.dl-estimate dd{
+	margin-left:22%;
+}
+
+/* give top margin to button */
+.add-button{
+	float:right;
+	/*margin-right:35px;*/
+	padding-left:22px;
+	padding-right:22px;
+}
+.remove-material, .remove-material-revised{
+	margin-top: 25px;
+}
+.form-inline input[type=checkbox]{
+	margin:0 10px;
+}
+
+.lead-md{
+	font-size: 16px;
+}
+.lead-status span{
+	font-weight: bold;
+	color: red;
+}
+.status-completed{
+color: green;
+}
+.status-pending{
+color: red;
+}
+.pending-invoice-column{
+	border-right:1px solid #eee;
+}
+.consolidate-tech-details{
+	overflow-x: hidden;
+	overflow: scroll;
+	height: 400px;
+	padding:20px 15px;
+	background-color:#e7e7e7;
+	border: 1px solid #e7e7e7;
+	border-radius: 10px;
+}
+
+#description{
+	min-height: 650px;
+}
+.total-cost-discount{
+	color:red;
+}
+.grey-background{
+	background-color: #eee;
+	margin-top:10px;
+	margin-bottom:10px;
+	padding:2px 0 2px 5px;
+}
+.header-blue{
+	color:#0050A1;
+}
+.table-invoice{
+	margin-bottom:3px;
+}
+
+.table-hover-blue tbody tr td.create-invoice-column{
+	vertical-align: middle;
+}
+.table-pending-invoice tbody tr td.date{
+	width:15%;
+}
+.table-pending-invoice tbody tr td.td-description{
+	width:75%;
+	white-space: pre-line;
+}
+.table-pending-invoice tbody tr td.description{
+    width:75%;
+    white-space: pre-line;
+}
+
+
+/* CSS Confirm Deleter */
+.modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 50%;
+	max-width: 630px;
+	min-width: 320px;
+	height: auto;
+	z-index: 2000;
+	visibility: hidden;
+	backface-visibility: hidden;
+	transform: translateX(-50%) translateY(-50%);
+}
+.modal-content {
+    color: #fff;
+    background: #FF7E73;
+    position: relative;
+    border:1px solid #FF7E73;
+    border-radius: 3px;
+    margin: 0 auto;
+}
+.modal-content h3 {
+	margin: 0;
+	padding: 0.4em;
+	text-align: center;
+	font-size: 3.4em;
+	font-weight: 300;
+	opacity: 0.8;
+	background: #FF473F;
+	border-radius: 3px 3px 0 0;
+}
+.modal-content > div {
+    padding: 15px 40px 30px;
+    margin: 0;
+    font-weight: 300;
+    font-size: 1.15em;
+    text-align: center;
+}
+.modal-content p {
+	margin: 0;
+	padding: 10px 0;
+}
+.modal-content ul {
+	margin: 0;
+	padding: 0 0 30px 20px;
+}
+.modal-content button {
+    border: none;
+    padding: 0.6em 1.2em;
+    background: #FF473F;
+    color: #fff;
+    font-family: 'Lato', Calibri, Arial, sans-serif;
+    font-size: 1em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-block;
+    margin: 3px 2px;
+    border-radius: 2px;
+}
+.modal-content button:hover
+{
+	 background: #fff;
+	 color: #FF473F;
+	 transition: all 0.3s;
+}
+.modal-show
+{
+	visibility: visible;
+	display: block;
+}
+.modal-overlay
+{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	visibility: hidden;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	opacity: 0;
+	background: #FF7E73;
+	transition: all 0.8s;
+}
+.modal-show ~ .modal-overlay {
+	opacity: 1;
+	visibility: visible;
+}
+.modal-show.modal-effect-blur ~ .modal-overlay {
+	background: #FF7E73;
+}
+.modal-show.modal-effect-blur ~ .container {
+	filter: blur(3px);
+}
+.modal-effect-blur .modal-content {
+	transform: translateY(-5%);
+	opacity: 0;
+}
+.modal-show.modal-effect-blur ~ .container,
+.modal-effect-blur .modal-content {
+	transition: all 0.8s;
+}
+.modal-show.modal-effect-blur .modal-content {
+	transform: translateY(0);
+	opacity: 1;
+}
+
+table.mobile-table {
+	/*width: 100%;
+	margin:0;
+	padding:0;
+	border-collapse: collapse;
+	border-spacing: 0;*/
+}
+table.mobile-table th.th-type{
+	white-space: pre-wrap;
+}
+table.mobile-table th.td-status,
+table.mobile-table td.td-status,
+table.mobile-table th.td-invoice,
+table.mobile-table td.td-invoice{
+	text-align: center;
+}
+table.mobile-table th.td-description,
+table.mobile-table td.td-description{
+	white-space: pre-line;
+	width:80%;
+}
+table.mobile-table td.td-company-name,
+table.mobile-table th.td-company-name{
+
+}
+table.mobile-table td.td-contact,
+table.mobile-table th.td-contact{
+    width:15%;
+}
+table.mobile-table td.td-action,
+table.mobile-table th.td-action{
+    width:20%;
+}
+.well dl.dl-horizontal dt{
+	width:150px;
+	text-align:right;
+	/*border: 1px solid #ddd;*/
+}
+.well dl.dl-horizontal dd{
+	/*border: 1px solid #ddd;*/
+	margin-left: 160px;
+	white-space: nowrap;
+}
+table.mobile-table td.td-activity-time,
+table.mobile-table th.td-activity-time{
+    width:13%;
+}
+table.mobile-table td.td-activity-user,
+table.mobile-table th.td-activity-user{
+    width:10%;
+}
+table.mobile-table td.td-activity-activity,
+table.mobile-table th.td-activity-activity{
+    width:7%;
+}
+table.mobile-table td.td-activity-subject,
+table.mobile-table th.td-activity-subject{
+    width:13%;
+}
+
+/* MOBILE DESIGN CSS-----------------------------------------------------------------------*/
+@media (max-width: 600px) {
+	h1, h2{
+		font-size: 2.5em;
+	}
+	h3{
+		font-size: 2em;
+	}
+	body{
+		font-size: 1.3em;
+	}
+	.search-bar  .search-buttom{
+		margin-top: 20px;
+		display: block;
+		width: 100%;
+		margin-left:0;
+	}
+	.search-bar .input-group input[type="text"]{
+		width:100%;
+	}
+
+    .dropdown-menu-right{
+        left: auto;
+        right: 105%;
+    }
+
+	.table-technician {
+		font-size: 0.8em;
+  	}
+  	.btn-sm-margin{
+		margin:5px 0 0;
+		/*display: block;*/
+	}
+	.well{
+		font-size: 1.3em;
+	}
+	.well-mobile{
+		margin: 10px 0;
+	}
+
+	table.mobile-table {
+      border: 0;
+    }
+
+    table.mobile-table thead {
+      display: none !important;
+    }
+
+    table.mobile-table tr {
+      margin-bottom: 15px;
+      display: block;
+      border: 1px solid #ddd;
+      border-top: 3px solid #1a83c6;
+    }
+
+    table.mobile-table td, table.mobile-table th {
+      display: block;
+      text-align: right;
+      font-size: 13px;
+      /*border-bottom: 1px dotted #ccc;*/
+    }
+
+    table.mobile-table th.td-status,
+    table.mobile-table td.td-status,
+    table.mobile-table th.td-invoice,
+    table.mobile-table td.td-invoice{
+		text-align: right !important;
+	}
+	table.mobile-table th.td-description,
+    table.mobile-table td.td-description,
+    table.mobile-table td.td-action,
+    table.mobile-table th.td-action,
+    table.mobile-table td.td-contact,
+    table.mobile-table th.td-contact,
+    table.mobile-table td.td-activity-time,
+    table.mobile-table th.td-activity-time,
+    table.mobile-table td.td-activity-user,
+    table.mobile-table th.td-activity-user,
+    table.mobile-table td.td-activity-activity,
+    table.mobile-table th.td-activity-activity,
+    table.mobile-table td.td-activity-subject,
+    table.mobile-table th.td-activity-subject{
+		width:100%;
+	}
+
+    table.mobile-table tbody tr td.no-item{
+      text-align: center !important;
+    }
+
+    table.mobile-table td:first-child, table.mobile-table th:first-child {
+      background-color: #f5f5f5;
+    }
+
+    table.mobile-table td:last-child, table.mobile-table th:last-child {
+      border-bottom: 0;
+    }
+
+    table.mobile-table td:before, table.mobile-table th:before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+}
