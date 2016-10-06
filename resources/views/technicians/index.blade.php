@@ -76,11 +76,27 @@
                         @endif
                         <td data-label="Technician Details" class="hidden-xs">{{substr($technician->tech_details, 0,40)}}{{strlen($technician->tech_details)>40 ? '....' : ''}}</td>
                         <td data-label="Job Status" class="td-status">{{($technician->job->status) ? 'Completed' : 'Pending'}}</td>
-                        <td data-label="Action" class="td-status">
-                        {!! Html::linkRoute('technicians.show', 'View', array($technician->id), array('class'=>'btn btn-default btn-sm btn-sm-margin'))!!}
+                        <td data-label="Action" class="text-right">
+
+                        <div class="btn-group">
+                            <button type="button"
+                                class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>{!! Html::linkRoute('technicians.show', 'View', array($technician->id), array('class'=>''))!!}</li>
+                                @can('technician-gate', $technician)
+                                <li>{!! Html::linkRoute('technicians.edit', 'Edit', array($technician->id), array('class'=>''))!!}</li>
+                                @endcan
+
+                            </ul>
+                        </div>
+
+                        {{-- {!! Html::linkRoute('technicians.show', 'View', array($technician->id), array('class'=>'btn btn-default btn-sm btn-sm-margin'))!!}
                         @can('technician-gate', $technician)
                         {!! Html::linkRoute('technicians.edit', 'Edit', array($technician->id), array('class'=>'btn btn-default btn-sm btn-sm-margin'))!!}
-                        @endcan
+                        @endcan --}}
                         </td>
                     </tr>
 

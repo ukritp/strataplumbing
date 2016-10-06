@@ -48,6 +48,7 @@
                 @if(count($jobs)>0)
                     @foreach($jobs as $job)
                     @set('status', count($job->pendinginvoices)>0 ? '' : 'disabled')
+                    @set('invoice_link', count($job->pendinginvoices)>0 ? route('invoices.show', $job->id) : '#')
                     <tr>
                         <th data-label="#">{{$job->id+20100}}</th>
                         <th data-label="PM">{{$job->project_manager}}</th>
@@ -69,9 +70,24 @@
                         <td data-label="PO Number" class="td-status">{{(!empty($job->purchase_order_number)) ? $job->purchase_order_number : '-'}}</td>
                         <td data-label="Status" class="td-status">{{($job->status) ? 'Completed' : 'Pending'}}</td>
                         <td data-label="Action" class="text-right">
-                        {!! Html::linkRoute('jobs.show', 'View', array($job->id), array('class'=>'btn btn-default btn-sm btn-sm-margin'))!!}
+                        <div class="btn-group">
+                            <button type="button"
+                                class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>{!! Html::linkRoute('jobs.show', 'View', array($job->id), array('class'=>'')) !!}</li>
+                                <li>{!! Html::linkRoute('jobs.edit', 'Edit', array($job->id), array('class'=>'')) !!}</li>
+                                <li class="{{$status}}">
+                                    <a href="{{$invoice_link}}">View Invoice</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        {{-- {!! Html::linkRoute('jobs.show', 'View', array($job->id), array('class'=>'btn btn-default btn-sm btn-sm-margin'))!!}
                         {!! Html::linkRoute('jobs.edit', 'Edit', array($job->id), array('class'=>'btn btn-default btn-sm btn-sm-margin') ) !!}
-                        {!! Html::linkRoute('invoices.show', 'View Invoice', array($job->id), array('class'=>'btn btn-default btn-sm btn-sm-margin '.$status))!!}
+                        {!! Html::linkRoute('invoices.show', 'View Invoice', array($job->id), array('class'=>'btn btn-default btn-sm btn-sm-margin '.$status))!!} --}}
                         </td>
                     </tr>
 

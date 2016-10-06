@@ -54,9 +54,20 @@
                                 <td data-label="Name">{{$site->first_name.' '.$site->last_name}}</td>
                                 <td data-label="Relationship">{{$site->relationship}}</td>
                                 <td data-label="Action" class="text-right">
-                                {!! Html::linkRoute('sites.show', 'View', array($site->id), array('class'=>'btn btn-default btn-sm btn-sm-margin') ) !!}
-                                {!! Html::linkRoute('sites.edit', 'Edit', array($site->id), array('class'=>'btn btn-default btn-sm btn-sm-margin') ) !!}
-                                {!! Html::linkRoute('jobs.create', 'Create Job', array($site->id,'site'), array('class'=>'btn btn-default btn-sm btn-sm-margin') ) !!}</td>
+                                <div class="btn-group">
+                                    <button type="button"
+                                        class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li>{!! Html::linkRoute('sites.show', 'View', array($site->id), array('class'=>'')) !!}</li>
+                                        <li>{!! Html::linkRoute('sites.edit', 'Edit', array($site->id), array('class'=>'')) !!}</li>
+                                        <li>{!! Html::linkRoute('jobs.create', 'Create Job', array($site->id,'site'), array('class'=>'')) !!}
+                                        </li>
+                                    </ul>
+                                </div>
+                                </td>
                             </tr>
 
                         @endforeach
