@@ -61,6 +61,8 @@
             <hr>
             <h3 class="header-blue">Job # {{$job->id+20100}}</h3>
             <hr>
+            <p class="lead"><strong>Job Type: {{($job->is_estimate) ? 'Estmate' : 'Regular'}}</strong></p>
+            <hr>
             <p class="lead"><strong>Purchase Order Number:</strong><br>{{$job->purchase_order_number}}</p>
             <p class="lead"><strong>Project Manager:</strong> {{$job->project_manager}}</p>
             <p class="lead paragraph-wrap"><strong>Scope Of Work:</strong><br>{{$job->scope_of_works}}</p>

@@ -69,6 +69,17 @@
                 </fieldset>
 
                 <fieldset class="form-group required">
+                {{ Form::label('is_estimate', 'Job Type:', array('class'=>'control-label'))  }}
+                <br>
+                <label class="radio-inline">
+                    <input type="radio" name="is_estimate" id="is_estimate1" value="0" checked> Regular Job
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="is_estimate" id="is_estimate2" value="1" > Estimate Job
+                </label>
+                </fieldset>
+
+                <fieldset class="form-group required">
 			    {{ Form::label('scope_of_works', 'Scope Of Work:', array('class'=>'control-label'))  }}
 			    {{ Form::textarea('scope_of_works',null, array('class' => 'form-control','required'=>''))}}
                 </fieldset>

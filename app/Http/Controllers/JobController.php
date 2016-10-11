@@ -110,6 +110,7 @@ class JobController extends Controller
         // store the data in database
         $job = new Job;
         $job->scope_of_works        = $request->scope_of_works;
+        $job->is_estimate           = $request->is_estimate;
         $job->project_manager       = $request->project_manager;
         $job->purchase_order_number = $request->purchase_order_number;
         $job->first_name            = $request->first_name;
@@ -172,6 +173,7 @@ class JobController extends Controller
         // store the data in database
         $job = Job::find($id);
         $job->scope_of_works        = $request->scope_of_works;
+        $job->is_estimate           = $request->is_estimate;
         $job->project_manager       = $request->project_manager;
         $job->purchase_order_number = $request->purchase_order_number;
         $job->first_name            = $request->first_name;
