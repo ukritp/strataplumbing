@@ -147,6 +147,35 @@ $(document).ready(function () {
     });
 
 
+    // Add/Remove Extra's-----------------------------
+    var index=0;
+    $('#add-extras').click(function(){
+        index += 1;
+        $('#extras-add').prepend(
+        '<span><div class="col-xs-6" id="extras-row-'+index+'">' +
+            '<fieldset class="form-group">' +
+            '<label for="extras_description'+index+'">Extra Description:</label>'+
+            '<input type="text" id="extras_description'+index+'[]" name="extras_description[]" class="form-control" required maxlength="255">'+
+            '</fieldset>' +
+        '</div>'+
+        '<div class="col-xs-3"  id="extras-row-'+index+'">' +
+            '<fieldset class="form-group">' +
+            '<label for="extras_cost'+index+'">Cost: $</label>'+
+            '<input type="text" id="extras_cost'+index+'[]" name="extras_cost[]" class="form-control" required maxlength="255" data-parsley-pattern="\d{1,3}[,\\.]?(\\d{1,2})?">'+
+            '</fieldset>' +
+        '</div>'+
+        '<div class="col-xs-3"  id="extras-row-'+index+'">' +
+            '<fieldset class="form-group">' +
+            '<a id="remove-extras-'+index+'" class="btn btn-danger btn-sm btn-block remove-extras">Remove</a>'+
+            '</fieldset>' +
+        '</div></span>'
+        );
+        document.getElementById("extras_description"+index+"[]").focus();
+    });
+    $("body").on("click", ".remove-extras", function (){
+        $(this).closest("span").remove();
+    });
+
     // Equipment left on site checkbox to hidden input-----------------------------
     $("#equipment_left_on_site_chbx").change(function(){
         if($(this).is(":checked")){
