@@ -78,7 +78,8 @@ Route::group(['middleware' => 'roles', 'roles' => ['Admin','Owner','Technician']
 
 // ESTIMATE ROUTES ------------------------------------
 Route::group(['middleware' => 'roles', 'roles' => ['Admin','Owner']], function () {
-    Route::resource('estimate', 'EstimateController');
+    Route::get('estimate/create/{job}', ['as' => 'estimate.create', 'uses' => 'EstimateController@create']);
+    Route::resource('estimate', 'EstimateController', ['except' => ['create']]);
 });
 
 // PENDING INVOICE ROUTES - Only Admin & Owner access ------------------------------------

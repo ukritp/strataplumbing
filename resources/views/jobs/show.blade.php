@@ -203,7 +203,7 @@
                                 @if($job->is_estimate)
                                     @if($index == 0)
                                     <td class="create-invoice-column" rowspan="{{count($job->technicians)}}">
-                                        {!! Html::linkRoute('estimate.create', 'Create Invoice', array($job->id), array('class'=>'btn btn-default btn-sm btn-block') ) !!}
+                                        {!! Html::linkRoute('estimate.create', 'Create Invoice', array($job->id), array('class'=>'btn btn-info btn-sm btn-block') ) !!}
                                     </td>
                                     @endif
                                 @else
