@@ -14,6 +14,7 @@ class CreateJobsTable extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->increments('id');
+            $table->boolean('is_estimate')->default(false);
 
             $table->string('project_manager',50)->nullable();
             $table->text('scope_of_works');
@@ -29,6 +30,8 @@ class CreateJobsTable extends Migration
             $table->string('price_adjustment_amount')->default(0)->nullable();
 
             $table->boolean('status')->default(false);
+            $table->string('approval_status')->nullable();
+            $table->text('approval_note')->nullable();
             $table->timestamp('invoiced_at')->nullable();
 
             $table->boolean('is_trucked')->default(false);
