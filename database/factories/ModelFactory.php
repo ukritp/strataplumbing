@@ -88,8 +88,10 @@ $factory->defineAs(App\Job::class, 'clientToJob', function (Faker\Generator $fak
     $client_ids = \DB::table('clients')->select('id')->get();
     $client_id = $faker->randomElement($client_ids)->id;
     $project_manager = $faker->randomElement($array = array ('PC','JB','JG'));
+    $is_estimate = $faker->randomElement($array = array ('0','1'));
     return [
         'project_manager'       => $project_manager,
+        'is_estimate'           => $is_estimate,
         'scope_of_works'        => $faker->realText(),
         'purchase_order_number' => $faker->numerify('#####'),
         //'first_name'          => $faker->firstName,
