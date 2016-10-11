@@ -487,5 +487,52 @@ class InvoiceController extends Controller
         return redirect('/invoices/approval/'.$id)->withJob($job)->withContact($contact);
     }
 
+    public function approve($id, Request $request){
+        $job = Job::findOrFail($id);
+        $job->approval_status = 'approved';
+        $job->approval_note = $request->comment;
+
+        $job->save();
+
+        $site   = Site::find($job->site_id);
+        $contact = Client::find($job->client_id);
+
+        if(!empty($site)){
+            $contact   = Site::find($job->site_id);
+        }
+
+        return redirect('/invoices/approval/'.$id)->withJob($job)->withContact($contact);
+    }
+
+    public function decline($id, Request $request){
+        $job = Job::findOrFail($id);
+        $job->approval_status = 'declined';
+        $job->approval_note = $request->comment;
+
+        $job->save();
+
+        $site   = Site::find($job->site_id);
+        $contact = Client::find($job->client_id);
+
+        if(!empty($site)){
+            $contact   = Site::find($job->site_id);
+        }
+
+        return redirect('/invoices/approval/'.$id)->withJob($job)->withContact($contact);
+    }
+
+    /**
+     * pending invoice view
+     */
+
+    public function pending($id){
+        $jobs  = Job::orderby('id','asc')->where('status',1)->where('project_manager', $id)->paginate(25);
+
+        $grand_totals = $this->calculateGrandTotal($jobs);
+
+        return view('invoices.pending')->withJobs($jobs)->withTotals($grand_totals);
+    }
+
+
 
 }

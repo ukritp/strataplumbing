@@ -16,6 +16,8 @@
                 <h3 style="text-align: center; color: red;">Pending for project manager approval</h3>
             @elseif($job->approval_status == 'approved')
                 <h3 style="text-align: center; color: green;">Project manager approved this invoice</h3>
+            @elseif($job->approval_status == 'declined')
+                <h3 style="text-align: center; color: red;">Project manager declined this invoice</h3>
             @endif
         </div>
     </div>
@@ -280,8 +282,8 @@
                     <input type="hidden" name="send_for_approval" val="1">
                     <button style="width: 200px; float: right;" class="btn btn-success btn-lg btn-block btn-margin">Send for approval</button>
                 @elseif($job->approval_status == 'pending')
-                    <button style="width: 200px; float: right;" class="btn btn-success btn-lg">Approve</button>
-                    <button style="width: 200px; float: right; margin-right: 20px;" class="btn btn-danger btn-lg">Decline</button>
+                    <button style="width: 200px; float: right;" class="btn btn-success btn-lg send-approval-button" route="approve">Approve</button>
+                    <button style="width: 200px; float: right; margin-right: 20px;" class="btn btn-danger btn-lg send-approval-button" route="cancel">Decline</button>
                 @endif
             </form>
         </div>
@@ -292,6 +294,20 @@
 @endsection
 
 @section('scripts')
+    <script>
+        $(document).ready(function(){
+            $('.send-approval-button').click(function(event){
+                event.preventDefault();
+
+                if($(this).attr('route') == "approve")
+                    $('#send-approval').attr('action', "{{url('/invoice/approval/approve/'.$job->id)}}");
+                else
+                    $('#send-approval').attr('action', "{{url('/invoice/approval/decline/'.$job->id)}}");
+
+                $('#send-approval').submit();
+            })
+        });
+    </script>
     {!! Html::script('js/parsley.min.js') !!}
     {!! Html::script('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js') !!}
     {!! Html::script('js/default.js') !!}

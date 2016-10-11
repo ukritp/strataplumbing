@@ -125,11 +125,13 @@
                     {!! Html::linkRoute('invoices.edit', 'Edit Invoice', array($job->id), array('class'=>'btn btn-primary btn-lg btn-block btn-margin') ) !!}
                 </div>
             </div>
+            @if($job->approval_status != 'approved')
             <div class="row">
                 <div class="col-sm-12">
                     <a href="{{url('/invoices/approval/' . $job->id)}}" class="btn btn-warning btn-lg btn-block btn-margin">Send for approval</a>
                 </div>
             </div>
+            @endif
             <div class="row">
                 <div class="col-sm-12">
                     {!! Html::linkRoute('jobs.show', 'Back to Job Summary', array($job->id), array('class'=>'btn btn-default btn-lg btn-block btn-margin') ) !!}

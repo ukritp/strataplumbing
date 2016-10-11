@@ -96,6 +96,11 @@ Route::group(['middleware' => 'roles', 'roles' => ['Admin','Owner']], function (
     //Michal router for approving invoice
     Route::get('invoices/approval/{id}', 'InvoiceController@approval');
     Route::post('/invoice/approval/send/{id}', 'InvoiceController@send');
+    Route::post('invoice/approval/approve/{id}', 'InvoiceController@approve');
+    Route::post('invoice/approval/decline/{id}', 'InvoiceController@decline');
+
+    //routes for pending invoices
+    Route::get('/invoices/pending/{id}', 'InvoiceController@pending');
 });
 
 // ACTIVITY LOGS ROUTES: go to getIndex function in ActivityLogController - Only Owner access ------------------------------------

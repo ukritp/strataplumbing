@@ -14,7 +14,7 @@
             <h1>All Invoices</h1>
         </div>
 
-        <div class="col-md-7 search-bar"">
+        <div class="col-md-7 search-bar">
 
             <div class="form-inline">
 
