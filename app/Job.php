@@ -53,6 +53,8 @@ class Job extends Model
         'truck_services_amount',
         'site_id',
         'client_id',
+        'approval_status',
+        'approval_note'
     ];
     protected static $logAttributes = [
         'project_manager',

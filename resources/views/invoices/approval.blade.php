@@ -12,6 +12,11 @@
     <div class="row">
         <div class="col-md-12">
             <h1 class="page_title"> INVOICE SUMMARY </h1>
+            @if($job->approval_status == 'pending')
+                <h3 style="text-align: center; color: red;">Pending for project manager approval</h3>
+            @elseif($job->approval_status == 'approved')
+                <h3 style="text-align: center; color: green;">Project manager approved this invoice</h3>
+            @endif
         </div>
     </div>
     <br>
@@ -265,14 +270,22 @@
 
     <div class="row" style="margin-top: 25px;">
         <div class="col-md-12">
-            <form action="{{url('/invoice/approval/send/'.$job->id)}}" id="send-approval">
+            <form action="{{url('/invoice/approval/send/'.$job->id)}}" id="send-approval" method="post">
                 <div class="form-group">
                     <label for="comment">Comment:</label>
-                    <textarea class="form-control" rows="8" name="comment" form="send-approval"></textarea>
+                    <textarea <?php if($job->approval_status == 'approved')echo "readonly"; ?> class="form-control" rows="8" name="comment" form="send-approval">{{$job->approval_note}}</textarea>
                 </div>
+                {{csrf_field()}}
+                @if($job->approval_status == null || $job->approval_status == 'declined')
+                    <input type="hidden" name="send_for_approval" val="1">
+                    <button style="width: 200px; float: right;" class="btn btn-success btn-lg btn-block btn-margin">Send for approval</button>
+                @elseif($job->approval_status == 'pending')
+                    <button style="width: 200px; float: right;" class="btn btn-success btn-lg">Approve</button>
+                    <button style="width: 200px; float: right; margin-right: 20px;" class="btn btn-danger btn-lg">Decline</button>
+                @endif
             </form>
         </div>
-        <button style="width: 100px; float: right;" class="btn btn-success btn-lg btn-block btn-margin">Send</button>
+
     </div>
 
 

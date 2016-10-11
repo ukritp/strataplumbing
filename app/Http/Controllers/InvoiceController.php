@@ -463,4 +463,29 @@ class InvoiceController extends Controller
 
         return view('invoices.approval')->withJob($job)->withContact($contact);
     }
+
+    /**
+     * Set the job as a pending for approval
+     *
+     * @param job id, form data
+     * @return to view with pending invoice
+     */
+    public function send($id, Request $request){
+        $job = Job::findOrFail($id);
+        $job->approval_status = 'pending';
+        $job->approval_note = $request->comment;
+
+        $job->save();
+
+        $site   = Site::find($job->site_id);
+        $contact = Client::find($job->client_id);
+
+        if(!empty($site)){
+            $contact   = Site::find($job->site_id);
+        }
+
+        return redirect('/invoices/approval/'.$id)->withJob($job)->withContact($contact);
+    }
+
+
 }
