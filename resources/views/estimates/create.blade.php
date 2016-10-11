@@ -41,14 +41,6 @@
                     ))}}
         </fieldset>
 
-        <fieldset class="form-group" >
-        {{ Form::label('extras', "Extra's:")  }}
-        {{ Form::textarea('extras', null, array(
-            'class'    => 'form-control description',
-            'id'       => 'extras',
-        ))}}
-        </fieldset>
-
         @set('hour_validation_pattern','^\d*\.?((25)|(50)|(5)|(75)|(0)|(00))?$')
         @set('cost_validation_pattern','\d{1,3}[,\\.]?(\\d{1,2})?')
 
@@ -59,7 +51,7 @@
 
         <div class="row" id="extras-add">
         </div>
-
+        <!-- End Extra's section -->
 
 
         <!-- Materials section -->
@@ -68,7 +60,7 @@
         </div>
         @foreach($job->technicians as $index => $technician)
         <div class="material-each-tech">
-
+            <input type="hidden" name="technician_id[]" value="{{$technician->id}}">
             @if(count($technician->materials)!=0)
                 <div class="col-xs-10 col-xs-offset-1">
                     <h4>Name: {{$technician->technician_name}}</h4>
@@ -124,6 +116,7 @@
         </div>
         @endforeach {{-- end foreach job->tech --}}
 
+        {{ Form::hidden('job_id', $job->id) }}
         {{ Form::submit('Create Estimate Invoice', array('class' => 'btn btn-success btn-lg btn-block btn-margin'))}}
         <fieldset class="form-group">
         {!! Html::linkRoute('jobs.show', 'Back to Job', array($job->id), array('class'=>'btn btn-danger  btn-lg btn-block btn-margin') ) !!}

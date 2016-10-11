@@ -100,7 +100,7 @@ $(document).ready(function () {
         '</div>'+
         '<div class="col-xs-3"  id="material-row-'+counter+'">' +
             '<fieldset class="form-group">' +
-            '<a id="remove-material-'+counter+'" class="btn btn-danger btn-sm btn-block remove-material">Remove</a>'+
+            '<a id="remove-material-'+counter+'" class="btn btn-danger btn-sm btn-block remove-material"><i class="glyphicon glyphicon-remove"></a>'+
             '</fieldset>' +
         '</div></span>'
         );
@@ -116,7 +116,7 @@ $(document).ready(function () {
         var tech_id = $(this).attr('data-tech-id');
         //alert(tech_id);
         $('#material-add-'+tech_id).prepend(
-        '<span class="material-row-span"><div class="col-xs-4 col-xs-offset-1" id="material-row-'+counter+'">' +
+        '<span class="material-row-span"><div class="col-xs-5 col-xs-offset-1" id="material-row-'+counter+'">' +
             '<fieldset class="form-group">' +
             '<label for="material_name_'+counter+'">Material Name:</label>'+
             '<input type="text" id="material_name_'+counter+'[]" name="material_name_add['+tech_id+'][]" class="form-control" required maxlength="255">'+
@@ -134,9 +134,9 @@ $(document).ready(function () {
             '<input type="text" id="material_cost_'+counter+'[]" name="material_cost_add['+tech_id+'][]" class="form-control" required maxlength="255">'+
             '</fieldset>' +
         '</div>'+
-        '<div class="col-xs-2 off-set-1"  id="material-row-'+counter+'">' +
+        '<div class="col-xs-1 off-set-1"  id="material-row-'+counter+'">' +
             '<fieldset class="form-group">' +
-            '<a id="remove-material-'+counter+'" class="btn btn-danger btn-sm remove-material-revised">Remove</a>'+
+            '<a id="remove-material-'+counter+'" class="btn btn-danger btn-sm remove-material-revised"><i class="glyphicon glyphicon-remove"></i></a>'+
             '</fieldset>' +
         '</div></span>'
         );
@@ -166,7 +166,7 @@ $(document).ready(function () {
         '</div>'+
         '<div class="col-xs-3"  id="extras-row-'+index+'">' +
             '<fieldset class="form-group">' +
-            '<a id="remove-extras-'+index+'" class="btn btn-danger btn-sm btn-block remove-extras">Remove</a>'+
+            '<a id="remove-extras-'+index+'" class="btn btn-danger btn-sm btn-block remove-extras"><i class="glyphicon glyphicon-remove"></a>'+
             '</fieldset>' +
         '</div></span>'
         );
