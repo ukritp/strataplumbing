@@ -154,7 +154,7 @@ $(document).ready(function () {
         $('#extras-add').prepend(
         '<span><div class="col-xs-6" id="extras-row-'+index+'">' +
             '<fieldset class="form-group">' +
-            '<label for="extras_description'+index+'">Extra Description:</label>'+
+            '<label for="extras_description'+index+'">Description:</label>'+
             '<input type="text" id="extras_description'+index+'[]" name="extras_description[]" class="form-control" required maxlength="255">'+
             '</fieldset>' +
         '</div>'+
