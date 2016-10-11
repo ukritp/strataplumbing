@@ -199,6 +199,7 @@
 
                             @if($user === 'Admin' || $user === 'Owner')
 
+
                                 @if($index == 0)
                                 <td class="create-invoice-column" rowspan="{{$count_rowspan}}">
                                     @if(!is_null($technician->pending_invoice_id))
