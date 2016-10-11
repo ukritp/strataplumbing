@@ -524,6 +524,13 @@ class InvoiceController extends Controller
     /**
      * pending invoice view
      */
+    public function all_pending(){
+        $jobs  = Job::orderby('id','asc')->where('approval_status', 'pending')->paginate(25);
+
+        $grand_totals = $this->calculateGrandTotal($jobs);
+
+        return view('invoices.pending')->withJobs($jobs)->withTotals($grand_totals);
+    }
 
     public function pending($id){
         $jobs  = Job::orderby('id','asc')->where('approval_status', 'pending')->where('project_manager', $id)->paginate(25);
@@ -532,6 +539,8 @@ class InvoiceController extends Controller
 
         return view('invoices.pending')->withJobs($jobs)->withTotals($grand_totals);
     }
+
+
 
 
 
