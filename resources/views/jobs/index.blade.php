@@ -36,6 +36,7 @@
                 <thead>
                     <th>#</th>
                     <th>PM</th>
+                    <th>Type</th>
                     <th>Company</th>
                     <th>Name</th>
                     <th>Site Address</th>
@@ -52,6 +53,7 @@
                     <tr>
                         <th data-label="#">{!! Html::linkRoute('jobs.show', $job->id+20100, array($job->id), array('class'=>'')) !!}</th>
                         <th data-label="PM">{{$job->project_manager}}</th>
+                        <th data-label="Type">{{($job->is_estimate)? 'Estimate':'Regular'}}</th>
                         <th data-label="Company">{{!empty($job->client->company_name) ? $job->client->company_name : '-'}}</th>
                         @if(isset($job->site))
                             <td data-label="Name">{{$job->site->first_name.' '.$job->site->last_name}}</td>
@@ -94,7 +96,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="8" class="text-center no-item"><b>There is no job</b></td>
+                        <td colspan="9" class="text-center no-item"><b>There is no job</b></td>
                     </tr>
                 @endif
 
