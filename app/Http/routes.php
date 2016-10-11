@@ -105,7 +105,9 @@ Route::group(['middleware' => 'roles', 'roles' => ['Admin','Owner']], function (
     Route::post('invoice/approval/decline/{id}', 'InvoiceController@decline');
 
     //routes for pending invoices
+    Route::get('/invoices/pending/all', 'InvoiceController@all_pending');
     Route::get('/invoices/pending/{id}', 'InvoiceController@pending');
+
 });
 
 // ACTIVITY LOGS ROUTES: go to getIndex function in ActivityLogController - Only Owner access ------------------------------------

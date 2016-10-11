@@ -42,6 +42,13 @@
                 </p>
                 <p class="lead"><strong>Email:</strong><br>{{$contact->email}}</p>
                 <p class="lead"><strong>Project Manager:</strong> {{$job->project_manager}}</p>
+                @if($job->approval_status == 'pending')
+                        <p class="lead"><strong>Approval Status:</strong> Pending</p>
+                @elseif($job->approval_status == 'declined')
+                        <p class="lead"><strong>Approval Status:</strong> Declined</p>
+                @elseif($job->approval_status == 'approved')
+                        <p class="lead"><strong>Approval Status:</strong> Approved</p>
+                @endif
                 <p class="lead paragraph-wrap"><strong>Scope Of Works:</strong><br>{{$job->scope_of_works}}</p>
                 <p class="lead lead-status"><strong>Status:</strong> <span>{{($job->status) ? 'Completed' : 'Pending'}}</span></p>
 
