@@ -50,7 +50,7 @@
                     @set('status', count($job->pendinginvoices)>0 ? '' : 'disabled')
                     @set('invoice_link', count($job->pendinginvoices)>0 ? route('invoices.show', $job->id) : '#')
                     <tr>
-                        <th data-label="#">{{$job->id+20100}}</th>
+                        <th data-label="#">{!! Html::linkRoute('jobs.show', $job->id+20100, array($job->id), array('class'=>'')) !!}</th>
                         <th data-label="PM">{{$job->project_manager}}</th>
                         <th data-label="Company">{{!empty($job->client->company_name) ? $job->client->company_name : '-'}}</th>
                         @if(isset($job->site))
