@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Job;
 
 class EstimateController extends Controller
 {
@@ -25,8 +26,8 @@ class EstimateController extends Controller
      */
     public function create($id)
     {
-        //
-        return view('estimates.create')->withJob($id);
+        $job = Job::find($id);
+        return view('estimates.create')->withJob($job);
     }
 
     /**
