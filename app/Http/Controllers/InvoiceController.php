@@ -446,4 +446,21 @@ class InvoiceController extends Controller
         return $grand_totals;
 
     }
+
+    /**
+     * View for sending invoice for approval
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function approval($id){
+        $job = Job::find($id);
+        $site   = Site::find($job->site_id);
+        $contact = Client::find($job->client_id);
+
+        if(!empty($site)){
+            $contact   = Site::find($job->site_id);
+        }
+
+        return view('invoices.approval')->withJob($job)->withContact($contact);
+    }
 }

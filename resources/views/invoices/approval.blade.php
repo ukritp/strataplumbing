@@ -17,7 +17,7 @@
     <br>
     <div class="row">
         <!-- Contact info -->
-        <div class="col-md-9">
+        <div class="col-md-12">
             <div class="jumbotron">
                 @if(isset($contact->company_name))
                     <h2>Company: {{$contact->company_name}}</h2>
@@ -50,95 +50,6 @@
                 <p class="lead"><strong>Days added missing:</strong> {{count($job->techniciansGroupByDateCount)-count($job->pendinginvoices)}}</p> --}}
             </div>
         </div> <!-- END Contact info -->
-
-
-        <!-- Finalize Invoice form =============================================== -->
-        {!! Form::open(array('route' => 'invoices.store', 'data-parsley-validate'=>'')) !!}
-
-        <div class="col-md-3">
-        @if($job->status)
-            <p class="lead"><strong>Date Issued:</strong> {{date('M j, Y', strtotime($job->invoiced_at))}}</p>
-            {!! Html::linkRoute('invoices.create', 'See Final Invoice', array($job->id), array('class'=>'btn btn-lg btn-success btn-block', 'target'=>'_blank') ) !!}
-        @else
-            @if( count($job->pendinginvoices)==count($job->techniciansGroupByDateCount) )
-                <fieldset class="form-group required">
-                {{ Form::label('invoiced_at', 'Date: (YYYY-MM-DD)', array('class'=>'control-label'))  }}
-                {{ Form::text('invoiced_at',Carbon::now()->toDateString(), array('class' => 'form-control', 'required'=>'',  'maxlength'=>'255'))}}
-                </fieldset>
-
-                <fieldset class="form-group required">
-                {{ Form::label('labor_discount', 'Labor Discount: % ', array('class'=>'control-label'))  }}
-                {{ Form::text('labor_discount',0, array(
-                                'class' => 'form-control',
-                                'required'=>'',
-                                'maxlength'=>'255',
-                                'data-parsley-pattern' =>'\d+(\.\d{1,2})?'
-                            ))}}
-                </fieldset>
-
-                <fieldset class="form-group required">
-                {{ Form::label('material_discount', 'Material Discount: % ', array('class'=>'control-label'))  }}
-                {{ Form::text('material_discount',0, array(
-                                'class' => 'form-control',
-                                'required'=>'',
-                                'maxlength'=>'255',
-                                'data-parsley-pattern' =>'\d+(\.\d{1,2})?'
-                            ))}}
-                </fieldset>
-
-                <fieldset class="form-group">
-                {{ Form::label('price_adjustment_title', 'Price Adjustment Title: ')  }}
-                {{ Form::text('price_adjustment_title',null, array(
-                                'class'     => 'form-control',
-                                'maxlength' => '255'
-                            ))}}
-                </fieldset>
-
-                <fieldset class="form-group">
-                {{ Form::label('price_adjustment_amount', 'Price Adjustment Amount: $ ')  }}
-                {{ Form::text('price_adjustment_amount',0, array(
-                    'class'                => 'form-control',
-                    'data-parsley-pattern' =>'\d+(\.\d{1,2})?'
-                ))}}
-                </fieldset>
-
-                <fieldset class="form-group">
-                {{ Form::label('is_trucked', 'Truck Services?  ')  }}
-                {{ Form::checkbox('is_trucked_chbx',1,false, array('id'=>'is_trucked_chbx'))}}
-                {{ Form::hidden('is_trucked', '0') }}
-                {{ Form::text('truck_services_amount',null, array(
-                    'class'                => 'form-control',
-                    'disabled'             => 'disabled',
-                    'id'                   => 'truck_services_amount',
-                    'placeholder'          => 'Truck Services Amount...',
-                    'data-parsley-pattern' =>'\d+(\.\d{1,2})?',
-                    'maxlength'            => '255'
-                ))}}
-                </fieldset>
-
-                {{ Form::hidden('job_id', $job->id) }}
-                {{ Form::submit('Finalize Invoice', array('class' => 'btn btn-success btn-lg btn-block btn-margin'))}}
-            @endif
-        @endif
-            <div class="row">
-                <div class="col-sm-12">
-                    {!! Html::linkRoute('invoices.edit', 'Edit Invoice', array($job->id), array('class'=>'btn btn-primary btn-lg btn-block btn-margin') ) !!}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <a href="{{url('/invoices/approval/' . $job->id)}}" class="btn btn-warning btn-lg btn-block btn-margin">Send for approval</a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    {!! Html::linkRoute('jobs.show', 'Back to Job Summary', array($job->id), array('class'=>'btn btn-default btn-lg btn-block btn-margin') ) !!}
-                </div>
-            </div>
-        </div>
-        {!! Form::close() !!}
-
-    </div> <!-- /.row -->
     {{--modal window for sent for approval--}}
     <!-- Modal -->
 
@@ -150,19 +61,19 @@
             @set('material_total',0)
             @foreach ($job->pendinginvoices as $index => $pendinginvoice)
 
-            <table class="table table-invoice">
+                <table class="table table-invoice">
 
-                <thead>
+                    <thead>
                     <th>Date</th>
                     <th>Details</th>
                     <th class="text-right">Amount</th>
-                </thead>
+                    </thead>
 
-                <tbody>
+                    <tbody>
                     <tr>
                         <td style="width:10%;">
-                        <b>{{date('M j, Y', mktime(0, 0, 0,$pendinginvoice->month, $pendinginvoice->date, $pendinginvoice->year))}}</b>
-                        {!! Html::linkRoute('pendinginvoices.edit', 'Edit', array($pendinginvoice->id), array('class'=>'btn btn-xs btn-info btn-block btn-margin') ) !!}
+                            <b>{{date('M j, Y', mktime(0, 0, 0,$pendinginvoice->month, $pendinginvoice->date, $pendinginvoice->year))}}</b>
+                            {!! Html::linkRoute('pendinginvoices.edit', 'Edit', array($pendinginvoice->id), array('class'=>'btn btn-xs btn-info btn-block btn-margin') ) !!}
                         </td>
                         <td style="white-space: pre-line; width:80%;">{{$pendinginvoice->description}}</td>
                         <td style="width:10%;"></td>
@@ -172,12 +83,12 @@
                     <tr>
                         <td></td>
                         <td><b>
-                        @if(!empty($pendinginvoice->labor_description))
-                            {{$pendinginvoice->labor_description}}
-                        @else
-                            {{count($pendinginvoice->technicians)}} Man with equipment
-                        @endif
-                        </b></td>
+                                @if(!empty($pendinginvoice->labor_description))
+                                    {{$pendinginvoice->labor_description}}
+                                @else
+                                    {{count($pendinginvoice->technicians)}} Man with equipment
+                                @endif
+                            </b></td>
                         <td></td>
                     </tr>
 
@@ -229,11 +140,11 @@
                         <?php $other_hours_total += $flushing_subtotal+$camera_subtotal+$main_line_auger_subtotal+$other_subtotal?>
                     @endforeach
                     @if($other_hours_total!=0)
-                    <tr>
-                        <td></td>
-                        <td style="text-indent: 20px;">Other hours (flushing, camera, main line auger, etc)</td>
-                        <td class="text-right">$ {{number_format($other_hours_total,2,'.',',')}}</td>
-                    </tr>
+                        <tr>
+                            <td></td>
+                            <td style="text-indent: 20px;">Other hours (flushing, camera, main line auger, etc)</td>
+                            <td class="text-right">$ {{number_format($other_hours_total,2,'.',',')}}</td>
+                        </tr>
                     @endif
 
 
@@ -248,46 +159,46 @@
                             </tr>
                         @endif
                         @foreach($technician->materials as $material)
-                        <tr>
-                            <td></td>
-                            <td style="text-indent: 20px;">{{$material->material_quantity.' - '.$material->material_name}}</td>
-                            <td class="text-right">$ {{number_format($material->material_quantity*$material->material_cost,2,'.',',')}}</td>
-                        </tr>
-                        <?php $material_subtotal += $material->material_quantity*$material->material_cost?>
+                            <tr>
+                                <td></td>
+                                <td style="text-indent: 20px;">{{$material->material_quantity.' - '.$material->material_name}}</td>
+                                <td class="text-right">$ {{number_format($material->material_quantity*$material->material_cost,2,'.',',')}}</td>
+                            </tr>
+                            <?php $material_subtotal += $material->material_quantity*$material->material_cost?>
                         @endforeach
 
                     @endforeach <!-- END Materials foreach -->
 
-                </tbody>
-            </table>
-            @set('subtotal', $first_half_hour+$man_hour_total+$other_hours_total+$material_subtotal)
-            <?php
-            $material_total += $material_subtotal;
-            $labor_total += $first_half_hour+$man_hour_total;
-            $total += $subtotal;
-            ?>
-            {{-- <div class="row invoice-subtotal">
-                <div class="col-md-10">
-                    <p class="text-right"><strong>SUB-TOTAL</strong></p>
-                </div>
-                <div class="col-md-2">
-                    <p class="total-cost">$ {{number_format($subtotal,2,'.',',')}}</p>
-                </div>
-            </div> --}}
+                    </tbody>
+                </table>
+                @set('subtotal', $first_half_hour+$man_hour_total+$other_hours_total+$material_subtotal)
+                <?php
+                $material_total += $material_subtotal;
+                $labor_total += $first_half_hour+$man_hour_total;
+                $total += $subtotal;
+                ?>
+                {{-- <div class="row invoice-subtotal">
+                    <div class="col-md-10">
+                        <p class="text-right"><strong>SUB-TOTAL</strong></p>
+                    </div>
+                    <div class="col-md-2">
+                        <p class="total-cost">$ {{number_format($subtotal,2,'.',',')}}</p>
+                    </div>
+                </div> --}}
             @endforeach <!-- END Pending Invoice foreach -->
             @set('truck_services_amount',0)
             @if($job->is_trucked)
                 @set('truck_services_amount',$job->truck_services_amount)
             @endif
             @if($truck_services_amount!=0)
-            <div class="row invoice-truck">
-                <div class="col-md-9 col-md-offset-1 invoice-truck-text">
-                    <p>Truck Services</p>
+                <div class="row invoice-truck">
+                    <div class="col-md-9 col-md-offset-1 invoice-truck-text">
+                        <p>Truck Services</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p class="total-cost">$ {{number_format($truck_services_amount,2,'.',',')}}</p>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    <p class="total-cost">$ {{number_format($truck_services_amount,2,'.',',')}}</p>
-                </div>
-            </div>
             @endif
         </div>
     </div>
@@ -350,6 +261,18 @@
             <p class="total-cost">$ {{number_format($gst,2,'.',',')}}</p>
             <p class="total-cost">$ {{number_format($grand_total,2,'.',',')}}</p>
         </div>
+    </div>
+
+    <div class="row" style="margin-top: 25px;">
+        <div class="col-md-12">
+            <form action="{{url('/invoice/approval/send/'.$job->id)}}" id="send-approval">
+                <div class="form-group">
+                    <label for="comment">Comment:</label>
+                    <textarea class="form-control" rows="8" name="comment" form="send-approval"></textarea>
+                </div>
+            </form>
+        </div>
+        <button style="width: 100px; float: right;" class="btn btn-success btn-lg btn-block btn-margin">Send</button>
     </div>
 
 

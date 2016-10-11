@@ -91,6 +91,10 @@ Route::group(['middleware' => 'roles', 'roles' => ['Admin','Owner']], function (
     Route::get('invoices/create/{invoices}', ['as' => 'invoices.create', 'uses' => 'InvoiceController@create']);
     Route::get('invoices/index/{invoices}', ['as' => 'invoices.index', 'uses' => 'InvoiceController@index']);
     Route::resource('invoices', 'InvoiceController', ['except' => ['index','search','pdf','email','create']]);
+
+
+    //Michal router for approving invoice
+    Route::get('invoices/approval/{id}', 'InvoiceController@approval');
 });
 
 // ACTIVITY LOGS ROUTES: go to getIndex function in ActivityLogController - Only Owner access ------------------------------------
