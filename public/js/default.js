@@ -66,6 +66,8 @@ $(document).ready(function () {
         }
     })
 
+    $(".type-estimate").css('color','#477610');
+
     // toggle for tenant-----------------------------
     $(".toggle").hide();
     $("#tenant_checkbox").change(function(){

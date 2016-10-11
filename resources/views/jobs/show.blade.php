@@ -61,7 +61,8 @@
             <hr>
             <h3 class="header-blue">Job # {{$job->id+20100}}</h3>
             <hr>
-            <p class="lead"><strong>Job Type: {{($job->is_estimate) ? 'Estmate' : 'Regular'}}</strong></p>
+            @set('job_type', ($job->is_estimate)? 'estimate' : 'regular')
+            <p class="lead job-type type-{{$job_type}}"><strong>Job Type: {{$job_type}}</strong></p>
             <hr>
             <p class="lead"><strong>Purchase Order Number:</strong><br>{{$job->purchase_order_number}}</p>
             <p class="lead"><strong>Project Manager:</strong> {{$job->project_manager}}</p>
@@ -199,28 +200,37 @@
 
                             @if($user === 'Admin' || $user === 'Owner')
 
-
-                                @if($index == 0)
-                                <td class="create-invoice-column" rowspan="{{$count_rowspan}}">
-                                    @if(!is_null($technician->pending_invoice_id))
-                                        {!! Html::linkRoute('pendinginvoices.edit', 'Edit Invoice', array($technician->pending_invoice_id), array('class'=>'btn btn-default btn-sm btn-block') ) !!}
-                                        <br>
-                                        {!! Html::linkRoute('pendinginvoices.show', 'View Invoice', array($technician->pending_invoice_id), array('class'=>'btn btn-default btn-sm btn-block') ) !!}
-                                    @else
-                                        {!! Html::linkRoute('pendinginvoices.create', 'Add To Invoice', array($technician->id), array('class'=>'btn btn-info btn-sm btn-block') ) !!}
+                                @if($job->is_estimate)
+                                    @if($index == 0)
+                                    <td class="create-invoice-column" rowspan="{{count($job->technicians)}}">
+                                        aaaa
+                                    </td>
                                     @endif
-                                @elseif($created_at[$index] == $created_at[$index-1])
-
                                 @else
-                                </td>
-                                <td class="create-invoice-column" rowspan="{{$count_rowspan}}">
-                                    @if(!is_null($technician->pending_invoice_id))
-                                        {!! Html::linkRoute('pendinginvoices.edit', 'Edit Invoice', array($technician->pending_invoice_id), array('class'=>'btn btn-default btn-sm btn-block') ) !!}
-                                        <br>
-                                        {!! Html::linkRoute('pendinginvoices.show', 'View Invoice', array($technician->pending_invoice_id), array('class'=>'btn btn-default btn-sm btn-block') ) !!}
+
+                                    @if($index == 0)
+                                    <td class="create-invoice-column" rowspan="{{$count_rowspan}}">
+                                        @if(!is_null($technician->pending_invoice_id))
+                                            {!! Html::linkRoute('pendinginvoices.edit', 'Edit Invoice', array($technician->pending_invoice_id), array('class'=>'btn btn-default btn-sm btn-block') ) !!}
+                                            <br>
+                                            {!! Html::linkRoute('pendinginvoices.show', 'View Invoice', array($technician->pending_invoice_id), array('class'=>'btn btn-default btn-sm btn-block') ) !!}
+                                        @else
+                                            {!! Html::linkRoute('pendinginvoices.create', 'Add To Invoice', array($technician->id), array('class'=>'btn btn-info btn-sm btn-block') ) !!}
+                                        @endif
+                                    @elseif($created_at[$index] == $created_at[$index-1])
+                                        {{-- Nothing is this elseif but it has to be there --}}
                                     @else
-                                        {!! Html::linkRoute('pendinginvoices.create', 'Add To Invoice', array($technician->id), array('class'=>'btn btn-info btn-sm btn-block') ) !!}
+                                    </td>
+                                    <td class="create-invoice-column" rowspan="{{$count_rowspan}}">
+                                        @if(!is_null($technician->pending_invoice_id))
+                                            {!! Html::linkRoute('pendinginvoices.edit', 'Edit Invoice', array($technician->pending_invoice_id), array('class'=>'btn btn-default btn-sm btn-block') ) !!}
+                                            <br>
+                                            {!! Html::linkRoute('pendinginvoices.show', 'View Invoice', array($technician->pending_invoice_id), array('class'=>'btn btn-default btn-sm btn-block') ) !!}
+                                        @else
+                                            {!! Html::linkRoute('pendinginvoices.create', 'Add To Invoice', array($technician->id), array('class'=>'btn btn-info btn-sm btn-block') ) !!}
+                                        @endif
                                     @endif
+
                                 @endif
                             </td>
                             @endif

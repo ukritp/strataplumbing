@@ -129,6 +129,11 @@ h1.page_title{
 	font-weight: bold;
 	color: red;
 }
+
+.job-type{
+    color:#8A522D;
+    text-transform: uppercase;
+}
 .status-completed{
 color: green;
 }
