@@ -129,8 +129,6 @@
         {!! Html::linkRoute('jobs.show', 'Back to Job', array($job->id), array('class'=>'btn btn-danger  btn-lg btn-block btn-margin') ) !!}
         </fieldset>
 
-
-
         {!! Form::close() !!}
     </div>
 </div> <!-- /.row -->
