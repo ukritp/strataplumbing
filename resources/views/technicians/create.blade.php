@@ -122,7 +122,7 @@
 
                 {{ Form::hidden('job_id', $job->id) }}
 
-			    {{ Form::submit('Create Technician Details', array('class' => 'btn btn-success btn-lg btn-block btn-margin'))}}
+			    {{ Form::submit('Save Technician Details', array('class' => 'btn btn-success btn-lg btn-block btn-margin'))}}
                 {!! Form::close() !!}
 
                 <fieldset class="form-group">
@@ -137,7 +137,7 @@
                     </div>
                 </div>
                 <div class="modal-overlay"></div>
-                <a class="btn btn-danger btn-lg btn-block btn-margin confirm-cancel-modal" data-href="{{route('jobs.show',$job->id)}}">Back to Job</a>
+                <a class="btn btn-danger btn-lg btn-block btn-margin confirm-cancel-modal" data-href="{{route('jobs.show',$job->id)}}">Cancel Tech Detail</a>
                 </fieldset>
 
 

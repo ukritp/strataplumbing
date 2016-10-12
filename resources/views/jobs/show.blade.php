@@ -144,13 +144,13 @@
                             <button class="btn btn-default btn-block btn-margin" id="copy-button" data-clipboard-text="{{\URL::current()}}">Copy Current URL</button>
                         </div>
                         @if(!empty($job->site))
-                        <div class="col-sm-12">
+                        {{-- <div class="col-sm-12">
                             {!! Html::linkRoute('jobs.index', 'All jobs from this site', array($job->site->id), array('class'=>'btn btn-default btn-block btn-margin') ) !!}
-                        </div>
+                        </div> --}}
                         @endif
                         @set('status', ( (count($job->pendinginvoices)>0) || (count($job->estimates)>0) )? '' : 'disabled')
                         <div class="col-sm-12">
-                            {!! Html::linkRoute('invoices.show', 'View Invoice Summary', array($job->id), array('class'=>'btn btn-default btn-block btn-margin '.$status))!!}
+                            {!! Html::linkRoute('invoices.show', 'Invoice Summary', array($job->id), array('class'=>'btn btn-default btn-block btn-margin '.$status))!!}
                         </div>
                     @endif
                 </div>

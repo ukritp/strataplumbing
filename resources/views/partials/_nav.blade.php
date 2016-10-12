@@ -22,10 +22,12 @@
           <li class="{{Request::is('sites/*') ? "active" : ""}}"><a href="{{url('sites/index/0')}}">Sites</a></li>
           <li class="{{Request::is('jobs/*') ? "active" : ""}}"><a href="{{url('jobs/index/0')}}">Open Jobs</a></li>
           <li class="{{Request::is('technicians/*') ? "active" : ""}}"><a href="{{url('technicians/index/0')}}">Technician Details</a></li>
-          <li class="{{Request::is('invoices/*') ? "active" : ""}}"><a href="{{url('invoices/index/0')}}">Completed Invoices</a></li>
+          {{-- <li class="{{Request::is('invoices/*') ? "active" : ""}}"><a href="{{url('invoices/index/0')}}">Completed Invoices</a></li> --}}
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Invoices <span class="caret"></span></a>
             <ul class="dropdown-menu">
+              <li><a href="{{url('/invoices/pending/all')}}">All Approved Invoices</a></li>
+              <li role="separator" class="divider"></li>
               <li><a href="{{url('/invoices/pending/all')}}">All Pending Invoices</a></li>
               <li><a href="{{url('/invoices/pending/PC')}}">Pending Approval - Peter Campa</a></li>
               <li><a href="{{url('/invoices/pending/JG')}}">Pending Approval - Jess Gunther</a></li>

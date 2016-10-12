@@ -45,7 +45,7 @@
                     <th>#</th>
                     <th>Company</th>
                     <th>Contact</th>
-                    <th class="text-center">Issued Date</th>
+                    <th class="text-center">Invoiced Date</th>
                     <th class="text-center">Total</th>
                     <th class="text-center">Status</th>
                     <th class="text-right">Action</th>
@@ -62,8 +62,23 @@
                         @else
                             <th data-label="Contact">{{$job->client->first_name.' '.$job->client->last_name}}</th>
                         @endif
-                        <td data-label="Issued Date" class="td-status">{{(!empty($job->invoiced_at)) ? date('M j, Y', strtotime($job->invoiced_at)) : '-'}}</td>
-                        <td data-label="Total" class="td-status">$ {{(count($job->pendinginvoices)>0) ? $totals[$index] : '-'}}</td>
+                        <td data-label="Invoiced Date" class="td-status">
+                            @if($job->is_estimate)
+                                {{(!empty($job->estimates->first()->invoiced_from)) ? date('M j', strtotime($job->estimates->first()->invoiced_from)) : ''}}
+                                    -
+                                {{(!empty($job->estimates->first()->invoiced_to)) ? date('M j', strtotime($job->estimates->first()->invoiced_to)) : ''}}
+                            @else
+                                {{(!empty($job->invoiced_at)) ? date('M j, Y', strtotime($job->invoiced_at)) : '-'}}
+                            @endif
+
+                        </td>
+                        <td data-label="Total" class="td-status"> $
+                            @if( $job->is_estimate || count($job->pendinginvoices)>0 )
+                                {{$totals[$index]}}
+                            @else
+                                -
+                            @endif
+                        </td>
                         <td data-label="Status" class="td-status">{{($job->status) ? 'Completed' : 'Pending'}}</td>
                         <td data-label="Action" class="text-right">
                         {!! Html::linkRoute('invoices.show', 'View', array($job->id), array('class'=>'btn btn-default btn-sm  btn-sm-margin'.$status))!!}

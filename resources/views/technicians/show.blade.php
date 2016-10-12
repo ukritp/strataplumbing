@@ -150,11 +150,11 @@
                     </div> --}}
 
                     <div class="col-sm-12">
-                        {!! Html::linkRoute('jobs.show', 'View this job', array($technician->job->id), array('class'=>'btn btn-default btn-block btn-margin') ) !!}
+                        {!! Html::linkRoute('jobs.show', 'Job Summary', array($technician->job->id), array('class'=>'btn btn-default btn-block btn-margin') ) !!}
                     </div>
                     @set('status', count($technician->job->pendinginvoices)>0 ? '' : 'disabled')
                     <div class="col-sm-12">
-                        {!! Html::linkRoute('invoices.show', 'View Invoice', array($technician->job->id), array('class'=>'btn btn-default btn-block btn-margin '.$status))!!}
+                        {!! Html::linkRoute('invoices.show', 'Invoice Summary', array($technician->job->id), array('class'=>'btn btn-default btn-block btn-margin '.$status))!!}
                     </div>
                 </div>
 

@@ -36,6 +36,8 @@ class InvoiceController extends Controller
 
         $grand_totals = $this->calculateGrandTotal($jobs);
 
+        // echo print_r($grand_totals);
+
         return view('invoices.index')->withJobs($jobs)->withTotals($grand_totals);
     }
 
@@ -81,6 +83,8 @@ class InvoiceController extends Controller
             }
         }
         $grand_totals = $this->calculateGrandTotal($jobs);
+
+        // echo '<pre>'. print_r($grand_totals) .'</pre>';
 
         return view('invoices.index')->withJobs($jobs)->withTotals($grand_totals);
     }
@@ -403,48 +407,113 @@ class InvoiceController extends Controller
     public function calculateGrandTotal($jobs)
     {
         $grand_totals = array();
+
         // start pending invoices
         foreach($jobs as $index => $job){
             $total = 0;
-            foreach ($job->pendinginvoices as $pendinginvoice){
-                // calculate labor cost
-                $first_half_hour   = 95;
-                $additional_hours  = $pendinginvoice->total_hours-0.5;
-                $man_hour_total    = $additional_hours*$pendinginvoice->hourly_rates;
+            $labor_total=0;
+            $material_total=0;
+            if(!$job->is_estimate){
 
-                $other_hours_total = 0;
+                // REGULAR JOB TYPE
+                foreach ($job->pendinginvoices as $pendinginvoice){
+
+                    $other_hours_total = 0;
+                    $material_subtotal = 0;
+                    $subtotal          = 0;
+
+                     // calculate labor cost
+                    $first_half_hour =0;
+                    $first_one_hour =0;
+                    $labor_hours = $pendinginvoice->total_hours;
+                    if($pendinginvoice->first_half_hour){
+                        $first_half_hour =$pendinginvoice->first_half_hour_amount;
+                        $labor_hours = $pendinginvoice->total_hours-0.5;
+                    }
+                    if($pendinginvoice->first_one_hour){
+                        $first_one_hour =$pendinginvoice->first_one_hour_amount;
+                        $labor_hours = $pendinginvoice->total_hours-1;
+                    }
+
+                    $man_hour_total = $labor_hours*$pendinginvoice->hourly_rates;
+
+                    // start technicians
+                    foreach($pendinginvoice->technicians as $technician){
+                        // calculate other hours
+                        $flushing_subtotal    = $technician->flushing_hours*$technician->flushing_hours_cost;
+                        $camera_subtotal      = $technician->camera_hours*$technician->camera_hours_cost;
+                        $main_line_auger_subtotal   = $technician->main_line_auger_hours*$technician->main_line_auger_hours_cost;
+                        $other_subtotal = $technician->other_hours*$technician->other_hours_cost;
+                        $other_hours_total += $flushing_subtotal+$camera_subtotal+$main_line_auger_subtotal+$other_subtotal;
+
+                        // start materials
+                        foreach($technician->materials as $material){
+                            // calculate materials
+                            $material_subtotal += $material->material_quantity*$material->material_cost;
+                        }
+                    }
+
+                    $subtotal = $first_half_hour+$first_one_hour+$man_hour_total+$other_hours_total+$material_subtotal; // total each pedning invoice
+                    $material_total += $material_subtotal;
+                    $labor_total += $first_half_hour+$first_one_hour+$man_hour_total;
+                    $total   += $subtotal; // total of all pending invoices
+                }
+
+            //  ESTIMATE JOB TYPE
+            }else{
+                $labor_total = $job->estimates->first()->cost;
+
+                $extras_total = 0;
+                foreach($job->estimates->first()->extras_table as $extra){
+                    $extras_total += $extra->extras_cost;
+                }
+
                 $material_total    = 0;
-                $subtotal          = 0;
-
-                // start technicians
-                foreach($pendinginvoice->technicians as $technician){
-                    // calculate other hours
-                    $flushing_subtotal    = $technician->flushing_hours*$technician->flushing_hours_cost;
-                    $camera_subtotal      = $technician->camera_hours*$technician->camera_hours_cost;
-                    $big_auger_subtotal   = $technician->big_auger_hours*$technician->big_auger_hours_cost;
-                    $sm_md_auger_subtotal = $technician->small_and_medium_auger_hours*$technician->flushing_hosmall_and_medium_auger_hours_costurs_cost;
-                    $other_hours_total   += $flushing_subtotal+$camera_subtotal+$big_auger_subtotal+$sm_md_auger_subtotal;
-
+                foreach($job->technicians as $technician){
                     // start materials
                     foreach($technician->materials as $material){
                         // calculate materials
                         $material_total += $material->material_quantity*$material->material_cost;
                     }
                 }
-                $subtotal = $first_half_hour+$man_hour_total+$other_hours_total+$material_total; // total each pedning invoice
-                $total   += $subtotal; // total of all pending invoices
-            }
-            // calculating grandtotal
-            $truck_overhead = 0;
-            if($job->is_trucked){
-                $truck_overhead = 10;
-            }
-            $gst_percentage = 0.05;
-            $gst = $total*$gst_percentage;
-            $grand_totals[$index] = number_format(($total+$truck_overhead+$gst),2,'.',',');
-        }
-        return $grand_totals;
 
+                $total = $labor_total + $extras_total + $material_total;
+            }
+
+            // calculating grandtotal
+            $truck_services_amount = 0;
+            if($job->is_trucked){
+                $truck_services_amount = $job->truck_services_amount;
+            }
+
+            // <!-- Labor Discount -->
+            $labor_discount = $job->labor_discount/100;
+            $labor_deduction = 0;
+            if($labor_discount!=0){
+                $labor_deduction = $labor_total*$labor_discount;
+            }
+
+            // <!-- Material Discount -->
+            $material_discount = $job->material_discount/100;
+            $material_deduction =0;
+            if($material_discount!=0){
+                $material_deduction = $material_total*$material_discount;
+            }
+            // <!-- Price Adjustment -->
+            $price_adjustment_amount =0;
+            if($job->price_adjustment_amount!=0){
+                $price_adjustment_amount = $job->price_adjustment_amount;
+            }
+            // <!-- Calculate Total -->
+            $total_before_gst = $total+$truck_services_amount-$labor_deduction-$material_deduction-$price_adjustment_amount;
+            $gst_percentage =0.05;
+            $gst = $total_before_gst*$gst_percentage;
+
+            $grand_totals[$index] = number_format(($total_before_gst+$gst),2,'.',',');
+
+        }
+
+        return $grand_totals;
     }
 
     /**

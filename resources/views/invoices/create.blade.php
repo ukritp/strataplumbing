@@ -40,7 +40,7 @@ if($job->is_estimate){
 
 if(isset($site)){
 
-    if(!emtpy($site->billing_address)){
+    if(!empty($site->billing_address)){
 
         $full_name = $site->first_name.' '.$site->last_name;
         $email     = $site->email;
@@ -162,10 +162,15 @@ if(isset($site)){
 
                                 <!-- Labor Cost Section Section  ================================================ -->
                                 @set('first_half_hour',0)
+                                @set('first_one_hour',0)
                                 @set('labor_hours', $pendinginvoice->total_hours)
                                 @if($pendinginvoice->first_half_hour)
-                                    @set('first_half_hour',95)
+                                    @set('first_half_hour',$pendinginvoice->first_half_hour_amount)
                                     @set('labor_hours', $pendinginvoice->total_hours-0.5)
+                                @endif
+                                @if($pendinginvoice->first_one_hour)
+                                    @set('first_one_hour',$pendinginvoice->first_one_hour_amount)
+                                    @set('labor_hours', $pendinginvoice->total_hours-1)
                                 @endif
 
                                 @set('man_hour_total', $labor_hours*$pendinginvoice->hourly_rates )
@@ -225,10 +230,10 @@ if(isset($site)){
                             </tbody>
                         </table>
 
-                        @set('subtotal', $first_half_hour+$man_hour_total+$other_hours_total+$material_subtotal)
+                        @set('subtotal', $first_half_hour+$first_one_hour+$man_hour_total+$other_hours_total+$material_subtotal)
                         <?php
                         $material_total += $material_subtotal;
-                        $labor_total += $first_half_hour+$man_hour_total;
+                        $labor_total += $first_half_hour+$first_one_hour+$man_hour_total;
                         $total += $subtotal;
                         ?>
                         @endforeach <!-- END Pending Invoice foreach -->

@@ -66,9 +66,6 @@
                         <td class="text-center"> {{($total < 0)? '$ ('.$total.')' : '$ '.$total }}</td>
                     </tr>
                     @empty
-                    <tr>
-                        <td colspan="3" class="text-center">There are no materials used</td>
-                    </tr>
                     @endforelse
                 @empty
                 @endforelse
@@ -113,7 +110,11 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    {!! Html::linkRoute('jobs.show', 'View this job', array($estimate->job_id), array('class'=>'btn btn-default btn-block btn-margin') ) !!}
+                    {!! Html::linkRoute('jobs.show', 'Job Summary', array($estimate->job_id), array('class'=>'btn btn-default btn-block btn-margin') ) !!}
+                </div>
+                @set('status', ($estimate->job->is_estimate) ? '' : 'disabled')
+                <div class="col-sm-12">
+                    {!! Html::linkRoute('invoices.show', 'Invoice Summary', array($estimate->job->id), array('class'=>'btn btn-default btn-block btn-margin '.$status))!!}
                 </div>
             </div>
         </div>

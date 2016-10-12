@@ -66,7 +66,16 @@
 
         <div class="col-md-3">
             @if($job->status)
-                <p class="lead"><strong>Date Issued:</strong> {{date('M j, Y', strtotime($job->invoiced_at))}}</p>
+                <p class="lead"><strong>Invoiced Date:</strong>
+                    @if($job->is_estimate)
+                        <br>
+                        {{date('M j', strtotime($job->estimates->first()->invoiced_from))}}
+                            -
+                        {{date('M j', strtotime($job->estimates->first()->invoiced_to))}}
+                    @else
+                        {{date('M j, Y', strtotime($job->invoiced_at))}}
+                    @endif
+                </p>
                 {!! Html::linkRoute('invoices.create', 'See Final Invoice', array($job->id), array('class'=>'btn btn-lg btn-success btn-block', 'target'=>'_blank') ) !!}
                 <div class="row">
                     <div class="col-sm-12">
@@ -78,7 +87,7 @@
 
                     @if(!$job->is_estimate)
                     <fieldset class="form-group required">
-                    {{ Form::label('invoiced_at', 'Date: (YYYY-MM-DD)', array('class'=>'control-label'))  }}
+                    {{ Form::label('invoiced_at', 'Invoiced Date: (YYYY-MM-DD)', array('class'=>'control-label'))  }}
                     {{ Form::text('invoiced_at',Carbon::now()->toDateString(), array('class' => 'form-control', 'required'=>'',  'maxlength'=>'255'))}}
                     </fieldset>
                     @endif
@@ -209,11 +218,11 @@
                         @set('first_one_hour',0)
                         @set('labor_hours', $pendinginvoice->total_hours)
                         @if($pendinginvoice->first_half_hour)
-                            @set('first_half_hour',95)
+                            @set('first_half_hour',$pendinginvoice->first_half_hour_amount)
                             @set('labor_hours', $pendinginvoice->total_hours-0.5)
                         @endif
                         @if($pendinginvoice->first_one_hour)
-                            @set('first_one_hour',180)
+                            @set('first_one_hour',$pendinginvoice->first_one_hour_amount)
                             @set('labor_hours', $pendinginvoice->total_hours-1)
                         @endif
 
@@ -284,10 +293,10 @@
 
                     </tbody>
                 </table>
-                @set('subtotal', $first_half_hour+$man_hour_total+$other_hours_total+$material_subtotal)
+                @set('subtotal', $first_half_hour+$first_one_hour+$man_hour_total+$other_hours_total+$material_subtotal)
                 <?php
                 $material_total += $material_subtotal;
-                $labor_total += $first_half_hour+$man_hour_total;
+                $labor_total += $first_half_hour+$first_one_hour+$man_hour_total;
                 $total += $subtotal;
                 ?>
                 {{-- <div class="row invoice-subtotal">
@@ -395,7 +404,6 @@
 
         </div>
     </div>
-
 
     <!-- Labor Discount -->
     @set('labor_discount', $job->labor_discount/100)
