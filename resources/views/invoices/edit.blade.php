@@ -50,7 +50,7 @@
 
         <div class="col-md-3">
             <fieldset class="form-group required">
-            {{ Form::label('invoiced_at', 'Date: (YYYY-MM-DD)', array('class'=>'control-label'))  }}
+            {{ Form::label('invoiced_at', 'Invoice Date: (YYYY-MM-DD)', array('class'=>'control-label'))  }}
             {{ Form::text('invoiced_at',date('Y-m-d', strtotime($job->invoiced_at)), array('class' => 'form-control', 'required'=>'',  'maxlength'=>'255'))}}
             </fieldset>
 
