@@ -54,15 +54,14 @@
 
 
                         <!-- Materials section -->
-                        <div class="row">
+                        <div class="row" style="margin-bottom: 10px;">
                             <div class="col-xs-10 col-xs-offset-1">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <b>Material</b>
                                 <a data-tech-id="{{$technician->id}}" class="btn btn-primary btn-sm add-button add-revised-material">Add</a>
                             </div>
                         </div>
 
-                        <div class="row" id="material-add-{{$technician->id}}">
-                        </div>
+
 
                         @if(count($technician->materials)!=0)
                             <div class="row">
@@ -77,6 +76,9 @@
                                 </div>
                             </div>
                         @endif
+
+                        <div class="row" id="material-add-{{$technician->id}}">
+                        </div>
 
                         @foreach($technician->materials as $j => $material)
 

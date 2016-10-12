@@ -88,19 +88,19 @@ $(document).ready(function () {
         $('#material-add').prepend(
         '<span><div class="col-xs-6" id="material-row-'+counter+'">' +
             '<fieldset class="form-group">' +
-            '<label for="material_name_'+counter+'">Material Name:</label>'+
-            '<input type="text" id="material_name_'+counter+'[]" name="material_name[]" class="form-control" required maxlength="255">'+
+            // '<label for="material_name_'+counter+'">Material Name:</label>'+
+            '<input type="text" id="material_name_'+counter+'[]" name="material_name[]" class="form-control" placeholder="Material Name" required maxlength="255">'+
             '</fieldset>' +
         '</div>'+
         '<div class="col-xs-3"  id="material-row-'+counter+'">' +
             '<fieldset class="form-group">' +
-            '<label for="material_quantity_'+counter+'">Quantity:</label>'+
-            '<input type="text" id="material_quantity_'+counter+'[]" name="material_quantity[]" class="form-control" required maxlength="255" data-parsley-type="digits">'+
+            // '<label for="material_quantity_'+counter+'">Quantity:</label>'+
+            '<input type="text" id="material_quantity_'+counter+'[]" name="material_quantity[]" class="form-control" placeholder="Quantity" required maxlength="255" data-parsley-type="digits">'+
             '</fieldset>' +
         '</div>'+
         '<div class="col-xs-3"  id="material-row-'+counter+'">' +
             '<fieldset class="form-group">' +
-            '<a id="remove-material-'+counter+'" class="btn btn-danger btn-sm btn-block remove-material"><i class="glyphicon glyphicon-remove"></a>'+
+            '<a id="remove-material-'+counter+'" class="btn btn-danger btn-sm btn-block remove-material"><i class="glyphicon glyphicon-remove"></i></a>'+
             '</fieldset>' +
         '</div></span>'
         );
@@ -118,20 +118,17 @@ $(document).ready(function () {
         $('#material-add-'+tech_id).prepend(
         '<span class="material-row-span"><div class="col-xs-5 col-xs-offset-1" id="material-row-'+counter+'">' +
             '<fieldset class="form-group">' +
-            '<label for="material_name_'+counter+'">Material Name:</label>'+
-            '<input type="text" id="material_name_'+counter+'[]" name="material_name_add['+tech_id+'][]" class="form-control" required maxlength="255">'+
+            '<input type="text" id="material_name_'+counter+'[]" name="material_name_add['+tech_id+'][]" placeholder="Material Name" class="form-control" required maxlength="255">'+
             '</fieldset>' +
         '</div>'+
         '<div class="col-xs-2"  id="material-row-'+counter+'">' +
             '<fieldset class="form-group">' +
-            '<label for="material_quantity_'+counter+'">Quantity:</label>'+
-            '<input type="text" id="material_quantity_'+counter+'[]" name="material_quantity_add['+tech_id+'][]" class="form-control" required maxlength="255" data-parsley-type="digits">'+
+            '<input type="text" id="material_quantity_'+counter+'[]" name="material_quantity_add['+tech_id+'][]" placeholder="Quantity" class="form-control" required maxlength="255" data-parsley-type="digits">'+
             '</fieldset>' +
         '</div>'+
         '<div class="col-xs-2"  id="material-row-'+counter+'">' +
             '<fieldset class="form-group">' +
-            '<label for="material_cost_'+counter+'">Cost: $</label>'+
-            '<input type="text" id="material_cost_'+counter+'[]" name="material_cost_add['+tech_id+'][]" class="form-control" required maxlength="255">'+
+            '<input type="text" id="material_cost_'+counter+'[]" name="material_cost_add['+tech_id+'][]" placeholder="Cost" class="form-control" required maxlength="255">'+
             '</fieldset>' +
         '</div>'+
         '<div class="col-xs-1 off-set-1"  id="material-row-'+counter+'">' +
@@ -154,19 +151,19 @@ $(document).ready(function () {
         $('#extras-add').prepend(
         '<span><div class="col-xs-6" id="extras-row-'+index+'">' +
             '<fieldset class="form-group">' +
-            '<label for="extras_description'+index+'">Description:</label>'+
-            '<input type="text" id="extras_description'+index+'[]" name="extras_description[]" class="form-control" required maxlength="255">'+
+            // '<label for="extras_description'+index+'">Description:</label>'+
+            '<input type="text" id="extras_description'+index+'[]" name="extras_description[]" class="form-control" placeholder="Description" required maxlength="255">'+
             '</fieldset>' +
         '</div>'+
         '<div class="col-xs-3"  id="extras-row-'+index+'">' +
             '<fieldset class="form-group">' +
-            '<label for="extras_cost'+index+'">Cost: $</label>'+
-            '<input type="text" id="extras_cost'+index+'[]" name="extras_cost[]" class="form-control" required maxlength="255" data-parsley-pattern="\d{1,3}[,\\.]?(\\d{1,2})?">'+
+            // '<label for="extras_cost'+index+'">Cost: $</label>'+
+            '<input type="text" id="extras_cost'+index+'[]" name="extras_cost[]" class="form-control" placeholder="Cost" required maxlength="255">'+
             '</fieldset>' +
         '</div>'+
         '<div class="col-xs-3"  id="extras-row-'+index+'">' +
             '<fieldset class="form-group">' +
-            '<a id="remove-extras-'+index+'" class="btn btn-danger btn-sm btn-block remove-extras"><i class="glyphicon glyphicon-remove"></a>'+
+            '<a id="remove-extras-'+index+'" class="btn btn-danger btn-sm btn-block remove-extras"><i class="glyphicon glyphicon-remove"></i></a>'+
             '</fieldset>' +
         '</div></span>'
         );

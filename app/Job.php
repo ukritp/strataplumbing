@@ -90,6 +90,11 @@ class Job extends Model
         return $this->hasMany('App\Technician');
     }
 
+    public function estimates()
+    {
+        return $this->hasMany('App\Estimate');
+    }
+
     // return Queries from Technician table where Job ID and group by Date
     public function techniciansGroupByDate()
     {

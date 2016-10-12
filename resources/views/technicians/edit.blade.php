@@ -66,42 +66,36 @@
             <a id="add-material" class="btn btn-primary btn-sm add-button">Add</a>
             </legend>
 
+            @if(count($technician->materials)!=0)
+                <div class="row">
+                    <div class="col-xs-6">
+                        {{ Form::label('material_name', 'Material Name:')  }}
+                    </div>
+                    <div class="col-xs-2">
+                        {{ Form::label('material_quantity', 'Quantity:')  }}
+                    </div>
+                </div>
+            @endif
+
             <div class="row" id="material-add">
                 <?php $i=0;?>
                 @foreach($materials as $material)
-                    {{-- {{ Form::hidden('material_id[]', $material->id) }} --}}
                     <input name="material_id[]" type="hidden" value="{{$material->id}}">
                     <span class="material-row-span">
                     <div class="col-xs-6" id="material-row-{{$i}}">
                         <fieldset class="form-group">
-                            {{-- {{ Form::label('material_name_'.$i, 'Material Name:')  }}
-                            {{ Form::text('material_name[]',$material->material_name, [
-                                'class' => 'form-control',
-                                'required'=>'',
-                                'id' => 'material_name_'.$i,
-                                'maxlength'=>'255'
-                            ])}} --}}
-                            <label for="material_name_{{$i}}">Material Name:</label>
                             <input type="text" class="form-control" required="" id="material_name_0" maxlength="255" name="material_name[]"  value="{{$material->material_name}}">
                         </fieldset>
                     </div>
                     <div class="col-xs-3" id="material-row-{{$i}}">
                         <fieldset class="form-group">
-                            {{-- {{ Form::label('material_quantity_'.$i, 'Quantity:')  }}
-                            {{ Form::text('material_quantity[]',$material->material_quantity, [
-                                'class' => 'form-control',
-                                'required'=>'',
-                                'id' => 'material_quantity_'.$i,
-                                'data-parsley-type'=>'digits',
-                                'maxlength'=>'255'
-                            ])}} --}}
-                            <label for="material_quantity_{{$i}}">Quantity:</label>
                             <input type="text" class="form-control" required="" id="material_quantity_{{$i}}" data-parsley-type="digits" maxlength="255" name="material_quantity[]" value="{{$material->material_quantity}}">
                         </fieldset>
                     </div>
                     <div class="col-xs-3" id="material-row-{{$i}}">
                         <fieldset class="form-group">
-                            <a id="remove-material-{{$i}}" class="btn btn-danger btn-sm btn-block remove-material">Remove</a>
+                            <a id="remove-material-{{$i}}" class="btn btn-danger btn-sm btn-block remove-material">
+                            <i class="glyphicon glyphicon-remove"></i></a>
                         </fieldset>
                     </div>
                     </span>

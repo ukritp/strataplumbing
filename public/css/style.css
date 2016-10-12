@@ -116,7 +116,7 @@ h1.page_title{
 	padding-right:22px;
 }
 .remove-material, .remove-material-revised, .remove-extras{
-	margin-top: 25px;
+	/*margin-top: 25px;*/
 }
 .form-inline input[type=checkbox]{
 	margin:0 10px;

@@ -66,14 +66,12 @@
                     <h4>Name: {{$technician->technician_name}}</h4>
                     <hr>
                 </div>
-                <div class="row">
+
+                <div class="row" style="margin-bottom: 10px;">
                     <div class="col-xs-10 col-xs-offset-1">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <b>Material</b>
                         <a data-tech-id="{{$technician->id}}" class="btn btn-primary btn-sm add-button add-revised-material">Add</a>
                     </div>
-                </div>
-
-                <div class="row" id="material-add-{{$technician->id}}">
                 </div>
 
                 <div class="row">
@@ -86,6 +84,9 @@
                     <div class="col-xs-3 off-set-1">
                         {{ Form::label('material_cost_', 'Cost: $')  }}
                     </div>
+                </div>
+
+                <div class="row" id="material-add-{{$technician->id}}">
                 </div>
             @endif
 

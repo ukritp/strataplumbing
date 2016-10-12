@@ -426,9 +426,8 @@ class PendingInvoiceController extends Controller
         $job->save();
 
         // set flash Session
-        Session::flash('success','The Pending Invoice was successfully deleted');
+        Session::flash('success','The Pending Estimate Invoice was successfully deleted');
 
-        // return a view adsfasdfa
         return redirect()->route('jobs.show',$job_id);
 
     }

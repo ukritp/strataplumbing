@@ -148,9 +148,9 @@
                             {!! Html::linkRoute('jobs.index', 'All jobs from this site', array($job->site->id), array('class'=>'btn btn-default btn-block btn-margin') ) !!}
                         </div>
                         @endif
-                        @set('status', count($job->pendinginvoices)>0 ? '' : 'disabled')
+                        @set('status', ( (count($job->pendinginvoices)>0) || (count($job->estimates)>0) )? '' : 'disabled')
                         <div class="col-sm-12">
-                            {!! Html::linkRoute('invoices.show', 'View Invoice', array($job->id), array('class'=>'btn btn-default btn-block btn-margin '.$status))!!}
+                            {!! Html::linkRoute('invoices.show', 'View Invoice Summary', array($job->id), array('class'=>'btn btn-default btn-block btn-margin '.$status))!!}
                         </div>
                     @endif
                 </div>
@@ -202,9 +202,17 @@
 
                                 @if($job->is_estimate)
                                     @if($index == 0)
-                                    <td class="create-invoice-column" rowspan="{{count($job->technicians)}}">
-                                        {!! Html::linkRoute('estimates.create', 'Create Invoice', array($job->id), array('class'=>'btn btn-info btn-sm btn-block') ) !!}
-                                    </td>
+                                    @if(count($job->estimates)>0)
+                                        <td class="create-invoice-column" rowspan="{{count($job->technicians)}}">
+                                            {!! Html::linkRoute('estimates.show', 'View Invoice', array($job->estimates->first()->id), array('class'=>'btn btn-info btn-sm btn-block') ) !!}
+                                            <br>
+                                            {!! Html::linkRoute('estimates.edit', 'Edit Invoice', array($job->estimates->first()->id), array('class'=>'btn btn-info btn-sm btn-block') ) !!}
+                                        </td>
+                                    @else
+                                        <td class="create-invoice-column" rowspan="{{count($job->technicians)}}">
+                                            {!! Html::linkRoute('estimates.create', 'Create Invoice', array($job->id), array('class'=>'btn btn-info btn-sm btn-block') ) !!}
+                                        </td>
+                                    @endif
                                     @endif
                                 @else
 

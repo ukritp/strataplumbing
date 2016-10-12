@@ -48,8 +48,8 @@
                 <tbody>
                 @if(count($jobs)>0)
                     @foreach($jobs as $job)
-                    @set('status', count($job->pendinginvoices)>0 ? '' : 'disabled')
-                    @set('invoice_link', count($job->pendinginvoices)>0 ? route('invoices.show', $job->id) : '#')
+                    @set('status', ( (count($job->pendinginvoices)>0) || (count($job->estimates)>0) )? '' : 'disabled')
+                    @set('invoice_link', ( (count($job->pendinginvoices)>0) || (count($job->estimates)>0) ) ? route('invoices.show', $job->id) : '#')
                     @set('job_type', ($job->is_estimate)? 'estimate' : 'regular')
                     <tr>
                         <th data-label="#">{!! Html::linkRoute('jobs.show', $job->id+20100, array($job->id), array('class'=>'')) !!}</th>
