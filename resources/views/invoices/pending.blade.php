@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', '| All Jobs')
+@section('title', '| All Invoices')
 
 @section('stylesheets')
     {!! Html::style('css/parsley.css') !!}
@@ -11,7 +11,7 @@
 
     <div class="row">
         <div class="col-md-5">
-            <h1>Invoices</h1>
+            <h1>Pending Invoices</h1>
         </div>
 
         <div class="col-md-12">
@@ -27,7 +27,7 @@
                 <th>#</th>
                 <th>Company</th>
                 <th>Contact</th>
-                <th class="text-center">Issued Date</th>
+                <th class="text-center">Invoice Date</th>
                 <th class="text-center">Total</th>
                 <th class="text-center">Approval Status</th>
                 <th class="text-right">Action</th>
@@ -45,8 +45,16 @@
                                 <th data-label="Contact">{{$job->client->first_name.' '.$job->client->last_name}}</th>
                             @endif
                             <td data-label="Issued Date" class="td-status">{{(!empty($job->invoiced_at)) ? date('M j, Y', strtotime($job->invoiced_at)) : '-'}}</td>
-                            <td data-label="Total" class="td-status">$ {{(count($job->pendinginvoices)>0) ? $totals[$index] : '-'}}</td>
-                            <td data-label="Approval Status" class="td-status">{{($job->approval_status)}}</td>
+                            <td data-label="Total" class="td-status"> $
+                                @if( $job->is_estimate || count($job->pendinginvoices)>0 )
+                                    {{$totals[$index]}}
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td data-label="Approval Status" class="td-status">
+                                {{(!empty($job->approval_status))? $job->approval_status : '-'}}
+                            </td>
                             <td data-label="Action" class="text-right">
                                 <a href="{{url('/invoices/approval/'.$job->id)}}" class="btn btn-default btn-sm  btn-sm-margin">View</a>
                             </td>

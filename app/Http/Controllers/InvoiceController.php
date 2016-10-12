@@ -37,8 +37,8 @@ class InvoiceController extends Controller
         $grand_totals = $this->calculateGrandTotal($jobs);
 
         // echo print_r($grand_totals);
-
-        return view('invoices.index')->withJobs($jobs)->withTotals($grand_totals);
+        $header = 'Issued';
+        return view('invoices.index')->withJobs($jobs)->withTotals($grand_totals)->withHeader($header);
     }
 
     /**
@@ -614,7 +614,8 @@ class InvoiceController extends Controller
 
         $grand_totals = $this->calculateGrandTotal($jobs);
 
-        return view('invoices.pending')->withJobs($jobs)->withTotals($grand_totals);
+        $header = 'Approved';
+        return view('invoices.index')->withJobs($jobs)->withTotals($grand_totals)->withHeader($header);
     }
 
     public function declined_invoice_all(){
@@ -622,7 +623,8 @@ class InvoiceController extends Controller
 
         $grand_totals = $this->calculateGrandTotal($jobs);
 
-        return view('invoices.pending')->withJobs($jobs)->withTotals($grand_totals);
+        $header = 'Declined';
+        return view('invoices.index')->withJobs($jobs)->withTotals($grand_totals)->withHeader($header);
     }
 
 

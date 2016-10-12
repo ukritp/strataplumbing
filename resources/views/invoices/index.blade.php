@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', '| All Jobs')
+@section('title', '| All Invoices')
 
 @section('stylesheets')
     {!! Html::style('css/parsley.css') !!}
@@ -11,7 +11,7 @@
 
     <div class="row">
         <div class="col-md-5">
-            <h1>All Invoices</h1>
+            <h1>{{$header}} Invoices</h1>
         </div>
 
         <div class="col-md-7 search-bar">
@@ -45,9 +45,9 @@
                     <th>#</th>
                     <th>Company</th>
                     <th>Contact</th>
-                    <th class="text-center">Invoiced Date</th>
+                    <th class="text-center">Invoice Date</th>
                     <th class="text-center">Total</th>
-                    <th class="text-center">Status</th>
+                    <th class="text-center">Approval Status</th>
                     <th class="text-right">Action</th>
                 </thead>
                 <tbody>
@@ -63,14 +63,7 @@
                             <th data-label="Contact">{{$job->client->first_name.' '.$job->client->last_name}}</th>
                         @endif
                         <td data-label="Invoiced Date" class="td-status">
-                            @if($job->is_estimate)
-                                {{(!empty($job->estimates->first()->invoiced_from)) ? date('M j', strtotime($job->estimates->first()->invoiced_from)) : ''}}
-                                    -
-                                {{(!empty($job->estimates->first()->invoiced_to)) ? date('M j', strtotime($job->estimates->first()->invoiced_to)) : ''}}
-                            @else
-                                {{(!empty($job->invoiced_at)) ? date('M j, Y', strtotime($job->invoiced_at)) : '-'}}
-                            @endif
-
+                            {{(!empty($job->invoiced_at)) ? date('M j, Y', strtotime($job->invoiced_at)) : '-'}}
                         </td>
                         <td data-label="Total" class="td-status"> $
                             @if( $job->is_estimate || count($job->pendinginvoices)>0 )
@@ -79,7 +72,9 @@
                                 -
                             @endif
                         </td>
-                        <td data-label="Status" class="td-status">{{($job->status) ? 'Completed' : 'Pending'}}</td>
+                        <td data-label="Approval Status" class="td-status">
+                            {{(!empty($job->approval_status))? $job->approval_status : '-'}}
+                        </td>
                         <td data-label="Action" class="text-right">
                         {!! Html::linkRoute('invoices.show', 'View', array($job->id), array('class'=>'btn btn-default btn-sm  btn-sm-margin'.$status))!!}
                         </td>
