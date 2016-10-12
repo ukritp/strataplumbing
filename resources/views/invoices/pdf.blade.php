@@ -39,10 +39,10 @@ $email     = $client->email;
 
 $issued_date = date('M j, Y', strtotime($job->invoiced_at));
 
-if($job->is_estimate){
-    $issued_date = date('M j', strtotime($job->estimates->first()->invoiced_from)).' - '.date('M j', strtotime($job->estimates->first()->invoiced_to));
-    $issued_date .= ', '.date('Y', strtotime($job->estimates->first()->invoiced_from));
-}
+// if($job->is_estimate){
+//     $issued_date = date('M j', strtotime($job->estimates->first()->invoiced_from)).' - '.date('M j', strtotime($job->estimates->first()->invoiced_to));
+//     $issued_date .= ', '.date('Y', strtotime($job->estimates->first()->invoiced_from));
+// }
 
 if(isset($site)){
 
@@ -87,7 +87,7 @@ if(isset($site)){
                             <br>
                         @endif
                         <label style="margin-left:23px;">
-                        {{!empty($client->company_name) ? 'c/o: '.$client->company_name.' - ' : ''}}
+                        {{!empty($client->company_name) ? $client->company_name.' - ' : ''}}
                         {{$full_name}}
                         </label>
                     </p>

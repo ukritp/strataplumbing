@@ -67,14 +67,7 @@
         <div class="col-md-3">
             @if($job->status)
                 <p class="lead"><strong>Invoiced Date:</strong>
-                    @if($job->is_estimate)
-                        <br>
-                        {{date('M j', strtotime($job->estimates->first()->invoiced_from))}}
-                            -
-                        {{date('M j', strtotime($job->estimates->first()->invoiced_to))}}
-                    @else
-                        {{date('M j, Y', strtotime($job->invoiced_at))}}
-                    @endif
+                    {{date('M j, Y', strtotime($job->invoiced_at))}}
                 </p>
                 {!! Html::linkRoute('invoices.create', 'See Final Invoice', array($job->id), array('class'=>'btn btn-lg btn-success btn-block', 'target'=>'_blank') ) !!}
                 <div class="row">
@@ -85,12 +78,10 @@
             @else
                 @if( (count($job->pendinginvoices)==count($job->techniciansGroupByDateCount)) || ($job->is_estimate) )
 
-                    @if(!$job->is_estimate)
                     <fieldset class="form-group required">
                     {{ Form::label('invoiced_at', 'Invoiced Date: (YYYY-MM-DD)', array('class'=>'control-label'))  }}
                     {{ Form::text('invoiced_at',Carbon::now()->toDateString(), array('class' => 'form-control', 'required'=>'',  'maxlength'=>'255'))}}
                     </fieldset>
-                    @endif
 
                     <fieldset class="form-group required">
                     {{ Form::label('labor_discount', 'Labor Discount: % ', array('class'=>'control-label'))  }}
