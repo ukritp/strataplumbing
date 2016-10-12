@@ -108,6 +108,8 @@ Route::group(['middleware' => 'roles', 'roles' => ['Admin','Owner']], function (
     //routes for pending invoices
     Route::get('/invoices/pending/all', 'InvoiceController@all_pending');
     Route::get('/invoices/pending/{id}', 'InvoiceController@pending');
+    Route::get('/invoices/approved/all', 'InvoiceController@approved_invoice_all');
+    Route::get('/invoices/declined/all', 'InvoiceController@declined_invoice_all');
 
 });
 
