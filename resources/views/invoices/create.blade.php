@@ -17,14 +17,51 @@
 </head>
 <body>
 
-@set('full_name', isset($site) ?  $site->first_name.' '.$site->last_name : $client->first_name.' '.$client->last_name)
-@set('client_site_address', ucwords(strtolower($client->mailing_address)).', '.ucwords(strtolower($client->mailing_city)).', '.strtoupper($client->mailing_province).' '.strtoupper($client->mailing_postalcode))
-@set('client_billing_address', ucwords(strtolower($client->billing_address)).', '.ucwords(strtolower($client->billing_city)).', '.strtoupper($client->billing_province).' '.strtoupper($client->billing_postalcode))
-@set('site_address', isset($site) ? ucwords(strtolower($site->mailing_address)).', '.ucwords(strtolower($site->mailing_city)).', '.strtoupper($site->mailing_province).' '.strtoupper($site->mailing_postalcode) : $client_site_address)
-@set('billing_address', isset($site) ? ucwords(strtolower($site->billing_address)).', '.ucwords(strtolower($site->billing_city)).', '.strtoupper($site->billing_province).' '.strtoupper($site->billing_postalcode) : $client_billing_address)
-@set('email', isset($site) ?  $site->email : $client->email)
+<?php
+$shown_site_address_1 = ucwords(strtolower($client->mailing_address));
+$shown_site_address_2 = ucwords(strtolower($client->mailing_city)).' '.
+                        strtoupper($client->mailing_province).' '.
+                        strtoupper($client->mailing_postalcode);
 
-<div class="container">
+$shown_billing_address_1 = ucwords(strtolower($client->billing_address));
+$shown_billing_address_2 = ucwords(strtolower($client->billing_city)).' '.
+                           strtoupper($client->billing_province).' '.
+                           strtoupper($client->billing_postalcode);
+
+$full_name = $client->first_name.' '.$client->last_name;
+$email     = $client->email;
+
+$issued_date = date('M j, Y', strtotime($job->invoiced_at));
+
+if($job->is_estimate){
+    $issued_date = date('M j', strtotime($job->estimates->first()->invoiced_from)).' - '.date('M j', strtotime($job->estimates->first()->invoiced_to));
+    $issued_date .= ', '.date('Y', strtotime($job->estimates->first()->invoiced_from));
+}
+
+if(isset($site)){
+
+    if(!emtpy($site->billing_address)){
+
+        $full_name = $site->first_name.' '.$site->last_name;
+        $email     = $site->email;
+
+        $shown_billing_address_1 = ucwords(strtolower($site->billing_address));
+        $shown_billing_address_2 = ucwords(strtolower($site->billing_city)).' '.
+                                   strtoupper($site->billing_province).' '.
+                                   strtoupper($site->billing_postalcode);
+    }
+
+    $shown_site_address_1 = ucwords(strtolower($site->mailing_address));
+    $shown_site_address_2 = ucwords(strtolower($site->mailing_city)).' '.
+                            strtoupper($site->mailing_province).' '.
+                            strtoupper($site->mailing_postalcode);
+
+}
+
+
+?>
+
+<div class="container" style="height: 100% !important;">
 
 <div class="row no-gutter main-row" style="width:100%;">
     <div class="col-xs-3 strata-side-logo">
@@ -46,12 +83,30 @@
                 <div class="col-xs-8 left-header">
                     <p><span>INVOICE #</span> {{$job->id+20100}}</p>
                     <p><span>TO:</span>
-                        {{isset($client->company_name) ? $client->company_name.' - ' : ''}}
+                        @if(!empty($client->strata_plan_number))
+                            {{'Strata Plan '.$client->strata_plan_number}}
+                            <br>
+                        @endif
+                        <label style="margin-left:28px;">
+                        {{!empty($client->company_name) ? 'c/o: '.$client->company_name.' - ' : ''}}
                         {{$full_name}}
+                        </label>
                     </p>
-                    <p><span>BILLING ADDRESS:</span> {{$billing_address}}</p>
-                    <p><span>SITE ADDRESS:</span> {{$site_address}}</p>
-                    <p><span>DATE:</span> {{date('M j, Y', strtotime($job->invoiced_at))}}</p>
+                    <p><span>BILLING ADDRESS:</span>
+                        {{$shown_billing_address_1}}
+                        <br>
+                        <label style="margin-left: 136px;">
+                        {{$shown_billing_address_2}}
+                        </label>
+                    </p>
+                    <p><span>SITE ADDRESS:</span>
+                        {{$shown_site_address_1}}
+                        <br>
+                        <label style="margin-left: 110px;">
+                        {{$shown_site_address_2}}
+                        </label>
+                    </p>
+                    <p><span>DATE:</span> {{$issued_date}}</p>
                 </div>
                 <div class="col-xs-4 right-header">
                     <p>#386 - 2242 Kingsway</p>
@@ -72,108 +127,188 @@
                     @set('total',0)
                     @set('labor_total',0)
                     @set('material_total',0)
-                    @foreach ($job->pendinginvoices as $index => $pendinginvoice)
-                    <br>
-                    <table class="table table-invoice">
 
-                        <thead>
-                            <th style="width:15%;">Date</th>
-                            <th style="width:67%;">Details</th>
-                            <th style="width:20%;" class="text-right">Amount</th>
-                        </thead>
+                    @if(!$job->is_estimate)
 
-                        <tbody>
-                            <tr>
-                                <td style="width:15%;""><b>{{date('M j, Y', mktime(0, 0, 0,$pendinginvoice->month, $pendinginvoice->date, $pendinginvoice->year))}}</b></td>
-                                <td style="white-space: pre-line;width:67%;">{{$pendinginvoice->description}}</td>
-                                <td style="width:20%;""></td>
-                            </tr>
+                        @foreach ($job->pendinginvoices as $index => $pendinginvoice)
+                        <br>
+                        <table class="table table-invoice">
 
-                            <!-- Labor Description Section  ================================================ -->
-                            <tr>
-                                <td></td>
-                                <td><b>
-                                @if(!empty($pendinginvoice->labor_description))
-                                    {{$pendinginvoice->labor_description}}
-                                @else
-                                    {{count($pendinginvoice->technicians)}} Man with equipment
-                                @endif
-                                </b></td>
-                                <td></td>
-                            </tr>
+                            <thead>
+                                <th style="width:15%;">Date</th>
+                                <th style="width:67%;">Details</th>
+                                <th style="width:20%;" class="text-right">Amount</th>
+                            </thead>
 
-                            <!-- Labor Cost Section Section  ================================================ -->
-                            @set('first_half_hour',0)
-                            @set('labor_hours', $pendinginvoice->total_hours)
-                            @if($pendinginvoice->first_half_hour)
-                                @set('first_half_hour',95)
-                                @set('labor_hours', $pendinginvoice->total_hours-0.5)
-                            @endif
+                            <tbody>
+                                <tr>
+                                    <td style="width:15%;"><b>{{date('M j, Y', mktime(0, 0, 0,$pendinginvoice->month, $pendinginvoice->date, $pendinginvoice->year))}}</b></td>
+                                    <td style="white-space: pre-line;width:67%;">{{$pendinginvoice->description}}</td>
+                                    <td style="width:20%;"></td>
+                                </tr>
 
-                            @set('man_hour_total', $labor_hours*$pendinginvoice->hourly_rates )
-                            @set('hour_name', 'Total')
-                            @if($pendinginvoice->first_half_hour)
-                                @set('hour_name', 'Additional')
+                                <!-- Labor Description Section  ================================================ -->
                                 <tr>
                                     <td></td>
-                                    <td style="text-indent: 20px;">First 1/2 hour</td>
-                                    <td class="text-right">$ {{number_format($first_half_hour,2,'.',',')}}</td>
+                                    <td><b>
+                                    @if(!empty($pendinginvoice->labor_description))
+                                        {{$pendinginvoice->labor_description}}
+                                    @else
+                                        {{count($pendinginvoice->technicians)}} Man with equipment
+                                    @endif
+                                    </b></td>
+                                    <td></td>
                                 </tr>
-                            @endif
-                            <tr>
-                                <td></td>
-                                <td style="text-indent: 20px;">{{$hour_name}} hours = {{$labor_hours}} @ {{number_format($pendinginvoice->hourly_rates,2,'.',',')}} /hr </td>
-                                <td class="text-right">$ {{number_format($man_hour_total,2,'.',',')}}</td>
-                            </tr>
 
-                            <!-- Other Hours Section  ================================================ -->
-                            @set('other_hours_total',0)
-                            @foreach($pendinginvoice->technicians as $technician)
-                                @set('flushing_subtotal', $technician->flushing_hours*$technician->flushing_hours_cost)
-                                @set('camera_subtotal', $technician->camera_hours*$technician->camera_hours_cost)
-                                @set('main_line_auger_subtotal', $technician->main_line_auger_hours*$technician->main_line_auger_hours_cost)
-                                @set('other_subtotal', $technician->other_hours*$technician->other_hours)
-                                <?php $other_hours_total += $flushing_subtotal+$camera_subtotal+$main_line_auger_subtotal+$other_subtotal?>
-                            @endforeach
-                            @if($other_hours_total!=0)
-                            <tr>
-                                <td></td>
-                                <td style="text-indent: 20px;">Other hours (flushing, camera, main line auger, etc)</td>
-                                <td class="text-right">$ {{number_format($other_hours_total,2,'.',',')}}</td>
-                            </tr>
-                            @endif
+                                <!-- Labor Cost Section Section  ================================================ -->
+                                @set('first_half_hour',0)
+                                @set('labor_hours', $pendinginvoice->total_hours)
+                                @if($pendinginvoice->first_half_hour)
+                                    @set('first_half_hour',95)
+                                    @set('labor_hours', $pendinginvoice->total_hours-0.5)
+                                @endif
 
-
-                            <!-- Material Section ================================================-->
-                            @set('material_subtotal',0)
-                            @foreach($pendinginvoice->technicians as $index => $technician)
-                                @if(count($technician->materials)>0 && $index==0)
+                                @set('man_hour_total', $labor_hours*$pendinginvoice->hourly_rates )
+                                @set('hour_name', 'Total')
+                                @if($pendinginvoice->first_half_hour)
+                                    @set('hour_name', 'Additional')
                                     <tr>
                                         <td></td>
-                                        <td><b>Materials List</b></td>
-                                        <td></td>
+                                        <td style="text-indent: 20px;">First 1/2 hour</td>
+                                        <td class="text-right">$ {{number_format($first_half_hour,2,'.',',')}}</td>
                                     </tr>
                                 @endif
-                                @foreach($technician->materials as $material)
                                 <tr>
                                     <td></td>
-                                    <td style="text-indent: 20px;">{{$material->material_quantity.' - '.$material->material_name}}</td>
-                                    <td class="text-right">$ {{number_format($material->material_quantity*$material->material_cost,2,'.',',')}}</td>
+                                    <td style="text-indent: 20px;">{{$hour_name}} hours = {{$labor_hours}} @ {{number_format($pendinginvoice->hourly_rates,2,'.',',')}} /hr </td>
+                                    <td class="text-right">$ {{number_format($man_hour_total,2,'.',',')}}</td>
                                 </tr>
-                                <?php $material_subtotal += $material->material_quantity*$material->material_cost?>
+
+                                <!-- Other Hours Section  ================================================ -->
+                                @set('other_hours_total',0)
+                                @foreach($pendinginvoice->technicians as $technician)
+                                    @set('flushing_subtotal', $technician->flushing_hours*$technician->flushing_hours_cost)
+                                    @set('camera_subtotal', $technician->camera_hours*$technician->camera_hours_cost)
+                                    @set('main_line_auger_subtotal', $technician->main_line_auger_hours*$technician->main_line_auger_hours_cost)
+                                    @set('other_subtotal', $technician->other_hours*$technician->other_hours)
+                                    <?php $other_hours_total += $flushing_subtotal+$camera_subtotal+$main_line_auger_subtotal+$other_subtotal;?>
                                 @endforeach
-                            @endforeach <!-- END Materials foreach -->
+                                @if($other_hours_total!=0)
+                                <tr>
+                                    <td></td>
+                                    <td style="text-indent: 20px;">Other hours (flushing, camera, main line auger, etc)</td>
+                                    <td class="text-right">$ {{number_format($other_hours_total,2,'.',',')}}</td>
+                                </tr>
+                                @endif
 
-                        </tbody>
-                    </table>
 
-                    @set('subtotal', $first_half_hour+$man_hour_total+$other_hours_total+$material_subtotal)
-                    <?php
-                    $material_total += $material_subtotal;
-                    $labor_total += $first_half_hour+$man_hour_total;
-                    $total += $subtotal;
-                    ?>
-                    @endforeach <!-- END Pending Invoice foreach -->
+                                <!-- Material Section ================================================-->
+                                @set('material_subtotal',0)
+                                @foreach($pendinginvoice->technicians as $index => $technician)
+                                    @if(count($technician->materials)>0 && $index==0)
+                                        <tr>
+                                            <td></td>
+                                            <td><b>Materials List</b></td>
+                                            <td></td>
+                                        </tr>
+                                    @endif
+                                    @foreach($technician->materials as $material)
+                                    <tr>
+                                        <td></td>
+                                        <td style="text-indent: 20px;">{{$material->material_quantity.' - '.$material->material_name}}</td>
+                                        <td class="text-right">$ {{number_format($material->material_quantity*$material->material_cost,2,'.',',')}}</td>
+                                    </tr>
+                                    <?php $material_subtotal += $material->material_quantity*$material->material_cost;?>
+                                    @endforeach
+                                @endforeach <!-- END Materials foreach -->
+
+                            </tbody>
+                        </table>
+
+                        @set('subtotal', $first_half_hour+$man_hour_total+$other_hours_total+$material_subtotal)
+                        <?php
+                        $material_total += $material_subtotal;
+                        $labor_total += $first_half_hour+$man_hour_total;
+                        $total += $subtotal;
+                        ?>
+                        @endforeach <!-- END Pending Invoice foreach -->
+
+                    {{-- if esitmate job type --}}
+                    @else
+
+                        <table class="table table-invoice">
+                            <thead>
+                                <th style="width:15%;">Date</th>
+                                <th style="width:67%;">Details</th>
+                                <th style="width:20%;" class="text-right">Amount</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width:15%;">
+                                    <b>
+                                    {{date('M j', strtotime($job->estimates->first()->invoiced_from))}}
+                                    -
+                                    {{date('M j', strtotime($job->estimates->first()->invoiced_to))}}
+                                    </b>
+                                    </td>
+                                    <td style="white-space: pre-line; width:67%;">{{$job->estimates->first()->description}}</td>
+                                    @set('labor_total',$job->estimates->first()->cost)
+                                    <td class="text-right" style="width:20%;">$ {{number_format($job->estimates->first()->cost,2,'.',',')}}</td>
+                                </tr>
+
+                                <!-- Extra's Section  ================================================ -->
+                                <tr>
+                                    <td></td>
+                                    <td><b>Extra's</b></td>
+                                    <td></td>
+                                </tr>
+                                @set('extras_total',0)
+                                @forelse($job->estimates->first()->extras_table as $extra)
+                                    <tr>
+                                        <td></td>
+                                        <td style="white-space: pre-line; width:67%;text-indent: 20px;">- {{$extra->extras_description}}</td>
+                                        <td class="text-right" style="width:20%;">
+                                            {{(!empty($extra->extras_cost))? '$ '.number_format($extra->extras_cost,2,'.',','):''}}
+                                        </td>
+                                    </tr>
+                                    <?php
+                                    $extras_total += $extra->extras_cost;
+                                    ?>
+                                @empty
+                                @endforelse
+
+                                <!-- Material Section  ================================================ -->
+                                <tr>
+                                    <td></td>
+                                    <td><b>Materials</b></td>
+                                    <td></td>
+                                </tr>
+                                @set('material_total',0)
+                                @foreach($job->technicians as $technician)
+                                    @forelse($technician->materials as $material)
+                                    <tr>
+                                        <td></td>
+                                        <td style="width:67%;text-indent: 20px;">{{$material->material_quantity.' x '.$material->material_name}}</td>
+                                        @set('total', number_format($material->material_quantity*$material->material_cost,2,'.',','))
+                                        <td class="text-right" style="width:20%;">{{($total < 0)? '$ ('.$total.')' : '$ '.$total}}</td>
+                                    </tr>
+                                    <?php
+                                    $material_total += $material->material_quantity*$material->material_cost;;
+                                    ?>
+                                    @empty
+                                    @endforelse
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <?php
+                        // echo $estimate_subtotal.'<br>';
+                        // echo $extras_subtotal.'<br>';
+                        // echo $material_subtotal.'<br>';
+                        $total = $labor_total + $extras_total + $material_total;
+                        // echo $total;
+                        ?>
+
+                    @endif {{-- END if esitmate job type --}}
 
                     @set('truck_services_amount',0)
                     @if($job->is_trucked)
