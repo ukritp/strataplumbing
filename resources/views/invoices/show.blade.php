@@ -153,6 +153,10 @@
 
     <div class="row">
         <div class="col-md-12">
+
+        @if($job->is_estimate)
+
+        @else
             <!-- Pending Invoices foreach -->
             @set('total',0)
             @set('labor_total',0)
@@ -237,6 +241,7 @@
                         @set('other_subtotal', $technician->other_hours*$technician->other_hours_cost)
                         <?php $other_hours_total += $flushing_subtotal+$camera_subtotal+$main_line_auger_subtotal+$other_subtotal?>
                     @endforeach
+
                     @if($other_hours_total!=0)
                     <tr>
                         <td></td>
@@ -297,9 +302,13 @@
                     <p class="total-cost">$ {{number_format($truck_services_amount,2,'.',',')}}</p>
                 </div>
             </div>
-            @endif
+            @endif {{-- END if truck --}}
+
+        @endif {{-- END if is_estimate --}}
         </div>
     </div>
+
+
     <!-- Labor Discount -->
     @set('labor_discount', $job->labor_discount/100)
     @set('labor_deduction',0)
