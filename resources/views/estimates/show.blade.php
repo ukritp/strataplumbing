@@ -39,7 +39,7 @@
                 @forelse($estimate->extras_table as $extra)
                     <tr>
                         <td class="td-description">- {{$extra->extras_description}}</td>
-                        <td class="text-right">{{number_format($extra->extras_cost,2,'.',',')}}</td>
+                        <td class="text-right">{{(!empty($extra->extras_cost))?number_format($extra->extras_cost,2,'.',','):''}}</td>
                     </tr>
                 @empty
                     <tr>

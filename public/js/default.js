@@ -158,7 +158,7 @@ $(document).ready(function () {
         '<div class="col-xs-3"  id="extras-row-'+index+'">' +
             '<fieldset class="form-group">' +
             // '<label for="extras_cost'+index+'">Cost: $</label>'+
-            '<input type="text" id="extras_cost'+index+'[]" name="extras_cost[]" class="form-control" placeholder="Cost" required maxlength="255">'+
+            '<input type="text" id="extras_cost'+index+'[]" name="extras_cost[]" class="form-control" placeholder="Cost" maxlength="255">'+
             '</fieldset>' +
         '</div>'+
         '<div class="col-xs-3"  id="extras-row-'+index+'">' +

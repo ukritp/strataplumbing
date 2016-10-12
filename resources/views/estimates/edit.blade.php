@@ -65,14 +65,12 @@
                 <span class="extras-row-span">
                 <div class="col-xs-6" id="extras-row-{{$index}}">
                     <fieldset class="form-group">
-
                         <input type="text" class="form-control" required="" id="extras_description{{$index}}" maxlength="255" name="extras_description[]"  value="{{$extra->extras_description}}">
                     </fieldset>
                 </div>
                 <div class="col-xs-3" id="extras-row-{{$index}}">
                     <fieldset class="form-group">
-
-                        <input type="text" class="form-control" required="" id="extras_cost{{$index}}" data-parsley-type="{{$cost_validation_pattern}}" maxlength="255" name="extras_cost[]" value="{{$extra->extras_cost}}">
+                        <input type="text" class="form-control" id="extras_cost{{$index}}" data-parsley-type="{{$cost_validation_pattern}}" maxlength="255" name="extras_cost[]" value="{{$extra->extras_cost}}">
                     </fieldset>
                 </div>
                 <div class="col-xs-3" id="extras-row-{{$index}}">

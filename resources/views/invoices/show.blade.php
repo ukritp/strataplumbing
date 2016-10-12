@@ -49,6 +49,8 @@
                 @elseif($job->approval_status == 'approved')
                         <p class="lead"><strong>Approval Status:</strong> Approved</p>
                 @endif
+                @set('job_type', ($job->is_estimate)? 'estimate' : 'regular')
+                <p class="lead job-type type-{{$job_type}}"><strong>Job Type: {{$job_type}}</strong></p>
                 <p class="lead paragraph-wrap"><strong>Scope Of Works:</strong><br>{{$job->scope_of_works}}</p>
                 <p class="lead lead-status"><strong>Status:</strong> <span>{{($job->status) ? 'Completed' : 'Pending'}}</span></p>
 
@@ -63,81 +65,87 @@
         {!! Form::open(array('route' => 'invoices.store', 'data-parsley-validate'=>'')) !!}
 
         <div class="col-md-3">
-        @if($job->status)
-            <p class="lead"><strong>Date Issued:</strong> {{date('M j, Y', strtotime($job->invoiced_at))}}</p>
-            {!! Html::linkRoute('invoices.create', 'See Final Invoice', array($job->id), array('class'=>'btn btn-lg btn-success btn-block', 'target'=>'_blank') ) !!}
-        @else
-            @if( count($job->pendinginvoices)==count($job->techniciansGroupByDateCount) )
-                <fieldset class="form-group required">
-                {{ Form::label('invoiced_at', 'Date: (YYYY-MM-DD)', array('class'=>'control-label'))  }}
-                {{ Form::text('invoiced_at',Carbon::now()->toDateString(), array('class' => 'form-control', 'required'=>'',  'maxlength'=>'255'))}}
-                </fieldset>
+            @if($job->status)
+                <p class="lead"><strong>Date Issued:</strong> {{date('M j, Y', strtotime($job->invoiced_at))}}</p>
+                {!! Html::linkRoute('invoices.create', 'See Final Invoice', array($job->id), array('class'=>'btn btn-lg btn-success btn-block', 'target'=>'_blank') ) !!}
+                <div class="row">
+                    <div class="col-sm-12">
+                        {!! Html::linkRoute('invoices.edit', 'Edit Invoice', array($job->id), array('class'=>'btn btn-primary btn-lg btn-block btn-margin') ) !!}
+                    </div>
+                </div>
+            @else
+                @if( (count($job->pendinginvoices)==count($job->techniciansGroupByDateCount)) || ($job->is_estimate) )
 
-                <fieldset class="form-group required">
-                {{ Form::label('labor_discount', 'Labor Discount: % ', array('class'=>'control-label'))  }}
-                {{ Form::text('labor_discount',0, array(
-                                'class' => 'form-control',
-                                'required'=>'',
-                                'maxlength'=>'255',
-                                'data-parsley-pattern' =>'\d+(\.\d{1,2})?'
-                            ))}}
-                </fieldset>
+                    @if(!$job->is_estimate)
+                    <fieldset class="form-group required">
+                    {{ Form::label('invoiced_at', 'Date: (YYYY-MM-DD)', array('class'=>'control-label'))  }}
+                    {{ Form::text('invoiced_at',Carbon::now()->toDateString(), array('class' => 'form-control', 'required'=>'',  'maxlength'=>'255'))}}
+                    </fieldset>
+                    @endif
 
-                <fieldset class="form-group required">
-                {{ Form::label('material_discount', 'Material Discount: % ', array('class'=>'control-label'))  }}
-                {{ Form::text('material_discount',0, array(
-                                'class' => 'form-control',
-                                'required'=>'',
-                                'maxlength'=>'255',
-                                'data-parsley-pattern' =>'\d+(\.\d{1,2})?'
-                            ))}}
-                </fieldset>
+                    <fieldset class="form-group required">
+                    {{ Form::label('labor_discount', 'Labor Discount: % ', array('class'=>'control-label'))  }}
+                    {{ Form::text('labor_discount',0, array(
+                                    'class' => 'form-control',
+                                    'required'=>'',
+                                    'maxlength'=>'255',
+                                    'data-parsley-pattern' =>'\d+(\.\d{1,2})?'
+                                ))}}
+                    </fieldset>
 
-                <fieldset class="form-group">
-                {{ Form::label('price_adjustment_title', 'Price Adjustment Title: ')  }}
-                {{ Form::text('price_adjustment_title',null, array(
-                                'class'     => 'form-control',
-                                'maxlength' => '255'
-                            ))}}
-                </fieldset>
+                    <fieldset class="form-group required">
+                    {{ Form::label('material_discount', 'Material Discount: % ', array('class'=>'control-label'))  }}
+                    {{ Form::text('material_discount',0, array(
+                                    'class' => 'form-control',
+                                    'required'=>'',
+                                    'maxlength'=>'255',
+                                    'data-parsley-pattern' =>'\d+(\.\d{1,2})?'
+                                ))}}
+                    </fieldset>
 
-                <fieldset class="form-group">
-                {{ Form::label('price_adjustment_amount', 'Price Adjustment Amount: $ ')  }}
-                {{ Form::text('price_adjustment_amount',0, array(
-                    'class'                => 'form-control',
-                    'data-parsley-pattern' =>'\d+(\.\d{1,2})?'
-                ))}}
-                </fieldset>
+                    <fieldset class="form-group">
+                    {{ Form::label('price_adjustment_title', 'Price Adjustment Title: ')  }}
+                    {{ Form::text('price_adjustment_title',null, array(
+                                    'class'     => 'form-control',
+                                    'maxlength' => '255'
+                                ))}}
+                    </fieldset>
 
-                <fieldset class="form-group">
-                {{ Form::label('is_trucked', 'Truck Services?  ')  }}
-                {{ Form::checkbox('is_trucked_chbx',1,false, array('id'=>'is_trucked_chbx'))}}
-                {{ Form::hidden('is_trucked', '0') }}
-                {{ Form::text('truck_services_amount',null, array(
-                    'class'                => 'form-control',
-                    'disabled'             => 'disabled',
-                    'id'                   => 'truck_services_amount',
-                    'placeholder'          => 'Truck Services Amount...',
-                    'data-parsley-pattern' =>'\d+(\.\d{1,2})?',
-                    'maxlength'            => '255'
-                ))}}
-                </fieldset>
+                    <fieldset class="form-group">
+                    {{ Form::label('price_adjustment_amount', 'Price Adjustment Amount: $ ')  }}
+                    {{ Form::text('price_adjustment_amount',0, array(
+                        'class'                => 'form-control',
+                        'data-parsley-pattern' =>'\d+(\.\d{1,2})?'
+                    ))}}
+                    </fieldset>
 
-                {{ Form::hidden('job_id', $job->id) }}
-                {{ Form::submit('Finalize Invoice', array('class' => 'btn btn-success btn-lg btn-block btn-margin'))}}
+                    <fieldset class="form-group">
+                    {{ Form::label('is_trucked', 'Truck Services?  ')  }}
+                    {{ Form::checkbox('is_trucked_chbx',1,false, array('id'=>'is_trucked_chbx'))}}
+                    {{ Form::hidden('is_trucked', '0') }}
+                    {{ Form::text('truck_services_amount',null, array(
+                        'class'                => 'form-control',
+                        'disabled'             => 'disabled',
+                        'id'                   => 'truck_services_amount',
+                        'placeholder'          => 'Truck Services Amount...',
+                        'data-parsley-pattern' =>'\d+(\.\d{1,2})?',
+                        'maxlength'            => '255'
+                    ))}}
+                    </fieldset>
+
+                    {{ Form::hidden('job_id', $job->id) }}
+                    {{ Form::submit('Finalize Invoice', array('class' => 'btn btn-success btn-lg btn-block btn-margin'))}}
+                @endif
             @endif
-        @endif
-            <div class="row">
-                <div class="col-sm-12">
-                    {!! Html::linkRoute('invoices.edit', 'Edit Invoice', array($job->id), array('class'=>'btn btn-primary btn-lg btn-block btn-margin') ) !!}
+
+            @if(!$job->is_estimate)
+                @if($job->approval_status != 'approved')
+                <div class="row">
+                    <div class="col-sm-12">
+                        <a href="{{url('/invoices/approval/' . $job->id)}}" class="btn btn-warning btn-lg btn-block btn-margin">Send for approval</a>
+                    </div>
                 </div>
-            </div>
-            @if($job->approval_status != 'approved')
-            <div class="row">
-                <div class="col-sm-12">
-                    <a href="{{url('/invoices/approval/' . $job->id)}}" class="btn btn-warning btn-lg btn-block btn-margin">Send for approval</a>
-                </div>
-            </div>
+                @endif
             @endif
             <div class="row">
                 <div class="col-sm-12">
@@ -154,141 +162,222 @@
     <div class="row">
         <div class="col-md-12">
 
-        @if($job->is_estimate)
-
-        @else
             <!-- Pending Invoices foreach -->
             @set('total',0)
             @set('labor_total',0)
             @set('material_total',0)
-            @foreach ($job->pendinginvoices as $index => $pendinginvoice)
 
-            <table class="table table-invoice">
+            @if(!$job->is_estimate)
 
-                <thead>
-                    <th>Date</th>
-                    <th>Details</th>
-                    <th class="text-right">Amount</th>
-                </thead>
+                @foreach ($job->pendinginvoices as $index => $pendinginvoice)
 
-                <tbody>
-                    <tr>
-                        <td style="width:10%;">
-                        <b>{{date('M j, Y', mktime(0, 0, 0,$pendinginvoice->month, $pendinginvoice->date, $pendinginvoice->year))}}</b>
-                        {!! Html::linkRoute('pendinginvoices.edit', 'Edit', array($pendinginvoice->id), array('class'=>'btn btn-xs btn-info btn-block btn-margin') ) !!}
-                        </td>
-                        <td style="white-space: pre-line; width:80%;">{{$pendinginvoice->description}}</td>
-                        <td style="width:10%;"></td>
-                    </tr>
+                <table class="table table-invoice">
 
-                    <!-- Labor Description Section  ================================================ -->
-                    <tr>
-                        <td></td>
-                        <td><b>
-                        @if(!empty($pendinginvoice->labor_description))
-                            {{$pendinginvoice->labor_description}}
-                        @else
-                            {{count($pendinginvoice->technicians)}} Man with equipment
+                    <thead>
+                        <th>Date</th>
+                        <th>Details</th>
+                        <th class="text-right">Amount</th>
+                    </thead>
+
+                    <tbody>
+
+                    @if(!$job->is_estimate)
+                        <tr>
+                            <td style="width:10%;">
+                            <b>{{date('M j, Y', mktime(0, 0, 0,$pendinginvoice->month, $pendinginvoice->date, $pendinginvoice->year))}}</b>
+                            {!! Html::linkRoute('pendinginvoices.edit', 'Edit', array($pendinginvoice->id), array('class'=>'btn btn-xs btn-info btn-block btn-margin') ) !!}
+                            </td>
+                            <td style="white-space: pre-line; width:80%;">{{$pendinginvoice->description}}</td>
+                            <td style="width:10%;"></td>
+                        </tr>
+                    @endif
+                        <!-- Labor Description Section  ================================================ -->
+                        <tr>
+                            <td></td>
+                            <td><b>
+                            @if(!empty($pendinginvoice->labor_description))
+                                {{$pendinginvoice->labor_description}}
+                            @else
+                                {{count($pendinginvoice->technicians)}} Man with equipment
+                            @endif
+                            </b></td>
+                            <td></td>
+                        </tr>
+
+                        <!-- Labor Cost Section Section  ================================================ -->
+                        @set('first_half_hour',0)
+                        @set('first_one_hour',0)
+                        @set('labor_hours', $pendinginvoice->total_hours)
+                        @if($pendinginvoice->first_half_hour)
+                            @set('first_half_hour',95)
+                            @set('labor_hours', $pendinginvoice->total_hours-0.5)
                         @endif
-                        </b></td>
-                        <td></td>
-                    </tr>
+                        @if($pendinginvoice->first_one_hour)
+                            @set('first_one_hour',180)
+                            @set('labor_hours', $pendinginvoice->total_hours-1)
+                        @endif
 
-                    <!-- Labor Cost Section Section  ================================================ -->
-                    @set('first_half_hour',0)
-                    @set('first_one_hour',0)
-                    @set('labor_hours', $pendinginvoice->total_hours)
-                    @if($pendinginvoice->first_half_hour)
-                        @set('first_half_hour',95)
-                        @set('labor_hours', $pendinginvoice->total_hours-0.5)
-                    @endif
-                    @if($pendinginvoice->first_one_hour)
-                        @set('first_one_hour',180)
-                        @set('labor_hours', $pendinginvoice->total_hours-1)
-                    @endif
-
-                    @set('man_hour_total', $labor_hours*$pendinginvoice->hourly_rates )
-                    @set('hour_name', 'Total')
-                    @if($pendinginvoice->first_half_hour)
-                        @set('hour_name', 'Additional')
-                        <tr>
-                            <td></td>
-                            <td  style="text-indent: 20px;">First 1/2 hour</td>
-                            <td class="text-right">$ {{number_format($first_half_hour,2,'.',',')}}</td>
-                        </tr>
-                    @endif
-                    @if($pendinginvoice->first_one_hour)
-                        @set('hour_name', 'Additional')
-                        <tr>
-                            <td></td>
-                            <td style="text-indent: 20px;">First 1 hour</td>
-                            <td class="text-right">$ {{number_format($first_one_hour,2,'.',',')}}</td>
-                        </tr>
-                    @endif
-                    <tr>
-                        <td></td>
-                        <td style="text-indent: 20px;">{{$hour_name}} hours = {{$labor_hours}} @ {{number_format($pendinginvoice->hourly_rates,2,'.',',')}} /hr </td>
-                        <td class="text-right">$ {{number_format($man_hour_total,2,'.',',')}}</td>
-                    </tr>
-
-
-                    <!-- Other Hours Section  ================================================ -->
-                    @set('other_hours_total',0)
-                    @foreach($pendinginvoice->technicians as $technician)
-                        @set('flushing_subtotal', $technician->flushing_hours*$technician->flushing_hours_cost)
-                        @set('camera_subtotal', $technician->camera_hours*$technician->camera_hours_cost)
-                        @set('main_line_auger_subtotal', $technician->main_line_auger_hours*$technician->main_line_auger_hours_cost)
-                        @set('other_subtotal', $technician->other_hours*$technician->other_hours_cost)
-                        <?php $other_hours_total += $flushing_subtotal+$camera_subtotal+$main_line_auger_subtotal+$other_subtotal?>
-                    @endforeach
-
-                    @if($other_hours_total!=0)
-                    <tr>
-                        <td></td>
-                        <td style="text-indent: 20px;">Other hours (flushing, camera, main line auger, etc)</td>
-                        <td class="text-right">$ {{number_format($other_hours_total,2,'.',',')}}</td>
-                    </tr>
-                    @endif
-
-
-                    <!-- Material Section ================================================-->
-                    @set('material_subtotal',0)
-                    @foreach($pendinginvoice->technicians as $index => $technician)
-                        @if(count($technician->materials)>0 && $index==0)
+                        @set('man_hour_total', $labor_hours*$pendinginvoice->hourly_rates )
+                        @set('hour_name', 'Total')
+                        @if($pendinginvoice->first_half_hour)
+                            @set('hour_name', 'Additional')
                             <tr>
                                 <td></td>
-                                <td><b>Materials List</b></td>
-                                <td></td>
+                                <td  style="text-indent: 20px;">First 1/2 hour</td>
+                                <td class="text-right">$ {{number_format($first_half_hour,2,'.',',')}}</td>
                             </tr>
                         @endif
-                        @foreach($technician->materials as $material)
+                        @if($pendinginvoice->first_one_hour)
+                            @set('hour_name', 'Additional')
+                            <tr>
+                                <td></td>
+                                <td style="text-indent: 20px;">First 1 hour</td>
+                                <td class="text-right">$ {{number_format($first_one_hour,2,'.',',')}}</td>
+                            </tr>
+                        @endif
                         <tr>
                             <td></td>
-                            <td style="text-indent: 20px;">{{$material->material_quantity.' - '.$material->material_name}}</td>
-                            <td class="text-right">$ {{number_format($material->material_quantity*$material->material_cost,2,'.',',')}}</td>
+                            <td style="text-indent: 20px;">{{$hour_name}} hours = {{$labor_hours}} @ {{number_format($pendinginvoice->hourly_rates,2,'.',',')}} /hr </td>
+                            <td class="text-right">$ {{number_format($man_hour_total,2,'.',',')}}</td>
                         </tr>
-                        <?php $material_subtotal += $material->material_quantity*$material->material_cost?>
+
+
+                        <!-- Other Hours Section  ================================================ -->
+                        @set('other_hours_total',0)
+                        @foreach($pendinginvoice->technicians as $technician)
+                            @set('flushing_subtotal', $technician->flushing_hours*$technician->flushing_hours_cost)
+                            @set('camera_subtotal', $technician->camera_hours*$technician->camera_hours_cost)
+                            @set('main_line_auger_subtotal', $technician->main_line_auger_hours*$technician->main_line_auger_hours_cost)
+                            @set('other_subtotal', $technician->other_hours*$technician->other_hours_cost)
+                            <?php $other_hours_total += $flushing_subtotal+$camera_subtotal+$main_line_auger_subtotal+$other_subtotal;?>
                         @endforeach
 
-                    @endforeach <!-- END Materials foreach -->
+                        @if($other_hours_total!=0)
+                        <tr>
+                            <td></td>
+                            <td style="text-indent: 20px;">Other hours (flushing, camera, main line auger, etc)</td>
+                            <td class="text-right">$ {{number_format($other_hours_total,2,'.',',')}}</td>
+                        </tr>
+                        @endif
 
-                </tbody>
-            </table>
-            @set('subtotal', $first_half_hour+$man_hour_total+$other_hours_total+$material_subtotal)
-            <?php
-            $material_total += $material_subtotal;
-            $labor_total += $first_half_hour+$man_hour_total;
-            $total += $subtotal;
-            ?>
-            {{-- <div class="row invoice-subtotal">
-                <div class="col-md-10">
-                    <p class="text-right"><strong>SUB-TOTAL</strong></p>
-                </div>
-                <div class="col-md-2">
-                    <p class="total-cost">$ {{number_format($subtotal,2,'.',',')}}</p>
-                </div>
-            </div> --}}
-            @endforeach <!-- END Pending Invoice foreach -->
+
+                        <!-- Material Section ================================================-->
+                        @set('material_subtotal',0)
+                        @foreach($pendinginvoice->technicians as $index => $technician)
+                            @if(count($technician->materials)>0 && $index==0)
+                                <tr>
+                                    <td></td>
+                                    <td><b>Materials List</b></td>
+                                    <td></td>
+                                </tr>
+                            @endif
+                            @foreach($technician->materials as $material)
+                            <tr>
+                                <td></td>
+                                <td style="text-indent: 20px;">{{$material->material_quantity.' - '.$material->material_name}}</td>
+                                <td class="text-right">$ {{number_format($material->material_quantity*$material->material_cost,2,'.',',')}}</td>
+                            </tr>
+                            <?php $material_subtotal += $material->material_quantity*$material->material_cost;?>
+                            @endforeach
+
+                        @endforeach <!-- END Materials foreach -->
+
+                    </tbody>
+                </table>
+                @set('subtotal', $first_half_hour+$man_hour_total+$other_hours_total+$material_subtotal)
+                <?php
+                $material_total += $material_subtotal;
+                $labor_total += $first_half_hour+$man_hour_total;
+                $total += $subtotal;
+                ?>
+                {{-- <div class="row invoice-subtotal">
+                    <div class="col-md-10">
+                        <p class="text-right"><strong>SUB-TOTAL</strong></p>
+                    </div>
+                    <div class="col-md-2">
+                        <p class="total-cost">$ {{number_format($subtotal,2,'.',',')}}</p>
+                    </div>
+                </div> --}}
+                @endforeach <!-- END Pending Invoice foreach -->
+
+            {{-- if esitmate job type --}}
+            @else
+
+                <table class="table table-invoice">
+                    <thead>
+                        <th>Date</th>
+                        <th>Details</th>
+                        <th class="text-right">Amount</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="width:10%;">
+                            <b>
+                            {{date('M j', strtotime($job->estimates->first()->invoiced_from))}}
+                            -
+                            {{date('M j', strtotime($job->estimates->first()->invoiced_to))}}
+                            </b>
+                            {!! Html::linkRoute('estimates.edit', 'Edit', array($job->estimates->first()->id), array('class'=>'btn btn-xs btn-info btn-block btn-margin') ) !!}
+                            </td>
+                            <td style="white-space: pre-line; width:80%;">{{$job->estimates->first()->description}}</td>
+                            @set('labor_total',$job->estimates->first()->cost)
+                            <td class="text-right" style="width:10%;">$ {{number_format($job->estimates->first()->cost,2,'.',',')}}</td>
+                        </tr>
+
+                        <!-- Extra's Section  ================================================ -->
+                        <tr>
+                            <td></td>
+                            <td><b>Extra's</b></td>
+                            <td></td>
+                        </tr>
+                        @set('extras_total',0)
+                        @forelse($job->estimates->first()->extras_table as $extra)
+                            <tr>
+                                <td></td>
+                                <td style="white-space: pre-line; width:80%;">- {{$extra->extras_description}}</td>
+                                <td class="text-right" style="width:10%;">
+                                    {{(!empty($extra->extras_cost))? '$ '.number_format($extra->extras_cost,2,'.',','):''}}
+                                </td>
+                            </tr>
+                            <?php
+                            $extras_total += $extra->extras_cost;
+                            ?>
+                        @empty
+                        @endforelse
+
+                        <!-- Material Section  ================================================ -->
+                        <tr>
+                            <td></td>
+                            <td><b>Materials</b></td>
+                            <td></td>
+                        </tr>
+                        @set('material_total',0)
+                        @foreach($job->technicians as $technician)
+                            @forelse($technician->materials as $material)
+                            <tr>
+                                <td></td>
+                                <td>{{$material->material_quantity.' x '.$material->material_name}}</td>
+                                @set('total', number_format($material->material_quantity*$material->material_cost,2,'.',','))
+                                <td class="text-right" style="width:10%;"> {{($total < 0)? '$ ('.$total.')' : '$ '.$total }}</td>
+                            </tr>
+                            <?php
+                            $material_total += $material->material_quantity*$material->material_cost;;
+                            ?>
+                            @empty
+                            @endforelse
+                        @endforeach
+                    </tbody>
+                </table>
+                <?php
+                // echo $estimate_subtotal.'<br>';
+                // echo $extras_subtotal.'<br>';
+                // echo $material_subtotal.'<br>';
+                $total = $labor_total + $extras_total + $material_total;
+                // echo $total;
+                ?>
+
+            @endif {{-- END if esitmate job type --}}
+
             @set('truck_services_amount',0)
             @if($job->is_trucked)
                 @set('truck_services_amount',$job->truck_services_amount)
@@ -304,7 +393,6 @@
             </div>
             @endif {{-- END if truck --}}
 
-        @endif {{-- END if is_estimate --}}
         </div>
     </div>
 

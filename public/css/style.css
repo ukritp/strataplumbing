@@ -60,6 +60,9 @@ h1.page_title{
 .search-bar  ul.parsley-errors-list{
 	display:none;
 }
+#extras-add  ul.parsley-errors-list{
+    display:none;
+}
 .search-bar  .search-buttom{
 	margin-left:20px;
 }
