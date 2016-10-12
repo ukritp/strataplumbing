@@ -28,7 +28,6 @@
             <ul class="dropdown-menu">
               <li><a href="{{url('/invoices/approved/all')}}">All Approved</a></li>
               <li><a href="{{url('/invoices/declined/all')}}">All Declined</a></li>
-              <li><a href="">All Approved / Decline Invoices</a></li>
               <li role="separator" class="divider"></li>
               <li><a href="{{url('/invoices/pending/all')}}">All Pending Invoices</a></li>
               <li><a href="{{url('/invoices/pending/PC')}}">Pending Approval - Peter Campa</a></li>
