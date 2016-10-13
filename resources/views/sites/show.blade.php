@@ -17,23 +17,9 @@
             <p class="lead"><strong>Relationship:</strong> {{$site->relationship}}</p>
             @if(!empty($site->additional_contact)) <p class="lead"><strong>Additional Contact:</strong> {{$site->additional_contact}}</p> @endif
             <hr>
-            <p class="lead"><strong>Address:</strong> {{
-                ucwords(strtolower($site->mailing_address)).', '.
-                ucwords(strtolower($site->mailing_city)).', '.
-                strtoupper($site->mailing_province).' '.
-                strtoupper($site->mailing_postalcode)
-            }}
-            </p>
+            <p class="lead"><b>Address:</b> {{$site->fullMailingAddress()}}</p>
             @if(!empty($site->buzzer_code)) <p class="lead"><strong>Buzzer Code:</strong> {{$site->buzzer_code}}</p> @endif
-            <p class="lead"><strong>Billing Address:</strong>
-            @if($site->billing_address) {{
-                ucwords(strtolower($site->billing_address)).', '.
-                ucwords(strtolower($site->billing_city)).', '.
-                strtoupper($site->billing_province).' '.
-                strtoupper($site->billing_postalcode)
-            }}
-            @endif
-            </p>
+            <p class="lead"><b>Billing Address:</b> {{$site->fullBillingAddress()}}</p>
             <div class="row">
                 <div class="col-md-6">
                     <p class="lead"><strong>Home:</strong>
