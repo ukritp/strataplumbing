@@ -14,26 +14,18 @@
         <div class="col-md-8">
 
             <h2>{{$site->first_name.' '.$site->last_name}}</h2>
-            <p class="lead">Relationship: {{$site->relationship}}</p>
-            @if(!empty($site->additional_contact)) <p class="lead">Additional Contact: {{$site->additional_contact}}</p> @endif
+            <p class="lead"><strong>Relationship:</strong> {{$site->relationship}}</p>
+            @if(!empty($site->additional_contact)) <p class="lead"><strong>Additional Contact:</strong> {{$site->additional_contact}}</p> @endif
             <hr>
-            @if(!empty($site->home_number)) <p class="lead">Home: {{$site->home_number}}</p> @endif
-            @if(!empty($site->cell_number)) <p class="lead">Cell: {{$site->cell_number}}</p> @endif
-            @if(!empty($site->work_number)) <p class="lead">Work: {{$site->work_number}}</p> @endif
-            @if(!empty($site->fax_number))  <p class="lead">Fax:  {{$site->fax_number}}</p>  @endif
-
-            <p class="lead">Email: {{$site->email}}</p>
-            @if(!empty($site->alternate_emai)) <p class="lead">Alternate Email: {{$site->alternate_email}}</p> @endif
-
-            <p class="lead">Address: {{
+            <p class="lead"><strong>Address:</strong> {{
                 ucwords(strtolower($site->mailing_address)).', '.
                 ucwords(strtolower($site->mailing_city)).', '.
                 strtoupper($site->mailing_province).' '.
                 strtoupper($site->mailing_postalcode)
             }}
             </p>
-            @if(!empty($site->buzzer_code)) <p class="lead">Buzzer Code: {{$site->buzzer_code}}</p> @endif
-            <p class="lead">Billing Address:
+            @if(!empty($site->buzzer_code)) <p class="lead"><strong>Buzzer Code:</strong> {{$site->buzzer_code}}</p> @endif
+            <p class="lead"><strong>Billing Address:</strong>
             @if($site->billing_address) {{
                 ucwords(strtolower($site->billing_address)).', '.
                 ucwords(strtolower($site->billing_city)).', '.
@@ -42,10 +34,34 @@
             }}
             @endif
             </p>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="lead"><strong>Home:</strong>
+                    {{(!empty($site->home_number))?$site->home_number:'-'}}
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p class="lead"><strong>Cell:</strong>
+                    {{(!empty($site->cell_number))?$site->cell_number:'-'}}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="lead"><strong>Work:</strong>
+                    {{(!empty($site->work_number))?$site->work_number:'-'}}
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p class="lead"><strong>Fax:</strong>
+                    {{(!empty($site->fax_number))?$site->fax_number:'-'}}
+                    </p>
+                </div>
+            </div>
 
-
-            @if(!empty($site->property_note)) <p class="lead paragraph-wrap">Property Note:<br>{{$site->property_note}}</p> @endif
-
+            <p class="lead"><strong>Email:</strong> {{$site->email}}</p>
+            @if(!empty($site->alternate_emai)) <p class="lead">Alternate Email: {{$site->alternate_email}}</p> @endif
+            @if(!empty($site->property_note)) <p class="lead paragraph-wrap"><strong>Property Note:</strong><br>{{$site->property_note}}</p> @endif
         </div>
 
 

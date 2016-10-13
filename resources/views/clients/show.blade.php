@@ -16,31 +16,39 @@
             @if(!empty($client->company_name)) <h2>Company: {{$client->company_name}}</h1> @endif
             @if(!empty($client->strata_plan_number)) <h2>Strata Plan #: {{$client->strata_plan_number}}</h1> @endif
             <h2>Name: {{$client->first_name.' '.$client->last_name}}</h2>
-            <p class="lead" class="lead">Title: {{$client->title}}</p>
+            <p class="lead" class="lead"><strong>Title:</strong> {{$client->title}}</p>
             <hr>
-            @if(!empty($client->home_number)) <p class="lead"><b>Home:</b> {{$client->home_number}}</p> @endif
-            @if(!empty($client->cell_number)) <p class="lead"><b>Cell:</b> {{$client->cell_number}}</p> @endif
-            @if(!empty($client->work_number)) <p class="lead"><b>Work:</b> {{$client->work_number}}</p> @endif
-            @if(!empty($client->fax_number))  <p class="lead"><b>Fax:</b>  {{$client->fax_number}}</p>  @endif
+            <p class="lead"><b>Address:</b> {{$client->fullMailingAddress()}}</p>
+            @if(!empty($client->buzzer_code)) <p class="lead"><b>Buzzer Code:</b> {{$client->buzzer_code}}</p> @endif
+            <p class="lead"><b>Billing Address:</b> {{$client->fullBillingAddress()}}</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="lead"><strong>Home:</strong>
+                    {{(!empty($client->home_number))?$client->formatPhone($client->home_number):'-'}}
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p class="lead"><strong>Cell:</strong>
+                    {{(!empty($client->cell_number))?$client->formatPhone($client->cell_number):'-'}}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="lead"><strong>Work:</strong>
+                    {{(!empty($client->work_number))?$client->formatPhone($client->work_number):'-'}}
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p class="lead"><strong>Fax:</strong>
+                    {{(!empty($client->fax_number))?$client->formatPhone($client->fax_number):'-'}}
+                    </p>
+                </div>
+            </div>
+
             <p class="lead"><b>Email:</b> {{$client->email}}</p>
             @if(!empty($client->alternate_emai)) <p class="lead"><b>Alternate Email:</b> {{$client->alternate_email}}</p> @endif
-            <p class="lead"><b>Address:</b> {{
-                ucwords(strtolower($client->mailing_address)).', '.
-                ucwords(strtolower($client->mailing_city)).', '.
-                strtoupper($client->mailing_province).' '.
-                strtoupper($client->mailing_postalcode)
-            }}
-            </p>
-            @if(!empty($client->buzzer_code)) <p class="lead"><b>Buzzer Code:</b> {{$client->buzzer_code}}</p> @endif
-            <p class="lead"><b>Billing Address:</b>
-            @if(!empty($client->billing_address)) {{
-                ucwords(strtolower($client->billing_address)).', '.
-                ucwords(strtolower($client->billing_city)).', '.
-                strtoupper($client->billing_province).' '.
-                strtoupper($client->billing_postalcode)
-            }}
-            @endif
-            </p>
+
             @if(!empty($client->quoted_rates)) <p class="lead"><b>Quoted Rates:</b> {{$client->quoted_rates}}</p> @endif
             @if(!empty($client->property_note)) <p class="lead paragraph-wrap"><b>Property Note:</b><br>{{$client->property_note}}</p> @endif
 
@@ -124,9 +132,20 @@
 
                             <td data-label="Cellphone">{{(!empty($site->cell_number))?$site->cell_number:'-'}}</td>
                             <td data-label="Action" class="text-right">
-                            {!! Html::linkRoute('sites.show', 'View', array($site->id), array('class'=>'btn btn-default btn-sm') ) !!}
-                            {!! Html::linkRoute('sites.edit', 'Edit', array($site->id), array('class'=>'btn btn-default btn-sm') ) !!}
-                            {!! Html::linkRoute('jobs.create', 'Create Job from this Site', array($site->id,'site'), array('class'=>'btn btn-default btn-sm') ) !!}</td>
+                            <div class="btn-group">
+                                <button type="button"
+                                    class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-button-right">
+                                    <li>{!! Html::linkRoute('sites.show', 'View', array($site->id), array('class'=>'')) !!}</li>
+                                    <li>{!! Html::linkRoute('sites.edit', 'Edit', array($site->id), array('class'=>'')) !!}</li>
+                                    <li>{!! Html::linkRoute('jobs.create', 'Create Job from this Site', array($site->id,'site'), array('class'=>'')) !!}
+                                    </li>
+                                </ul>
+                            </div>
+                            </td>
                         </tr>
 
                     @endforeach

@@ -82,7 +82,92 @@ class Client extends Model
         'property_note',
     ];
 
+    /* ==========================================|| SET ATTRIBUTE ||==========================================*/
+    /**
+     * Always capitalize the first name when we save it to the database
+     */
+    public function setFirstNameAttribute($value) {
+        $this->attributes['first_name'] = ucfirst($value);
+    }
 
+    /**
+     * Always capitalize the last name when we save it to the database
+     */
+    public function setLastNameAttribute($value) {
+        $this->attributes['last_name'] = ucfirst($value);
+    }
+
+    /**
+     * Always capitalize the the first letter of every word in Address when we save it to the database
+     */
+    public function setAddressAttribute($value) {
+        $this->attributes['address'] = ucwords(strtolower($value));
+    }
+
+    /**
+     * Always capitalize the the first letter of every word in City when we save it to the database
+     */
+    public function setCityAttribute($value) {
+        $this->attributes['city'] = ucwords(strtolower($value));
+    }
+
+    /**
+     * Always capitalize all letter in Province when we save it to the database
+     */
+    public function setProvinceAttribute($value) {
+        $this->attributes['province'] = strtoupper($value);
+    }
+
+    /**
+     * Always capitalize all letter in Postalcode when we save it to the database
+     */
+    public function setPostalcodeAttribute($value) {
+        $this->attributes['postalcode'] = strtoupper($value);
+    }
+
+
+    /* ==========================================|| GET ATTRIBUTE ||==========================================*/
+    /**
+     * Always put ',' after Address if not empty
+     */
+    public function getAddressAttribute($value) {
+        if(!empty($value)){
+            return $value.'  ';
+        }else{
+            return $value;
+        }
+    }
+
+    /**
+     * Always put ',' after City if not empty
+     */
+    public function getCityAttribute($value) {
+        if(!empty($value)){
+            return $value.'  ';
+        }else{
+            return $value;
+        }
+    }
+
+    /**
+     * Always put space after Province if not empty
+     */
+    public function getProvinceAttribute($value) {
+        if(!empty($value)){
+            return $value.'  ';
+        }else{
+            return $value;
+        }
+    }
+
+    /**
+     * Always capitalize all letter in Postalcode when we save it to the database
+     */
+    public function getPostalcodeAttribute($value) {
+        return strtoupper($value);
+    }
+
+    /* ==========================================|| MODEL RELATIONSHIPS ||==========================================*/
     /**
      * Get the sites for the client.
      */
@@ -95,6 +180,54 @@ class Client extends Model
     {
         return $this->hasMany('App\Job');
     }
+
+
+    /* ==========================================|| OTHERS ||==========================================*/
+
+    // get full address
+    public function fullMailingAddress()
+    {
+        $full_address = '';
+        if(!empty($this->mailing_address)){
+            $full_address .= $this->mailing_address.', ';
+        }
+        if(!empty($this->mailing_city)){
+            $full_address .= $this->mailing_city.', ';
+        }
+        if(!empty($this->mailing_province)){
+            $full_address .= $this->mailing_province.' ';
+        }
+        $full_address .= strtoupper($this->mailing_postalcode);
+        return $full_address;
+    }
+
+    // get full address
+    public function fullBillingAddress()
+    {
+        $full_address = '';
+        if(!empty($this->billing_address)){
+            $full_address .= $this->billing_address.', ';
+        }
+        if(!empty($this->billing_city)){
+            $full_address .= $this->billing_city.', ';
+        }
+        if(!empty($this->billing_province)){
+            $full_address .= $this->billing_province.' ';
+        }
+        $full_address .= strtoupper($this->billing_postalcode);
+        return $full_address;
+    }
+
+    // format phone number
+    public function formatPhone($phone_number) {
+        $formatted_value = preg_replace('~.*(\d{3})[^\d]{0,7}(\d{3})[^\d]{0,7}(\d{4}).*~', '($1) $2-$3', $phone_number). "\n";
+        if(!empty($formatted_value)){
+            return $formatted_value;
+        }else{
+            return '-';
+        }
+    }
+
 
     public function clientSearchByKeyword($keyword)
     {
