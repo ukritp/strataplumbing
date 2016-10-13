@@ -157,15 +157,16 @@
                     <input type="checkbox" name="mail_to_bill_checkbox" id="mail_to_bill_checkbox" value="1" tabindex="17"> Same as Address
                     </label>
                 </div>
-                <div class="row" id="billing-address-row">
+
+                <div class="row">
                     <div class="col-md-6">
                         <fieldset class="form-group">
                         {{ Form::label('billing_address', 'Address:')  }}
-                        {{ Form::text('billing_address',null, array('class' => 'form-control','tabindex' => '18', 'maxlength'=>'255'))}}
+                        {{ Form::text('billing_address',null, array('class' => 'form-control','tabindex' => '19', 'maxlength'=>'255'))}}
                         </fieldset>
                         <fieldset class="form-group">
                         {{ Form::label('billing_city', 'City:')  }}
-                        {{ Form::text('billing_city',null, array('class' => 'form-control', 'tabindex' => '19','maxlength'=>'50'))}}
+                        {{ Form::text('billing_city',null, array('class' => 'form-control', 'tabindex' => '20','maxlength'=>'50'))}}
                         </fieldset>
                     </div>
                     <div class="col-md-6">
@@ -183,12 +184,12 @@
                             'PE' => 'Prince Edward Island',
                             'NL' => 'Newfoundland and Labrador'),
                             null,
-                            array('class' => 'form-control','tabindex' => '20')
+                            array('class' => 'form-control','tabindex' => '21')
                         )}}
                         </fieldset>
                         <fieldset class="form-group">
                         {{ Form::label('billing_postalcode', 'Postal Code:')  }}
-                        {{ Form::text('billing_postalcode',null, array('class' => 'form-control', 'tabindex' => '21'))}}
+                        {{ Form::text('billing_postalcode',null, array('class' => 'form-control', 'tabindex' => '22'))}}
                         </fieldset>
                     </div>
                 </div>
@@ -198,19 +199,19 @@
 
                 <fieldset class="form-group">
                 {{ Form::label('quoted_rates', 'Quoted Rates:')  }}
-                {{ Form::text('quoted_rates',null, array('class' => 'form-control','tabindex' => '22', 'maxlength'=>'255' ))}}
+                {{ Form::text('quoted_rates',null, array('class' => 'form-control','tabindex' => '23', 'maxlength'=>'255' ))}}
                 </fieldset>
 
                 <fieldset class="form-group">
 			    {{ Form::label('property_note', 'Propety Note:')  }}
-			    {{ Form::textarea('property_note',null, array('class' => 'form-control','tabindex' => '23'))}}
+			    {{ Form::textarea('property_note',null, array('class' => 'form-control','tabindex' => '24'))}}
                 </fieldset>
 
-			    {{ Form::submit('Create Client', array('class' => 'btn btn-success btn-lg btn-block btn-margin', 'tabindex' => '24'))}}
+			    {{ Form::submit('Create Client', array('class' => 'btn btn-success btn-lg btn-block btn-margin', 'tabindex' => '25'))}}
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <a href="{{url()->previous()}}" class="btn btn-danger btn-lg btn-block btn-margin" tabindex="25">Cancel</a>
+                        <a href="{{url()->previous()}}" class="btn btn-danger btn-lg btn-block btn-margin" tabindex="26">Cancel</a>
                     </div>
                 </div>
 

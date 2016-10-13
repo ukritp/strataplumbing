@@ -100,29 +100,57 @@ class Client extends Model
     /**
      * Always capitalize the the first letter of every word in Address when we save it to the database
      */
-    public function setAddressAttribute($value) {
-        $this->attributes['address'] = ucwords(strtolower($value));
+    public function setMailingAddressAttribute($value) {
+        $this->attributes['mailing_address'] = ucwords(strtolower($value));
     }
 
     /**
      * Always capitalize the the first letter of every word in City when we save it to the database
      */
-    public function setCityAttribute($value) {
-        $this->attributes['city'] = ucwords(strtolower($value));
+    public function setMailingCityAttribute($value) {
+        $this->attributes['mailing_city'] = ucwords(strtolower($value));
     }
 
     /**
      * Always capitalize all letter in Province when we save it to the database
      */
-    public function setProvinceAttribute($value) {
-        $this->attributes['province'] = strtoupper($value);
+    public function setMailingProvinceAttribute($value) {
+        $this->attributes['mailing_province'] = strtoupper($value);
     }
 
     /**
      * Always capitalize all letter in Postalcode when we save it to the database
      */
-    public function setPostalcodeAttribute($value) {
-        $this->attributes['postalcode'] = strtoupper($value);
+    public function setMailingPostalcodeAttribute($value) {
+        $this->attributes['mailing_postalcode'] = strtoupper($value);
+    }
+
+    /**
+     * Always capitalize the the first letter of every word in Address when we save it to the database
+     */
+    public function setBillingAddressAttribute($value) {
+        $this->attributes['billing_address'] = ucwords(strtolower($value));
+    }
+
+    /**
+     * Always capitalize the the first letter of every word in City when we save it to the database
+     */
+    public function setBillingCityAttribute($value) {
+        $this->attributes['billing_city'] = ucwords(strtolower($value));
+    }
+
+    /**
+     * Always capitalize all letter in Province when we save it to the database
+     */
+    public function setBillingProvinceAttribute($value) {
+        $this->attributes['billing_province'] = strtoupper($value);
+    }
+
+    /**
+     * Always capitalize all letter in Postalcode when we save it to the database
+     */
+    public function setBillingPostalcodeAttribute($value) {
+        $this->attributes['billing_postalcode'] = strtoupper($value);
     }
 
 
@@ -130,7 +158,7 @@ class Client extends Model
     /**
      * Always put ',' after Address if not empty
      */
-    public function getAddressAttribute($value) {
+    public function getMailingAddressAttribute($value) {
         if(!empty($value)){
             return $value.'  ';
         }else{
@@ -141,7 +169,7 @@ class Client extends Model
     /**
      * Always put ',' after City if not empty
      */
-    public function getCityAttribute($value) {
+    public function getMailingCityAttribute($value) {
         if(!empty($value)){
             return $value.'  ';
         }else{
@@ -152,7 +180,7 @@ class Client extends Model
     /**
      * Always put space after Province if not empty
      */
-    public function getProvinceAttribute($value) {
+    public function getMailingProvinceAttribute($value) {
         if(!empty($value)){
             return $value.'  ';
         }else{
@@ -163,7 +191,47 @@ class Client extends Model
     /**
      * Always capitalize all letter in Postalcode when we save it to the database
      */
-    public function getPostalcodeAttribute($value) {
+    public function getMailingPostalcodeAttribute($value) {
+        return strtoupper($value);
+    }
+
+    /**
+     * Always put ',' after Address if not empty
+     */
+    public function getBillingAddressAttribute($value) {
+        if(!empty($value)){
+            return $value.'  ';
+        }else{
+            return $value;
+        }
+    }
+
+    /**
+     * Always put ',' after City if not empty
+     */
+    public function getBillingCityAttribute($value) {
+        if(!empty($value)){
+            return $value.'  ';
+        }else{
+            return $value;
+        }
+    }
+
+    /**
+     * Always put space after Province if not empty
+     */
+    public function getBillingProvinceAttribute($value) {
+        if(!empty($value)){
+            return $value.'  ';
+        }else{
+            return $value;
+        }
+    }
+
+    /**
+     * Always capitalize all letter in Postalcode when we save it to the database
+     */
+    public function getBillingPostalcodeAttribute($value) {
         return strtoupper($value);
     }
 
