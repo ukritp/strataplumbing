@@ -23,24 +23,24 @@
             <div class="row">
                 <div class="col-md-6">
                     <p class="lead"><strong>Home:</strong>
-                    {{(!empty($site->home_number))?$site->home_number:'-'}}
+                    {{(!empty($site->home_number))?$site->formatPhone($site->home_number):'-'}}
                     </p>
                 </div>
                 <div class="col-md-6">
                     <p class="lead"><strong>Cell:</strong>
-                    {{(!empty($site->cell_number))?$site->cell_number:'-'}}
+                    {{(!empty($site->cell_number))?$site->formatPhone($site->cell_number):'-'}}
                     </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <p class="lead"><strong>Work:</strong>
-                    {{(!empty($site->work_number))?$site->work_number:'-'}}
+                    {{(!empty($site->work_number))?$site->formatPhone($site->work_number):'-'}}
                     </p>
                 </div>
                 <div class="col-md-6">
                     <p class="lead"><strong>Fax:</strong>
-                    {{(!empty($site->fax_number))?$site->fax_number:'-'}}
+                    {{(!empty($site->fax_number))?$site->formatPhone($site->fax_number):'-'}}
                     </p>
                 </div>
             </div>
