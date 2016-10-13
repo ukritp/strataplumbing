@@ -81,33 +81,93 @@ if(isset($site)){
         <div class="row row-content no-gutter">
             <div class="col-xs-12 header">
                 <div class="col-xs-8 left-header">
-                    <p><span>INVOICE #</span> {{$job->id+20100}}</p>
-                    <p><span>TO:</span>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <p><span>INVOICE#</span></p>
+                    </div>
+                    <div class="col-xs-10">
+                        <p>{{$job->id+20100}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <p><span>TO:</span></p>
+                    </div>
+                    <div class="col-xs-10">
+                        <p>
                         @if(!empty($client->strata_plan_number))
                             {{'Strata Plan '.$client->strata_plan_number}}
                             <br>
                         @endif
-                        <label style="margin-left:28px;">
                         {{!empty($client->company_name) ? $client->company_name.' - ' : ''}}
                         {{$full_name}}
-                        </label>
                     </p>
-                    <p><span>BILLING ADDRESS:</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <p><span>BILLING<br>ADDRESS:</span>
+                    </div>
+                    <div class="col-xs-10">
                         {{$shown_billing_address_1}}
                         <br>
-                        <label style="margin-left: 136px;">
                         {{$shown_billing_address_2}}
-                        </label>
                     </p>
-                    <p><span>SITE ADDRESS:</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <p><span>SITE<br>ADDRESS:</span>
+                    </div>
+                    <div class="col-xs-10">
                         {{$shown_site_address_1}}
                         <br>
-                        <label style="margin-left: 110px;">
                         {{$shown_site_address_2}}
-                        </label>
                     </p>
-                    <p><span>DATE:</span> {{$issued_date}}</p>
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <p><span>DATE:</span></p>
+                    </div>
+                    <div class="col-xs-10">
+                        <p>{{$issued_date}}</p>
+                    </p>
+                    </div>
+                </div>
+                </div>
+                {{-- <div class="col-xs-1 left-header">
+                    <p><span>INVOICE#</span></p>
+                    <p><span>TO:</span>
+                    </p>
+                    <p><span>BILLING<br>ADDRESS:</span>
+                    </p>
+                    <p><span>SITE<br>ADDRESS:</span>
+                    </p>
+                    <p><span>DATE:</span></p>
+                </div>
+                <div class="col-xs-7" style="padding-left: 40px;">
+                    <p>{{$job->id+20100}}</p>
+                    <p>
+                        @if(!empty($client->strata_plan_number))
+                            {{'Strata Plan '.$client->strata_plan_number}}
+                            <br>
+                        @endif
+                        {{!empty($client->company_name) ? $client->company_name.' - ' : ''}}
+                        {{$full_name}}
+                    </p>
+                    <p>
+                        {{$shown_billing_address_1}}
+                        <br>
+                        {{$shown_billing_address_2}}
+                    </p>
+                    <p>
+                        {{$shown_site_address_1}}
+                        <br>
+                        {{$shown_site_address_2}}
+                    </p>
+                    <p>{{$issued_date}}</p>
+                </div> --}}
                 <div class="col-xs-4 right-header">
                     <p>#386 - 2242 Kingsway</p>
                     <p>Vancouver, BC V5N 5X6</p>

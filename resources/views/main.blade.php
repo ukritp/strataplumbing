@@ -6,23 +6,20 @@
   </head>
   <body>
 
-  @if(Auth::check())
-    @set('user', \Auth::user()->roles()->first()->name)
-    @if($user === 'Admin' || $user === 'Owner')
-      <a href="{{route('home')}}" class="thumbnail thumbnail-logo">
-        {{-- <img src="/images/logo.jpg" class="img-responsive" alt="strataplumbing"> --}}
-        {{ Html::image('images/logo.jpg')}}
-      </a>
+    @if(Auth::check())
+      @set('user', \Auth::user()->roles()->first()->name)
+      @if($user === 'Admin' || $user === 'Owner')
+        @set('logo_route', route('home'))
+      @else
+        @set('logo_route', route('technicians.index',0))
+      @endif
     @else
-      <a href="/technicians/index/0" class="thumbnail thumbnail-logo">
-        {{ Html::image('images/logo.jpg')}}
-      </a>
+        @set('logo_route', '#')
     @endif
-  @else
-    <div class="thumbnail thumbnail-logo">
-      {{ Html::image('images/logo.jpg')}}
-    </div>
-  @endif
+
+    <a href="{{$logo_route}}" class="thumbnail thumbnail-logo">
+      {{ Html::image('images/logo-new.png', 'strataplumbing', ['width'=>'400px'])}}
+    </a>
 
     @include('partials._nav')
 

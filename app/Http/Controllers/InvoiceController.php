@@ -186,8 +186,8 @@ class InvoiceController extends Controller
                 ->setPaper('A4')
                 ->setOrientation('portrait');
 
-        // $server = '/home/stratapl/'; // siteground
-        $server = '/home/wovvecom/'; // site5
+        $server = '/home/stratapl/'; // siteground
+        // $server = '/home/wovvecom/'; // site5
 
         $path = $server.'tmp/invoice'.$job->id.'-'.Carbon::now().'.pdf';
         $pdf->save($path);

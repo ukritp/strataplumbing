@@ -37,8 +37,8 @@ div{
     /*width: 100%;*/
     width:174px !important;
     /*min-height: 1019px;*/
-    /*background-image:url('/images/side-curve-with-logo-fit-white.png');*/ /* LOCALHOST & SITE5 */
-    background-image:url('/home/stratapl/public_html/images/side-curve-with-logo-fit-white.png'); /* SITEGROUND */
+    /*background-image:url('/images/side-curve-with-logo-fit-white-new.png');*/ /* LOCALHOST & SITE5 */
+    background-image:url('/home/stratapl/public_html/images/side-curve-with-logo-fit-white-new.png'); /* SITEGROUND */
     background-repeat:repeat-y;
     background-attachment:fixed;
     background-position: left top;

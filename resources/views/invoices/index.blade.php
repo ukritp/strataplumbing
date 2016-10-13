@@ -73,7 +73,7 @@
                             @endif
                         </td>
                         <td data-label="Approval Status" class="td-status">
-                            {{(!empty($job->approval_status))? $job->approval_status : '-'}}
+                            {{(!is_null($job->approval_status))? $job->approval_status : '-'}}
                         </td>
                         <td data-label="Action" class="text-right">
                         {!! Html::linkRoute('invoices.show', 'View', array($job->id), array('class'=>'btn btn-default btn-sm  btn-sm-margin'.$status))!!}
