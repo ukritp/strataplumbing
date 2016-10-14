@@ -3,6 +3,9 @@
 @section('title', '| View Technician')
 
 @section('content')
+
+@set('user', \Auth::user()->roles()->first()->name)
+
     <div class="row">
         <div class="col-md-12">
             <h1 class="page_title"> TECHNICIAN SUMMARY </h1>
@@ -152,10 +155,12 @@
                     <div class="col-sm-12">
                         {!! Html::linkRoute('jobs.show', 'Job Summary', array($technician->job->id), array('class'=>'btn btn-default btn-block btn-margin') ) !!}
                     </div>
-                    @set('status', count($technician->job->pendinginvoices)>0 ? '' : 'disabled')
-                    <div class="col-sm-12">
-                        {!! Html::linkRoute('invoices.show', 'Invoice Summary', array($technician->job->id), array('class'=>'btn btn-default btn-block btn-margin '.$status))!!}
-                    </div>
+                    @if($user === 'Admin' || $user === 'Owner')
+                        @set('status', count($technician->job->pendinginvoices)>0 ? '' : 'disabled')
+                        <div class="col-sm-12">
+                            {!! Html::linkRoute('invoices.show', 'Invoice Summary', array($technician->job->id), array('class'=>'btn btn-default btn-block btn-margin '.$status))!!}
+                        </div>
+                    @endif
                 </div>
 
             </div>
