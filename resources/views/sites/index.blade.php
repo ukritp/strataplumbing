@@ -46,11 +46,9 @@
                         @foreach($sites as $index => $site)
                             <tr>
                                 <th data-label="Company">{{(!empty($site->client->company_name)) ? $site->client->company_name : '-'}}</th>
-                                <td data-label="Address">{{
-                                ucwords(strtolower($site->mailing_address)).', '.
-                                ucwords(strtolower($site->mailing_city))
-                                }}</td>
-                                {{-- <td data-label="Name">{!! Html::linkRoute('sites.show',$site->first_name.' '.$site->last_name, array($site->id), array() ) !!}</td> --}}
+                                <td data-label="Address">
+                                {!! Html::linkRoute('sites.show',$site->mailing_address.$site->mailing_city, array($site->id), array() ) !!}
+                                </td>
                                 <td data-label="Name">{{$site->first_name.' '.$site->last_name}}</td>
                                 <td data-label="Relationship">{{$site->relationship}}</td>
                                 <td data-label="Action" class="text-right">

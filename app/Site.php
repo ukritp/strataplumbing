@@ -159,7 +159,7 @@ class Site extends Model
      */
     public function getMailingAddressAttribute($value) {
         if(!empty($value)){
-            return $value.'  ';
+            return $value.', ';
         }else{
             return $value;
         }
