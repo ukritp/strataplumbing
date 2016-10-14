@@ -393,7 +393,7 @@
                 </div>
             </div>
             @endif {{-- END if truck --}}
-
+            <?php $total = $total + $truck_services_amount; ?>
         </div>
     </div>
 
@@ -415,7 +415,7 @@
         @set('price_adjustment_amount', $job->price_adjustment_amount)
     @endif
     <!-- Calculate Total -->
-    @set('total_before_gst',$total+$truck_services_amount-$labor_deduction-$material_deduction-$price_adjustment_amount)
+    @set('total_before_gst',$total-$labor_deduction-$material_deduction-$price_adjustment_amount)
     @set('gst_percentage',0.05)
     @set('gst',$total_before_gst*$gst_percentage)
     @set('grand_total',$total_before_gst+$gst)
