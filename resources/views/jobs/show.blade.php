@@ -84,7 +84,14 @@
                 @if($user === 'Admin' || $user === 'Owner')
 
                 <div class="form-group">
-                    @if(!empty($job->client->company_name))<h2 class="text-center">{{$job->client->company_name}}</h2> @endif
+                    @if(!empty($job->client->company_name))
+                        @set('client_id',$job->client->id)
+                        @if(isset($job->site))
+                            @set('client_id',$job->site->client->id)
+                        @endif
+                        <h2 class="text-center">
+                        {!! Html::linkRoute('clients.show', $job->client->company_name, array($client_id), array('class'=>''))!!}</h2>
+                    @endif
                     <h3 class="text-center">{{$job->client->first_name.' '.$job->client->last_name}}</h3>
                     <br>
                     <p class="lead-md"><strong>Title:</strong> {{$job->client->title}}</p>

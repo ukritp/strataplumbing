@@ -34,6 +34,7 @@
                 </thead>
                 <tbody>
                 @if(count($jobs)>0)
+                    @set('grand_total',0)
                     @foreach($jobs as $index => $job)
                         @set('status', count($job->pendinginvoices)>0 ? '' : 'disabled')
                         <tr>
@@ -47,7 +48,7 @@
                             <td data-label="Issued Date" class="td-status">{{(!empty($job->invoiced_at)) ? date('M j, Y', strtotime($job->invoiced_at)) : '-'}}</td>
                             <td data-label="Total" class="td-status"> $
                                 @if( $job->is_estimate || count($job->pendinginvoices)>0 )
-                                    {{$totals[$index]}}
+                                    {{number_format($totals[$index],2,'.',',')}}
                                 @else
                                     -
                                 @endif
