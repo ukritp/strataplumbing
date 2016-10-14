@@ -30,14 +30,26 @@ class TechnicianController extends Controller
             if( $user->name === 'Technician'){
                 $technicians  = Technician::where('user_id',\Auth::user()->id)
                                 ->orderby('pendinginvoiced_at','desc')
+                                ->join('jobs', function ($join) {
+                                    $join->on('job_id', '=', 'jobs.id')
+                                         ->where('jobs.status', '=', '0');
+                                })
                                 ->paginate(25);
             }else{
                 $technicians  = Technician::orderby('pendinginvoiced_at','desc')
+                                ->join('jobs', function ($join) {
+                                    $join->on('job_id', '=', 'jobs.id')
+                                         ->where('jobs.status', '=', '0');
+                                })
                                 ->paginate(25);
             }
         }
         else{
             $technicians  = Technician::where('job_id',$id)
+                                ->join('jobs', function ($join) {
+                                    $join->on('job_id', '=', 'jobs.id')
+                                         ->where('jobs.status', '=', '0');
+                                })
                                 ->orderBy('pendinginvoiced_at', 'desc')
                                 ->paginate(25);
         }

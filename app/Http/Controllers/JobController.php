@@ -25,7 +25,7 @@ class JobController extends Controller
     public function index($id)
     {
 
-        if($id == '0')  $jobs  = Job::orderby('id','asc')->where('status',0)->paginate(25);
+        if($id == '0')  $jobs  = Job::orderby('id','desc')->where('status',0)->paginate(25);
         else            $jobs  = Job::where('site_id',$id)->orderby('id','asc')->paginate(25);
 
         return view('jobs.index')->withJobs($jobs);
