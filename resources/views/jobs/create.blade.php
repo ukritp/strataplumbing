@@ -17,13 +17,7 @@
                 @if(isset($site))
                     <h3>{{$site->first_name.' '.$site->last_name}}</h3>
                     <p class="lead"><strong>Relationship:</strong> {{$site->relationship}}</p>
-                    <p class="lead"><strong>Site Address:</strong> {{
-                        ucwords(strtolower($site->mailing_address)).', '.
-                        ucwords(strtolower($site->mailing_city)).', '.
-                        strtoupper($site->mailing_province).' '.
-                        strtoupper($site->mailing_postalcode)
-                    }}
-                    </p>
+                    <p class="lead"><strong>Site Address:</strong> {{$site->fullMailingAddress()}}</p>
                     @if(!empty($site->buzzer_code)) <p class="lead"><strong>Buzzer Code:</strong> {{$site->buzzer_code}}</p> @endif
                     <div class="row">
                         <div class="col-md-6">
@@ -35,13 +29,7 @@
                     </div>
                 @else
                     <h3>{{$client->first_name.' '.$client->last_name}}</h3>
-                    <p class="lead"><strong>Address:</strong> {{
-                        ucwords(strtolower($client->mailing_address)).', '.
-                        ucwords(strtolower($client->mailing_city)).', '.
-                        strtoupper($client->mailing_province).' '.
-                        strtoupper($client->mailing_postalcode)
-                    }}
-                    </p>
+                    <p class="lead"><strong>Address:</strong> {{$client->fullMailingAddress()}}</p>
                     @if(!empty($client->buzzer_code)) <p class="lead"><strong>Buzzer Code:</strong> {{$client->buzzer_code}}</p> @endif
                     <div class="row">
                         <div class="col-md-6">
@@ -52,7 +40,6 @@
                         </div>
                     </div>
                 @endif
-
             </div>
 
             {!! Form::open(array('route' => 'jobs.store', 'data-parsley-validate'=>'')) !!}

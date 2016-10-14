@@ -160,7 +160,7 @@ class Client extends Model
      */
     public function getMailingAddressAttribute($value) {
         if(!empty($value)){
-            return $value.'  ';
+            return $value.'';
         }else{
             return $value;
         }
@@ -171,7 +171,7 @@ class Client extends Model
      */
     public function getMailingCityAttribute($value) {
         if(!empty($value)){
-            return $value.'  ';
+            return $value.'';
         }else{
             return $value;
         }
@@ -182,7 +182,7 @@ class Client extends Model
      */
     public function getMailingProvinceAttribute($value) {
         if(!empty($value)){
-            return $value.'  ';
+            return $value.'';
         }else{
             return $value;
         }
@@ -200,7 +200,7 @@ class Client extends Model
      */
     public function getBillingAddressAttribute($value) {
         if(!empty($value)){
-            return $value.'  ';
+            return $value.'';
         }else{
             return $value;
         }
@@ -211,7 +211,7 @@ class Client extends Model
      */
     public function getBillingCityAttribute($value) {
         if(!empty($value)){
-            return $value.'  ';
+            return $value.' ';
         }else{
             return $value;
         }
@@ -222,7 +222,7 @@ class Client extends Model
      */
     public function getBillingProvinceAttribute($value) {
         if(!empty($value)){
-            return $value.'  ';
+            return $value.'';
         }else{
             return $value;
         }

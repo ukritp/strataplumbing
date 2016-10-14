@@ -123,13 +123,10 @@
                     @foreach($client->sites as $site)
 
                         <tr>
-                            <td data-label="Address">{{
-                            ucwords(strtolower($site->mailing_address)).', '.
-                            ucwords(strtolower($site->mailing_city))
-                            }}</td>
-                            <td data-label="Name">{!! Html::linkRoute('sites.show',$site->first_name.' '.$site->last_name, array($site->id), array() ) !!}</td>
+                            <td data-label="Address">
+                            {!! Html::linkRoute('sites.show',$site->mailing_address.', '.$site->mailing_city, array($site->id), array() ) !!}</td>
+                            <td data-label="Name">{{$site->first_name.' '.$site->last_name}}</td>
                             <td data-label="Relationship">{{(!empty($site->relationship))?$site->relationship:'-'}}</td>
-
                             <td data-label="Cellphone">{{(!empty($site->cell_number))?$site->cell_number:'-'}}</td>
                             <td data-label="Action" class="text-right">
                             <div class="btn-group">

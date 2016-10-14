@@ -16,13 +16,7 @@
                 @if(!empty($client->company_name)) <h2>Company: {{$client->company_name}}</h2> @endif
                 <h3>{{$client->first_name.' '.$client->last_name}}</h3>
                 <p class="lead"><strong>Title:</strong> {{$client->title}}</p>
-                <p class="lead"><strong>Address:</strong> {{
-                    ucwords(strtolower($client->mailing_address)).', '.
-                    ucwords(strtolower($client->mailing_city)).', '.
-                    strtoupper($client->mailing_province).' '.
-                    strtoupper($client->mailing_postalcode)
-                }}
-                </p>
+                <p class="lead"><strong>Address:</strong> {{$client->fullMailingAddress()}}</p>
                 @if(!empty($client->buzzer_code)) <p class="lead"><strong>Buzzer Code:</strong> {{$client->buzzer_code}}</p> @endif
                 <div class="row">
                     <div class="col-md-6">

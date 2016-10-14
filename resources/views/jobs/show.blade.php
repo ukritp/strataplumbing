@@ -219,9 +219,9 @@
                                     @if($index == 0)
                                     <td class="create-invoice-column" rowspan="{{$count_rowspan}}">
                                         @if(!is_null($technician->pending_invoice_id))
-                                            {!! Html::linkRoute('pendinginvoices.edit', 'Edit Invoice', array($technician->pending_invoice_id), array('class'=>'btn btn-default btn-sm btn-block') ) !!}
+                                            {!! Html::linkRoute('pendinginvoices.edit', 'Edit Invoice', array($technician->pending_invoice_id), array('class'=>'btn btn-info btn-sm btn-block') ) !!}
                                             <br>
-                                            {!! Html::linkRoute('pendinginvoices.show', 'View Invoice', array($technician->pending_invoice_id), array('class'=>'btn btn-default btn-sm btn-block') ) !!}
+                                            {!! Html::linkRoute('pendinginvoices.show', 'View Invoice', array($technician->pending_invoice_id), array('class'=>'btn btn-info btn-sm btn-block') ) !!}
                                         @else
                                             {!! Html::linkRoute('pendinginvoices.create', 'Add To Invoice', array($technician->id), array('class'=>'btn btn-info btn-sm btn-block') ) !!}
                                         @endif
@@ -231,9 +231,9 @@
                                     </td>
                                     <td class="create-invoice-column" rowspan="{{$count_rowspan}}">
                                         @if(!is_null($technician->pending_invoice_id))
-                                            {!! Html::linkRoute('pendinginvoices.edit', 'Edit Invoice', array($technician->pending_invoice_id), array('class'=>'btn btn-default btn-sm btn-block') ) !!}
+                                            {!! Html::linkRoute('pendinginvoices.edit', 'Edit Invoice', array($technician->pending_invoice_id), array('class'=>'btn btn-info btn-sm btn-block') ) !!}
                                             <br>
-                                            {!! Html::linkRoute('pendinginvoices.show', 'View Invoice', array($technician->pending_invoice_id), array('class'=>'btn btn-default btn-sm btn-block') ) !!}
+                                            {!! Html::linkRoute('pendinginvoices.show', 'View Invoice', array($technician->pending_invoice_id), array('class'=>'btn btn-info btn-sm btn-block') ) !!}
                                         @else
                                             {!! Html::linkRoute('pendinginvoices.create', 'Add To Invoice', array($technician->id), array('class'=>'btn btn-info btn-sm btn-block') ) !!}
                                         @endif
