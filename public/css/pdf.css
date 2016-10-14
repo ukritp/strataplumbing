@@ -121,6 +121,9 @@ div{
     page-break-before: always !important;
     page-break-inside: avoid !important;
 }
+.total-cost-discount{
+    color:red;
+}
 .bottom-text{
     /*display: block;*/
     /*page-break-inside: avoid !important;*/

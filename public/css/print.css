@@ -177,6 +177,9 @@ body{
 .right-header .red{
 	color:red;
 }
+.total-cost-discount{
+	color:red;
+}
 
 @media print {
 	html, body {
