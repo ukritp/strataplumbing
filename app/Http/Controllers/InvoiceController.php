@@ -37,6 +37,14 @@ class InvoiceController extends Controller
         $grand_totals = $this->calculateGrandTotal($jobs);
 
         // echo print_r($grand_totals);
+
+        $super_total = 0;
+        foreach($grand_totals as $grand_total){
+            // echo $grand_total.'<br>';
+            $super_total += $grand_total;
+        }
+        // echo 'super = '.$super_total;
+
         $header = 'Issued';
         return view('invoices.index')->withJobs($jobs)->withTotals($grand_totals)->withHeader($header);
     }
@@ -410,9 +418,11 @@ class InvoiceController extends Controller
 
         // start pending invoices
         foreach($jobs as $index => $job){
+
             $total = 0;
             $labor_total=0;
             $material_total=0;
+
             if(!$job->is_estimate){
 
                 // REGULAR JOB TYPE
@@ -509,8 +519,7 @@ class InvoiceController extends Controller
             $gst_percentage =0.05;
             $gst = $total_before_gst*$gst_percentage;
 
-            $grand_totals[$index] = number_format(($total_before_gst+$gst),2,'.',',');
-
+            $grand_totals[$index] = $total_before_gst+$gst;
         }
 
         return $grand_totals;

@@ -60,7 +60,11 @@
                             </td>
                         </tr>
 
+                    <?php $grand_total += $totals[$index]; ?>
                     @endforeach
+                    <tr>
+                        <td colspan="7" class="text-right"><strong>TOTAL: $ {{number_format($grand_total,2,'.',',')}}</strong></td>
+                    </tr>
                 @else
                     <tr>
                         <td colspan="7" class="text-center  no-item"><b>There is no invoice</b></td>

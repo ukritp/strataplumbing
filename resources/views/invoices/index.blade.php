@@ -51,7 +51,9 @@
                     <th class="text-right">Action</th>
                 </thead>
                 <tbody>
+
                 @if(count($jobs)>0)
+                    @set('grand_total',0)
                     @foreach($jobs as $index => $job)
                     @set('status', count($job->pendinginvoices)>0 ? '' : 'disabled')
                     <tr>
@@ -67,7 +69,7 @@
                         </td>
                         <td data-label="Total" class="td-status"> $
                             @if( $job->is_estimate || count($job->pendinginvoices)>0 )
-                                {{$totals[$index]}}
+                                {{number_format($totals[$index],2,'.',',')}}
                             @else
                                 -
                             @endif
@@ -79,8 +81,11 @@
                         {!! Html::linkRoute('invoices.show', 'View', array($job->id), array('class'=>'btn btn-default btn-sm  btn-sm-margin'.$status))!!}
                         </td>
                     </tr>
-
+                    <?php $grand_total += $totals[$index]; ?>
                     @endforeach
+                    <tr>
+                        <td colspan="7" class="text-right"><strong>TOTAL: $ {{number_format($grand_total,2,'.',',')}}</strong></td>
+                    </tr>
                 @else
                     <tr>
                         <td colspan="7" class="text-center  no-item"><b>There is no invoice</b></td>
@@ -88,6 +93,7 @@
                 @endif
 
                 </tbody>
+
             </table>
 
         </div>
