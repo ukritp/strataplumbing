@@ -14,6 +14,7 @@
             <h1>{{$header}} Invoices</h1>
         </div>
 
+        @if($header == 'Issued')
         <div class="col-md-7 search-bar">
 
             <div class="form-inline">
@@ -31,7 +32,7 @@
                 {!! Form::close() !!}
             </div>
         </div>
-
+        @endif
         <div class="col-md-12">
             <!-- <hr> gotta be inside this column to work -->
             <hr>

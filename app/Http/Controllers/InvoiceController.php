@@ -93,8 +93,8 @@ class InvoiceController extends Controller
         $grand_totals = $this->calculateGrandTotal($jobs);
 
         // echo '<pre>'. print_r($grand_totals) .'</pre>';
-
-        return view('invoices.index')->withJobs($jobs)->withTotals($grand_totals);
+        $header = 'Issued';
+        return view('invoices.index')->withJobs($jobs)->withTotals($grand_totals)->withHeader($header);
     }
 
     /**
