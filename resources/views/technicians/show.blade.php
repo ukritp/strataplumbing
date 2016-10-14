@@ -48,7 +48,7 @@
             <hr>
             <p class="lead lead-md"><strong>Project Manager:</strong> {{$technician->job->project_manager}}</p>
             <p class="lead lead-md paragraph-wrap"><strong>Scope Of Works:</strong><br>{{$technician->job->scope_of_works}}</p>
-            <p class="lead lead-md"><strong>Purchase Order Number:</strong><br>{{$technician->job->purchase_order_number}}</p>
+            {{-- <p class="lead lead-md"><strong>Purchase Order Number:</strong><br>{{$technician->job->purchase_order_number}}</p> --}}
             <div class="row">
                 <div class="col-md-6">
                     @if(!empty($technician->job->first_name)) <p class="lead lead-md"><strong>Tenant:</strong> {{$technician->job->first_name.' '.$technician->job->last_name}}</p> @endif
