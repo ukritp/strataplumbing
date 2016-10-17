@@ -49,6 +49,7 @@ class CreateTechniciansTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::drop('technicians');
     }
 }
