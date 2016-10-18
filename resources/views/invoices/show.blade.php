@@ -104,21 +104,38 @@
                                 ))}}
                     </fieldset>
 
-                    <fieldset class="form-group">
-                    {{ Form::label('price_adjustment_title', 'Price Adjustment Title: ')  }}
-                    {{ Form::text('price_adjustment_title',null, array(
-                                    'class'     => 'form-control',
-                                    'maxlength' => '255'
-                                ))}}
-                    </fieldset>
+                    <div class="row price-adjustment-row">
+                        <div class="col-xs-12">
+                            <fieldset class="form-group">
+                            {{ Form::label('price_adjustment_title', 'Price Adjustment Title: ')  }}
+                            {{ Form::text('price_adjustment_title',null, array(
+                                            'class'     => 'form-control',
+                                            'maxlength' => '255'
+                                        ))}}
+                            </fieldset>
+                        </div>
+                        <div class="col-xs-8">
+                            <fieldset class="form-group">
+                            {{ Form::label('price_adjustment_amount', 'Amount:')  }}
+                            {{ Form::text('price_adjustment_amount',null, array(
+                                'class'                => 'form-control',
+                                'data-parsley-pattern' =>'\d+(\.\d{1,2})?'
+                            ))}}
+                            </fieldset>
+                        </div>
+                        <div class="col-xs-4">
+                            <fieldset class="form-group">
+                            {{ Form::label('price_adjustment_type', 'Type:')  }}
+                            {{ Form::select('price_adjustment_type', array(
+                                '0' => '$',
+                                '1' => '%'),
+                                null,
+                                array('class' => 'form-control')
+                            )}}
+                            </fieldset>
+                        </div>
+                    </div>
 
-                    <fieldset class="form-group">
-                    {{ Form::label('price_adjustment_amount', 'Price Adjustment Amount: $ ')  }}
-                    {{ Form::text('price_adjustment_amount',0, array(
-                        'class'                => 'form-control',
-                        'data-parsley-pattern' =>'\d+(\.\d{1,2})?'
-                    ))}}
-                    </fieldset>
 
                     <fieldset class="form-group">
                     {{ Form::label('is_trucked', 'Truck Services?  ')  }}
@@ -410,7 +427,11 @@
     <!-- Price Adjustment -->
     @set('price_adjustment_amount',0)
     @if($job->price_adjustment_amount!=0)
-        @set('price_adjustment_amount', $job->price_adjustment_amount)
+        @if($job->price_adjustment_type ==0)
+            @set('price_adjustment_amount', $job->price_adjustment_amount)
+        @else
+            @set('price_adjustment_amount', $total*($job->price_adjustment_amount)/100)
+        @endif
     @endif
     <!-- Calculate Total -->
     @set('total_before_gst',$total-$labor_deduction-$material_deduction-$price_adjustment_amount)
@@ -431,7 +452,12 @@
                 <p>MATERIAL DISCOUNT - {{$job->material_discount.' %'}}</p>
             @endif
             @if($price_adjustment_amount!=0)
-                <p>{{$job->price_adjustment_title}}</p>
+                <p>
+                {{$job->price_adjustment_title}}
+                @if($job->price_adjustment_type == 1)
+                    {{'- '.$job->price_adjustment_amount.' %'}}
+                @endif
+                </p>
             @endif
 
             {{-- <p>TOTAL BEFORE GST</p> --}}

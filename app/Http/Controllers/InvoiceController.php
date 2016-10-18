@@ -281,6 +281,7 @@ class InvoiceController extends Controller
             'material_discount'       => 'numeric',
             'price_adjustment_title'  => 'max:255',
             'price_adjustment_amount' => 'numeric',
+            'price_adjustment_type'   => '',
             'is_trucked'              => 'required|numeric',
             'truck_services_amount'   => 'numeric',
 
@@ -297,6 +298,7 @@ class InvoiceController extends Controller
         $job->material_discount       = $request->material_discount;
         $job->price_adjustment_title  = $request->price_adjustment_title;
         $job->price_adjustment_amount = $request->price_adjustment_amount;
+        $job->price_adjustment_type   = $request->price_adjustment_type;
         $job->is_trucked              = $request->is_trucked;
         $job->truck_services_amount   = $request->truck_services_amount;
         $job->status = 1;
@@ -368,6 +370,7 @@ class InvoiceController extends Controller
             'material_discount'       => 'numeric',
             'price_adjustment_title'  => 'max:255',
             'price_adjustment_amount' => 'numeric',
+            'price_adjustment_type'   => '',
             'is_trucked'              => 'required|numeric',
             'truck_services_amount'   => 'numeric',
 
@@ -383,6 +386,7 @@ class InvoiceController extends Controller
         $job->material_discount       = $request->material_discount;
         $job->price_adjustment_title  = $request->price_adjustment_title;
         $job->price_adjustment_amount = $request->price_adjustment_amount;
+        $job->price_adjustment_type   = $request->price_adjustment_type;
         $job->is_trucked              = $request->is_trucked;
         $job->truck_services_amount   = $request->truck_services_amount;
         $job->status = 1;
@@ -508,7 +512,12 @@ class InvoiceController extends Controller
             // <!-- Price Adjustment -->
             $price_adjustment_amount =0;
             if($job->price_adjustment_amount!=0){
-                $price_adjustment_amount = $job->price_adjustment_amount;
+                if($job->price_adjustment_type == 0){
+                    $price_adjustment_amount = $job->price_adjustment_amount;
+                }else{
+                    $price_adjustment_amount = $total*($job->price_adjustment_amount)/100;
+                }
+
             }
             // <!-- Calculate Total -->
             $total_before_gst = $total+$truck_services_amount-$labor_deduction-$material_deduction-$price_adjustment_amount;

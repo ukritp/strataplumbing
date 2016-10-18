@@ -404,7 +404,11 @@ if(isset($site)){
             <!-- Price Adjustment -->
             @set('price_adjustment_amount',0)
             @if($job->price_adjustment_amount!=0)
-                @set('price_adjustment_amount', $job->price_adjustment_amount)
+                @if($job->price_adjustment_type ==0)
+                    @set('price_adjustment_amount', $job->price_adjustment_amount)
+                @else
+                    @set('price_adjustment_amount', $total*($job->price_adjustment_amount)/100)
+                @endif
             @endif
             @set('total_before_gst',$total-$labor_deduction-$material_deduction-$price_adjustment_amount)
             @set('gst_percentage',0.05)
@@ -420,7 +424,12 @@ if(isset($site)){
                         <p>MATERIAL DISCOUNT - {{$job->material_discount.' %'}}</p>
                     @endif
                     @if($price_adjustment_amount!=0)
-                        <p>{{$job->price_adjustment_title}}</p>
+                        <p>
+                        {{$job->price_adjustment_title}}
+                        @if($job->price_adjustment_type == 1)
+                            {{'- '.$job->price_adjustment_amount.' %'}}
+                        @endif
+                        </p>
                     @endif
                     {{-- <p>TOTAL BEFORE GST</p> --}}
                     <p>GST</p>

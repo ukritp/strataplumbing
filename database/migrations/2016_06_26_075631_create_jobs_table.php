@@ -26,7 +26,9 @@ class CreateJobsTable extends Migration
 
             $table->string('labor_discount', 2)->default(0)->nullable();
             $table->string('material_discount',2)->default(0)->nullable();
+
             $table->string('price_adjustment_title')->nullable();
+            $table->boolean('price_adjustment_type')->default(false);
             $table->string('price_adjustment_amount')->default(0)->nullable();
 
             $table->boolean('status')->default(false);

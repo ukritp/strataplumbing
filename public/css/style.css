@@ -190,6 +190,14 @@ color: red;
     white-space: pre-line;
 }
 
+.price-adjustment-row{
+    background-color: #DEECEE;
+    border: 1px solid #DEECEE;
+    border-radius: 5px;
+    padding-top: 5px;
+    margin-bottom: 10px;
+}
+
 
 /* CSS Confirm Deleter */
 .modal {
