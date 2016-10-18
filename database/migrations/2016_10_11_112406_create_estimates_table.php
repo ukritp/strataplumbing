@@ -19,7 +19,6 @@ class CreateEstimatesTable extends Migration
             $table->timestamp('invoiced_to')->nullable();
 
             $table->text('description');
-            $table->text('extras')->nullable();
 
             $table->string('cost');
 

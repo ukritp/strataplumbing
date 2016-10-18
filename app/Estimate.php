@@ -7,7 +7,23 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Estimate extends Model
 {
-    //
+    // Log activity
+    use LogsActivity;
+    protected $fillable = [
+        'invoiced_from',
+        'invoiced_to',
+        'description',
+        'cost',
+        'job_id',
+    ];
+    protected static $logAttributes = [
+        'invoiced_from',
+        'invoiced_to',
+        'description',
+        'cost',
+        'job_id',
+    ];
+
     public function job()
     {
         return $this->belongsTo('App\Job');
