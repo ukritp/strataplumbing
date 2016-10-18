@@ -53,9 +53,16 @@
         </div>
         <!-- End Extra's section -->
 
+        <!-- Materials section : NEW -->
+        <legend><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Material
+        <a id="add-estimate-material" class="btn btn-primary btn-sm add-button">Add</a>
+        </legend>
 
-        <!-- Materials section -->
-        <div class="col-md-12 grey-background">
+        <div class="row" id="estimate-material-add">
+        </div>
+
+        <!-- Materials section : OLD -->
+        {{-- <div class="col-md-12 grey-background">
             <h4>Materials</h4>
         </div>
         @foreach($job->technicians as $index => $technician)
@@ -96,26 +103,26 @@
                 <div class="row">
                 <div class="col-xs-5 col-xs-offset-1" id="material-row-{{$j}}">
                     <fieldset class="form-group">
-                        {{-- {{ Form::label('material_name_'.$j, 'Material Name:')  }} --}}
+                        <!-- {{ Form::label('material_name_'.$j, 'Material Name:')  }} -->
                         <input type="text" id="material_name" name="material_name[{{$technician->id}}][]" value="{{$material->material_name}}" class="form-control" maxlength="255" required>
                     </fieldset>
                 </div>
                 <div class="col-xs-2" id="material-row-{{$j}}">
                     <fieldset class="form-group">
-                        {{-- {{ Form::label('material_quantity_'.$j, 'Quantity:')  }} --}}
+                        <!-- {{ Form::label('material_quantity_'.$j, 'Quantity:')  }} -->
                         <input type="text" id="material_quantity" name="material_quantity[{{$technician->id}}][]" value="{{$material->material_quantity}}" class="form-control" data-parsley-type="digits"  maxlength="255" required>
                     </fieldset>
                 </div>
                 <div class="col-xs-3 off-set-1" id="material-row-{{$j}}">
                     <fieldset class="form-group">
-                        {{-- {{ Form::label('material_cost_'.$j, 'Cost: $')  }} --}}
+                        <!-- {{ Form::label('material_cost_'.$j, 'Cost: $')  }} -->
                         <input type="text" id="material_cost" name="material_cost[{{$technician->id}}][]" value="{{$material->material_cost}}" class="form-control" data-parsley-pattern="{{$cost_validation_pattern}}"  maxlength="255" required>
                     </fieldset>
                 </div>
                 </div>
             @endforeach <!-- Materials section -->
         </div>
-        @endforeach {{-- end foreach job->tech --}}
+        @endforeach <!-- end foreach job->tech --> --}}
 
         {{ Form::hidden('job_id', $job->id) }}
         {{ Form::submit('Create Estimate Invoice', array('class' => 'btn btn-success btn-lg btn-block btn-margin'))}}
