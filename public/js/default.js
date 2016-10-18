@@ -110,7 +110,7 @@ $(document).ready(function () {
         $(this).closest("span").remove();
     });
 
-
+    // Add material in pending invoice
     $('.add-revised-material').click(function(){
         counter += 1;
         var tech_id = $(this).attr('data-tech-id');
@@ -143,25 +143,57 @@ $(document).ready(function () {
         $(this).parents(".material-row-span").remove();
     });
 
+    // Add/Remove Material-----------------------------
+    var i=0;
+    $('#add-estimate-material').click(function(){
+        i += 1;
+        $('#estimate-material-add').prepend(
+        '<span><div class="col-xs-6" id="material-row-'+i+'">' +
+            '<fieldset class="form-group">' +
+            '<input type="text" id="material_name_'+i+'[]" name="material_name[]" class="form-control" placeholder="Material Name" required maxlength="255">'+
+            '</fieldset>' +
+        '</div>'+
+        '<div class="col-xs-2"  id="material-row-'+i+'">' +
+            '<fieldset class="form-group">' +
+            '<input type="text" id="material_quantity_'+i+'[]" name="material_quantity[]" class="form-control" placeholder="Quantity" required maxlength="255" data-parsley-type="digits">'+
+            '</fieldset>' +
+        '</div>'+
+        '<div class="col-xs-2"  id="material-row-'+i+'">' +
+            '<fieldset class="form-group">' +
+            '<input type="text" id="material_cost_'+i+'[]" name="material_cost[]" placeholder="Cost" class="form-control" required maxlength="255">'+
+            '</fieldset>' +
+        '</div>'+
+        '<div class="col-xs-2"  id="material-row-'+i+'">' +
+            '<fieldset class="form-group">' +
+            '<a id="remove-material-'+i+'" class="btn btn-danger btn-sm btn-block remove-material"><i class="glyphicon glyphicon-remove"></i></a>'+
+            '</fieldset>' +
+        '</div></span>'
+        );
+        document.getElementById("material_name_"+i+"[]").focus();
+    });
+    $("body").on("click", ".remove-material", function (){
+        $(this).closest("span").remove();
+    });
 
     // Add/Remove Extra's-----------------------------
     var index=0;
     $('#add-extras').click(function(){
         index += 1;
         $('#extras-add').prepend(
-        '<span><div class="col-xs-6" id="extras-row-'+index+'">' +
+        '<span><div class="col-xs-10" id="extras-row-'+index+'">' +
             '<fieldset class="form-group">' +
             // '<label for="extras_description'+index+'">Description:</label>'+
-            '<input type="text" id="extras_description'+index+'[]" name="extras_description[]" class="form-control" placeholder="Description" required maxlength="255">'+
+            // '<input type="text" id="extras_description'+index+'[]" name="extras_description[]" class="form-control" placeholder="Description" required maxlength="255">'+
+            '<textarea class="form-control description" id="extras_description'+index+'[]" required="" name="extras_description[]" cols="50" rows="10" placeholder="Description"></textarea>'+
             '</fieldset>' +
         '</div>'+
-        '<div class="col-xs-3"  id="extras-row-'+index+'">' +
+        '<div class="col-xs-2"  id="extras-row-'+index+'">' +
             '<fieldset class="form-group">' +
             // '<label for="extras_cost'+index+'">Cost: $</label>'+
             '<input type="text" id="extras_cost'+index+'[]" name="extras_cost[]" class="form-control" placeholder="Cost" maxlength="255">'+
             '</fieldset>' +
-        '</div>'+
-        '<div class="col-xs-3"  id="extras-row-'+index+'">' +
+        // '</div>'+
+        // '<div class="col-xs-3"  id="extras-row-'+index+'">' +
             '<fieldset class="form-group">' +
             '<a id="remove-extras-'+index+'" class="btn btn-danger btn-sm btn-block remove-extras"><i class="glyphicon glyphicon-remove"></i></a>'+
             '</fieldset>' +

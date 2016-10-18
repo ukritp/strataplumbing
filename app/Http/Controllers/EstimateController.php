@@ -54,6 +54,10 @@ class EstimateController extends Controller
             'extras_description.*' => '',
             'extras_cost.*'        => 'max:255',
 
+            'material_name.*' => '',
+            'material_quantity.*' => '',
+            'material_cost.*'        => 'max:255',
+
             'job_id'               => 'required|numeric',
             'technician_id.*'      => 'required|numeric'
         ));

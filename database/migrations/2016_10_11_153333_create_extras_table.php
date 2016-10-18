@@ -15,7 +15,7 @@ class CreateExtrasTable extends Migration
         Schema::create('extras', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('extras_description');
+            $table->text('extras_description');
             $table->string('extras_cost')->nullable();
 
             $table->integer('estimate_id')->unsigned();
