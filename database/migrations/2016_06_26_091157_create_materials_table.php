@@ -19,7 +19,7 @@ class CreateMaterialsTable extends Migration
             $table->string('material_quantity');
             $table->string('material_cost')->nullable();
 
-            $table->integer('technician_id')->unsigned();
+            $table->integer('technician_id')->unsigned()->nullable();
             $table->foreign('technician_id')->references('id')->on('technicians');
 
             $table->timestamps();

@@ -11,4 +11,9 @@ class Material extends Model
     {
         return $this->belongsTo('App\Technician');
     }
+
+    public function estimate()
+    {
+        return $this->belongsTo('App\Estimate');
+    }
 }

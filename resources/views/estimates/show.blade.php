@@ -38,7 +38,7 @@
             <tbody>
                 @forelse($estimate->extras_table as $extra)
                     <tr>
-                        <td class="td-description">- {{$extra->extras_description}}</td>
+                        <td class="td-description paragraph-wrap">- {{$extra->extras_description}}</td>
                         <td class="text-right">{{(!empty($extra->extras_cost))?number_format($extra->extras_cost,2,'.',','):''}}</td>
                     </tr>
                 @empty
@@ -57,18 +57,17 @@
                 <th class="text-center">Total</th>
             </thead>
             <tbody>
-                @forelse($estimate->job->technicians as $technician)
-                    @forelse($technician->materials as $material)
-                    <tr>
-                        <td>{{$material->material_quantity.' x '.$material->material_name}}</td>
-                        <td class="text-center">{{$material->material_cost}}</td>
-                        @set('total', number_format($material->material_quantity*$material->material_cost,2,'.',','))
-                        <td class="text-center"> {{($total < 0)? '$ ('.$total.')' : '$ '.$total }}</td>
-                    </tr>
-                    @empty
-                    @endforelse
+
+                @forelse($estimate->materials as $material)
+                <tr>
+                    <td>{{$material->material_quantity.' x '.$material->material_name}}</td>
+                    <td class="text-center">{{$material->material_cost}}</td>
+                    @set('total', number_format($material->material_quantity*$material->material_cost,2,'.',','))
+                    <td class="text-center"> {{($total < 0)? '$ ('.$total.')' : '$ '.$total }}</td>
+                </tr>
                 @empty
                 @endforelse
+
             </tbody>
         </table>
 

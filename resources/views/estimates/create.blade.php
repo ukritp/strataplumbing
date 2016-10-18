@@ -125,10 +125,18 @@
         @endforeach <!-- end foreach job->tech --> --}}
 
         {{ Form::hidden('job_id', $job->id) }}
-        {{ Form::submit('Create Estimate Invoice', array('class' => 'btn btn-success btn-lg btn-block btn-margin'))}}
-        <fieldset class="form-group">
-        {!! Html::linkRoute('jobs.show', 'Back to Job', array($job->id), array('class'=>'btn btn-danger  btn-lg btn-block btn-margin') ) !!}
-        </fieldset>
+        <div class="row form-group">
+            <div class="col-md-6">
+                <fieldset class="form-group">
+                {{ Form::submit('Create Estimate Invoice', array('class' => 'btn btn-success btn-lg btn-block btn-margin'))}}
+                </fieldset>
+            </div>
+            <div class="col-md-6">
+                <fieldset class="form-group">
+                {!! Html::linkRoute('jobs.show', 'Back to Job', array($job->id), array('class'=>'btn btn-danger  btn-lg btn-block btn-margin') ) !!}
+                </fieldset>
+            </div>
+        </div>
 
         {!! Form::close() !!}
     </div>

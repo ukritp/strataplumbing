@@ -17,4 +17,9 @@ class Estimate extends Model
     {
         return $this->hasMany('App\Extra');
     }
+
+    public function materials()
+    {
+        return $this->hasMany('App\Material');
+    }
 }
