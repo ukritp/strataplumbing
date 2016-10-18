@@ -51,7 +51,7 @@
         </legend>
 
         <div class="row">
-            <div class="col-xs-5">
+            <div class="col-xs-10">
                 <label for="extras_description">Description:</label>
             </div>
             <div class="col-xs-2">
@@ -63,17 +63,15 @@
             @foreach($estimate->extras_table as $index => $extra)
                 <input name="extras_id[]" type="hidden" value="{{$extra->id}}">
                 <span class="extras-row-span">
-                <div class="col-xs-6" id="extras-row-{{$index}}">
+                <div class="col-xs-10" id="extras-row-{{$index}}">
                     <fieldset class="form-group">
-                        <input type="text" class="form-control" required="" id="extras_description{{$index}}" maxlength="255" name="extras_description[]"  value="{{$extra->extras_description}}">
+                        <textarea class="form-control description" id="extras_description{{$index}}" required="" name="extras_description[]" cols="50" rows="10" placeholder="Description">{{$extra->extras_description}}</textarea>
                     </fieldset>
                 </div>
-                <div class="col-xs-3" id="extras-row-{{$index}}">
+                <div class="col-xs-2" id="extras-row-{{$index}}">
                     <fieldset class="form-group">
                         <input type="text" class="form-control" id="extras_cost{{$index}}" data-parsley-type="{{$cost_validation_pattern}}" maxlength="255" name="extras_cost[]" value="{{$extra->extras_cost}}">
                     </fieldset>
-                </div>
-                <div class="col-xs-3" id="extras-row-{{$index}}">
                     <fieldset class="form-group">
                         <a id="remove-extras-{{$index}}" class="btn btn-danger btn-sm btn-block remove-extras">
                         <i class="glyphicon glyphicon-remove"></i>
@@ -86,74 +84,52 @@
         <!-- End Extra's section -->
 
         <!-- Materials section -->
-        <div class="col-md-12 grey-background">
-            <h4>Materials</h4>
+        <legend><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Material
+        <a id="add-estimate-material" class="btn btn-primary btn-sm add-button">Add</a>
+        </legend>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="material_name">Description:</label>
+            </div>
+            <div class="col-xs-2">
+                <label for="material_quantity">Quantity:</label>
+            </div>
+            <div class="col-xs-2">
+                <label for="material_cost">Cost:</label>
+            </div>
         </div>
-        @foreach($estimate->job->technicians as $index => $technician)
-        <div class="material-each-tech">
-            <input type="hidden" name="technician_id[]" value="{{$technician->id}}">
-            @if(count($technician->materials)!=0)
-                <div class="col-xs-10 col-xs-offset-1">
-                    <h4>Name: {{$technician->technician_name}}</h4>
-                    <hr>
-                </div>
-                <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <b>Material</b>
-                        <a data-tech-id="{{$technician->id}}" class="btn btn-primary btn-sm add-button add-revised-material">Add</a>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-xs-5 col-xs-offset-1">
-                        {{ Form::label('material_name', 'Material Name:')  }}
-                    </div>
-                    <div class="col-xs-2">
-                        {{ Form::label('material_quantity', 'Quantity:')  }}
-                    </div>
-                    <div class="col-xs-3 off-set-1">
-                        {{ Form::label('material_cost', 'Cost: $')  }}
-                    </div>
-                </div>
-
-                <div class="row" id="material-add-{{$technician->id}}">
-                </div>
-            @endif
-
-            @foreach($technician->materials as $j => $material)
-
-                <input type="hidden" name="material_id[{{$technician->id}}][]" value="{{$material->id}}">
+        <div class="row" id="estimate-material-add">
+            @foreach($estimate->materials as $i => $material)
+                <input name="material_id[]" type="hidden" value="{{$material->id}}">
                 <span class="material-row-span">
-                    <div class="row">
-                        <div class="col-xs-5 col-xs-offset-1" id="material-row-{{$j}}">
-                            <fieldset class="form-group">
-                                {{-- {{ Form::label('material_name_'.$j, 'Material Name:')  }} --}}
-                                <input type="text" id="material_name" name="material_name[{{$technician->id}}][]" value="{{$material->material_name}}" class="form-control" maxlength="255" required>
-                            </fieldset>
-                        </div>
-                        <div class="col-xs-2" id="material-row-{{$j}}">
-                            <fieldset class="form-group">
-                                {{-- {{ Form::label('material_quantity_'.$j, 'Quantity:')  }} --}}
-                                <input type="text" id="material_quantity" name="material_quantity[{{$technician->id}}][]" value="{{$material->material_quantity}}" class="form-control" data-parsley-type="digits"  maxlength="255" required>
-                            </fieldset>
-                        </div>
-                        <div class="col-xs-2" id="material-row-{{$j}}">
-                            <fieldset class="form-group">
-                                {{-- {{ Form::label('material_cost_'.$j, 'Cost: $')  }} --}}
-                                <input type="text" id="material_cost" name="material_cost[{{$technician->id}}][]" value="{{$material->material_cost}}" class="form-control" data-parsley-pattern="{{$cost_validation_pattern}}"  maxlength="255" required>
-                            </fieldset>
-                        </div>
-                        <div class="col-xs-1 off-set-1" id="material-row-{{$j}}">
-                            <fieldset class="form-group">
-                                <a id="remove-material-{{$j}}" class="btn btn-danger btn-sm btn-block remove-material-revised">
-                                <i class="glyphicon glyphicon-remove"></i></a>
-                            </fieldset>
-                        </div>
+                    <div class="col-xs-6" id="material-row-{{$i}}">
+                        <fieldset class="form-group">
+                            <input type="text" class="form-control" required="" id="material_name_0" maxlength="255" name="material_name[]"  value="{{$material->material_name}}">
+                        </fieldset>
+                    </div>
+                    <div class="col-xs-2" id="material-row-{{$i}}">
+                        <fieldset class="form-group">
+                            <input type="text" class="form-control" required="" id="material_quantity_{{$i}}" data-parsley-type="digits" maxlength="255" name="material_quantity[]" value="{{$material->material_quantity}}">
+                        </fieldset>
+                    </div>
+                    <div class="col-xs-2" id="material-row-{{$i}}">
+                        <fieldset class="form-group">
+                            <input type="text" class="form-control" required="" id="material_cost_{{$i}}" data-parsley-type="digits" maxlength="255" name="material_cost[]" value="{{$material->material_cost}}">
+                        </fieldset>
+                    </div>
+                    <div class="col-xs-2" id="material-row-{{$i}}">
+                        <fieldset class="form-group">
+                            <a id="remove-material-{{$i}}" class="btn btn-danger btn-sm btn-block remove-material">
+                            <i class="glyphicon glyphicon-remove"></i></a>
+                        </fieldset>
                     </div>
                 </span>
-            @endforeach <!-- Materials section -->
+            @endforeach
         </div>
-        @endforeach {{-- end foreach job->tech --}}
+        <!-- End Materials section -->
+
 
         {{ Form::hidden('job_id', $estimate->job->id) }}
 

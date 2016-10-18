@@ -479,12 +479,8 @@ class InvoiceController extends Controller
                 }
 
                 $material_total    = 0;
-                foreach($job->technicians as $technician){
-                    // start materials
-                    foreach($technician->materials as $material){
-                        // calculate materials
-                        $material_total += $material->material_quantity*$material->material_cost;
-                    }
+                foreach($job->estimates->first()->materials as $material){
+                    $material_total += $material->material_quantity*$material->material_cost;
                 }
 
                 $total = $labor_total + $extras_total + $material_total;

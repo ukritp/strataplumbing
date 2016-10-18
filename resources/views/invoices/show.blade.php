@@ -353,8 +353,7 @@
                             <td></td>
                         </tr>
                         @set('material_total',0)
-                        @foreach($job->technicians as $technician)
-                            @forelse($technician->materials as $material)
+                        @forelse($job->estimates->first()->materials as $material)
                             <tr>
                                 <td></td>
                                 <td>{{$material->material_quantity.' x '.$material->material_name}}</td>
@@ -364,9 +363,8 @@
                             <?php
                             $material_total += $material->material_quantity*$material->material_cost;;
                             ?>
-                            @empty
-                            @endforelse
-                        @endforeach
+                        @empty
+                        @endforelse
                     </tbody>
                 </table>
                 <?php

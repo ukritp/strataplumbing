@@ -54,9 +54,9 @@ class EstimateController extends Controller
             'extras_description.*' => '',
             'extras_cost.*'        => 'max:255',
 
-            'material_name.*' => '',
+            'material_name.*'     => '',
             'material_quantity.*' => '',
-            'material_cost.*'        => 'max:255',
+            'material_cost.*'     => 'max:255',
 
             'job_id'               => 'required|numeric',
             'technician_id.*'      => 'required|numeric'
@@ -198,6 +198,10 @@ class EstimateController extends Controller
             'extras_description.*' => '',
             'extras_cost.*'        => 'max:255',
 
+            'material_name.*'     => '',
+            'material_quantity.*' => '',
+            'material_cost.*'     => 'max:255',
+
             'job_id'               => 'required|numeric',
             'technician_id.*'      => 'required|numeric'
         ));
@@ -239,49 +243,36 @@ class EstimateController extends Controller
             }
         }
 
-        // update technician
-        foreach($request->technician_id as $technician_id){
-            // echo $technician_id,'<br>';
-            $technician = Technician::find($technician_id);
+        // check if there is materials
+        if(isset($request->material_id) || isset($request->material_name)){
 
-            // Add the new material
-            if(isset($request->material_name_add[$technician_id])){
-                // echo '<pre>'; print_r($request->material_name_add[$technician_id]); echo '</pre>';
-                foreach($request->material_name_add[$technician_id] as $index => $material_add){
-                    $material = new Material;
-
-                    $material->material_name     = $request->material_name_add[$technician_id][$index];
-                    $material->material_quantity = $request->material_quantity_add[$technician_id][$index];
-                    $material->material_cost     = $request->material_cost_add[$technician_id][$index];
-                    $material->technician_id     = $technician->id;
-
-                    $material->save();
+            $exist_materials = Material::where('estimate_id',$id)->get();
+            $exist_materials_ids = array();
+            // if there are existing materials, then keep their ids
+            if(count($exist_materials) > 0){
+                foreach($exist_materials as $index => $exist_material){
+                    $exist_materials_ids[$index] = $exist_material->id;
                 }
             }
+            // delete all existing materials
+            Material::where('estimate_id', $estimate->id)->delete();
 
-            // Update the existing material
-            if(isset($request->material_id[$technician_id])){
-                // echo '<br>-------------------<br>';
-                // echo '<pre>'; print_r($request->material_id[$technician_id]); echo '</pre>';
+            for($i = 0; $i < count($request->material_name); ++$i) {
 
-                foreach($request->material_id[$technician_id] as $index => $material_id){
-                    //echo $index.'-'.$material_id.'<br>';
+                $material = new Material;
 
-                    $material = Material::find($material_id);
+                if(isset($exist_materials_ids[$i])){
+                    $material->id                = $exist_materials_ids[$i];
+                }
 
-                    if(isset($request->material_name[$technician_id][$index])){
-                        $material->material_name     = $request->material_name[$technician_id][$index];
-                        $material->material_quantity = $request->material_quantity[$technician_id][$index];
-                        $material->material_cost     = $request->material_cost[$technician_id][$index];
-                        $material->technician_id     = $technician->id;
+                $material->material_name     = $request->material_name[$i];
+                $material->material_quantity = $request->material_quantity[$i];
+                $material->material_cost     = $request->material_cost[$i];
+                $material->estimate_id       = $estimate->id;
 
-                        $material->save();
-                    }else{
-                        $material->delete();
-                    }
-                } // END foreach material
-            } // END if isset material_id
-        } // END foreach technician
+                $material->save();
+            }
+        }
 
         Session::flash('success','The Estimate Invoice was successfully updated');
 
