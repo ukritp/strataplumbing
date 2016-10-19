@@ -496,6 +496,8 @@ class InvoiceController extends Controller
                 $truck_services_amount = $job->truck_services_amount;
             }
 
+            $total = $total + $truck_services_amount;
+
             // <!-- Labor Discount -->
             $labor_discount = $job->labor_discount/100;
             $labor_deduction = 0;
@@ -520,7 +522,7 @@ class InvoiceController extends Controller
 
             }
             // <!-- Calculate Total -->
-            $total_before_gst = $total+$truck_services_amount-$labor_deduction-$material_deduction-$price_adjustment_amount;
+            $total_before_gst = $total-$labor_deduction-$material_deduction-$price_adjustment_amount;
             $gst_percentage =0.05;
             $gst = $total_before_gst*$gst_percentage;
 

@@ -46,7 +46,12 @@ class JobController extends Controller
 
         $jobs = Job::search($request->keyword)->paginate(25)->appends(['keyword' => $request->keyword]);
         if(count($jobs)==0){
-            $jobs = Job::search($request->keyword, ['client.mailing_address', 'site.mailing_address'])->paginate(25)->appends(['keyword' => $request->keyword]);
+            $jobs = Job::search($request->keyword, [
+                        'client.mailing_address',
+                        'site.mailing_address',
+                        'estimates.description',
+                        'estimates.extras.extras_description'
+                    ])->paginate(25)->appends(['keyword' => $request->keyword]);
         }
         // check id
         // echo 'count = '.count($jobs);
@@ -56,19 +61,35 @@ class JobController extends Controller
             $jobs = Job::search($id, ['id'])->paginate(25)->appends(['keyword' => $request->keyword]);
         }
         // echo 'count = '.count($jobs);
+
         // check status
         if(count($jobs)==0){
             $keyword = '';
+            if($request->keyword == 'regular'){
+                $keyword = '%0%';
+            }else if($request->keyword == 'estimate'){
+                $keyword = 1;
+            }
+            if($keyword!=''){
+                $jobs = Job::search($keyword, ['is_estimate'])->paginate(25)->appends(['keyword' => $request->keyword]);
+            }
+        }
+        // echo 'count = '.count($jobs);
+
+        // check job type
+        if(count($jobs)==0){
+            $keyword = '';
             if($request->keyword == 'pending'){
-                $keyword =0;
+                $keyword = '%0%';
             }else if($request->keyword =='complete' || $request->keyword == 'completed'){
-                $keyword =1;
+                $keyword = 1;
             }
             if($keyword!=''){
                 $jobs = Job::search($keyword, ['status'])->paginate(25)->appends(['keyword' => $request->keyword]);
             }
-
         }
+
+        // echo 'count = '.count($jobs);
 
         foreach($jobs as $job){
             //echo $job->id;

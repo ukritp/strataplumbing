@@ -56,11 +56,25 @@ class PageController extends Controller
             $jobs = Job::search($id, ['id'])->get();
         }
         // echo 'count = '.count($jobs);
+
+        // check status
+        if(count($jobs)==0){
+            $keyword = '';
+            if($request->keyword == 'regular'){
+                $keyword = '%0%';
+            }else if($request->keyword == 'estimate'){
+                $keyword = 1;
+            }
+            if($keyword!=''){
+                $jobs = Job::search($keyword, ['is_estimate'])->paginate(25)->appends(['keyword' => $request->keyword]);
+            }
+        }
+
         // check status
         if(count($jobs)==0){
             $keyword = '';
             if($request->keyword == 'pending'){
-                $keyword =0;
+                $keyword = '%0%';
             }else if($request->keyword =='complete' || $request->keyword == 'completed'){
                 $keyword =1;
             }
