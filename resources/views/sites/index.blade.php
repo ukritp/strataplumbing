@@ -47,7 +47,7 @@
                             <tr>
                                 <th data-label="Company">{{(!empty($site->client->company_name)) ? $site->client->company_name : '-'}}</th>
                                 <td data-label="Address">
-                                {!! Html::linkRoute('sites.show',$site->mailing_address.$site->mailing_city, array($site->id), array() ) !!}
+                                {!! Html::linkRoute('sites.show',$site->mailing_address.', '.$site->mailing_city, array($site->id), array() ) !!}
                                 </td>
                                 <td data-label="Name">{{$site->first_name.' '.$site->last_name}}</td>
                                 <td data-label="Relationship">{{$site->relationship}}</td>

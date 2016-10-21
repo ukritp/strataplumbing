@@ -58,9 +58,11 @@
                             -
                             @endif
                             </th>
-                            <td data-label="Contact" class="td-contact">{{$client->first_name.' '.$client->last_name}}</td>
+                            <td data-label="Contact" class="td-contact">
+                            {!!Html::linkRoute('clients.show',$client->first_name.' '.$client->last_name, array($client->id), array() )!!}
+                            </td>
                             <td data-label="Title">{{(!empty($client->title)) ? $client->title : '-'}}</td>
-                            <td data-label="Address">{{$client->mailing_address.$client->mailing_city}}</td>
+                            <td data-label="Address">{{$client->mailing_address.', '.$client->mailing_city}}</td>
                             <td data-label="Action" class="text-right td-action">
                             <div class="btn-group">
                                 <button type="button"

@@ -19,6 +19,8 @@
             @elseif($job->approval_status == 'declined')
                 <h3 style="text-align: center; color: red;">Project manager declined this invoice</h3>
             @endif
+
+            <h3 style="text-align: center; color: blue;">(Scroll down to add comments and finalize Approval Request)</h3>
         </div>
     </div>
     <br>
