@@ -36,6 +36,22 @@
                 </p>
                 <p class="lead"><strong>Email:</strong><br>{{$contact->email}}</p>
                 <p class="lead"><strong>Project Manager:</strong> {{$job->project_manager}}</p>
+                @if(!empty($job->approval_status))
+                <div class="lead-approval">
+                    @if($job->approval_status == 'pending')
+                            <p class="lead"><strong>Approval Status:</strong> Pending</p>
+                    @elseif($job->approval_status == 'declined')
+                            <p class="lead"><strong>Approval Status:</strong> Declined</p>
+                    @elseif($job->approval_status == 'approved')
+                            <p class="lead"><strong>Approval Status:</strong> Approved</p>
+                    @endif
+                    @if(!empty($job->approval_note))
+                    <p class="lead paragraph-wrap"><strong>Approval Note:</strong><br>{{$job->approval_note}}</p>
+                    @endif
+                </div>
+                @endif
+                @set('job_type', ($job->is_estimate)? 'estimate' : 'regular')
+                <p class="lead job-type type-{{$job_type}}"><strong>Job Type: {{$job_type}}</strong></p>
                 <p class="lead paragraph-wrap"><strong>Scope Of Works:</strong><br>{{$job->scope_of_works}}</p>
                 <p class="lead lead-status"><strong>Status:</strong> <span>{{($job->status) ? 'Completed' : 'Pending'}}</span></p>
                 <p class="lead"><strong>Quoted Rate:</strong>{{(!empty($job->quoted_rate)) ? $job->quoted_rate : '-'}}</p>
