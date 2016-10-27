@@ -42,12 +42,19 @@
                 </p>
                 <p class="lead"><strong>Email:</strong><br>{{$contact->email}}</p>
                 <p class="lead"><strong>Project Manager:</strong> {{$job->project_manager}}</p>
-                @if($job->approval_status == 'pending')
-                        <p class="lead"><strong>Approval Status:</strong> Pending</p>
-                @elseif($job->approval_status == 'declined')
-                        <p class="lead"><strong>Approval Status:</strong> Declined</p>
-                @elseif($job->approval_status == 'approved')
-                        <p class="lead"><strong>Approval Status:</strong> Approved</p>
+                @if(!empty($job->approval_status))
+                <div class="lead-approval">
+                    @if($job->approval_status == 'pending')
+                            <p class="lead"><strong>Approval Status:</strong> Pending</p>
+                    @elseif($job->approval_status == 'declined')
+                            <p class="lead"><strong>Approval Status:</strong> Declined</p>
+                    @elseif($job->approval_status == 'approved')
+                            <p class="lead"><strong>Approval Status:</strong> Approved</p>
+                    @endif
+                    @if(!empty($job->approval_note))
+                    <p class="lead paragraph-wrap"><strong>Approval Note:</strong><br>{{$job->approval_note}}</p>
+                    @endif
+                </div>
                 @endif
                 @set('job_type', ($job->is_estimate)? 'estimate' : 'regular')
                 <p class="lead job-type type-{{$job_type}}"><strong>Job Type: {{$job_type}}</strong></p>
@@ -156,15 +163,14 @@
                 @endif
             @endif
 
-            @if(!$job->is_estimate)
-                @if($job->approval_status != 'approved')
-                <div class="row">
-                    <div class="col-sm-12">
-                        <a href="{{url('/invoices/approval/' . $job->id)}}" class="btn btn-warning btn-lg btn-block btn-margin">Send for approval</a>
-                    </div>
+            @if($job->approval_status != 'approved')
+            <div class="row">
+                <div class="col-sm-12">
+                    <a href="{{url('/invoices/approval/' . $job->id)}}" class="btn btn-warning btn-lg btn-block btn-margin">Send for approval</a>
                 </div>
-                @endif
+            </div>
             @endif
+
             <div class="row">
                 <div class="col-sm-12">
                     {!! Html::linkRoute('jobs.show', 'Back to Job Summary', array($job->id), array('class'=>'btn btn-default btn-lg btn-block btn-margin') ) !!}

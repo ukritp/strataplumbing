@@ -367,6 +367,38 @@ table.mobile-table th.td-activity-subject{
     width:13%;
 }
 
+ul.dropdown-menu li{
+    position: relative;
+}
+.notification-bubble{
+    position:absolute;
+    top: 3px;
+    right: -10px;
+}
+.bubble-red{
+    background: red;
+    border: 2px solid #fff;
+    color: #fff;
+}
+.bubble-green{
+    background: #A0EE3E;
+    border: 2px solid #fff;
+    color: #000;
+}
+.bubble-yellow{
+    background: #EEC446;
+    border: 2px solid #fff;
+    color: #000;
+}
+
+.lead-approval {
+    background-color: #FFF7E9;
+    padding: 2% 2%;
+    margin: 20px 0;
+    border: 2px solid #fff;
+    border-radius: 5px;
+}
+
 /* MOBILE DESIGN CSS-----------------------------------------------------------------------*/
 @media (max-width: 600px) {
 	h1, h2{

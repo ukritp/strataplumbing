@@ -51,6 +51,8 @@
                 </p>
                 <p class="lead"><strong>Email:</strong><br>{{$contact->email}}</p>
                 <p class="lead"><strong>Project Manager:</strong> {{$job->project_manager}}</p>
+                @set('job_type', ($job->is_estimate)? 'estimate' : 'regular')
+                <p class="lead job-type type-{{$job_type}}"><strong>Job Type: {{$job_type}}</strong></p>
                 <p class="lead paragraph-wrap"><strong>Scope Of Works:</strong><br>{{$job->scope_of_works}}</p>
                 <p class="lead lead-status"><strong>Status:</strong> <span>{{($job->status) ? 'Completed' : 'Pending'}}</span></p>
                 <p class="lead"><strong>Quoted Rate:</strong>{{(!empty($job->quoted_rate)) ? $job->quoted_rate : '-'}}</p>

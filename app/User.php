@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use App\Job;
 class User extends Authenticatable
 {
     /**
@@ -56,5 +56,16 @@ class User extends Authenticatable
             return true;
         }
         return false;
+    }
+
+
+    public function pendingInvoiceGroupByPM($pm)
+    {
+        return Job::where('approval_status', 'pending')->where('project_manager', $pm)->get();
+    }
+
+    public function invoiceApprovedOrDeclined($status)
+    {
+        return Job::where('approval_status', $status)->get();
     }
 }

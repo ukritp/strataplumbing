@@ -614,7 +614,8 @@ class InvoiceController extends Controller
 
         $grand_totals = $this->calculateGrandTotal($jobs);
 
-        return view('invoices.pending')->withJobs($jobs)->withTotals($grand_totals);
+        $header = 'All';
+        return view('invoices.pending')->withJobs($jobs)->withTotals($grand_totals)->withHeader($header);
     }
 
     public function pending($id){
@@ -622,7 +623,16 @@ class InvoiceController extends Controller
 
         $grand_totals = $this->calculateGrandTotal($jobs);
 
-        return view('invoices.pending')->withJobs($jobs)->withTotals($grand_totals);
+        $header = '';
+        if( $id == 'PC'){
+            $header = 'Peter Campa';
+        }elseif( $id == 'JG')  {
+            $header = 'Jess Gunther';
+        }elseif( $id == 'JB'){
+            $header = 'Johan Becker';
+        }
+
+        return view('invoices.pending')->withJobs($jobs)->withTotals($grand_totals)->withHeader($header);
     }
 
     public function approved_invoice_all(){

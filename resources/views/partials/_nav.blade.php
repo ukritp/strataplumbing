@@ -26,13 +26,49 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Invoices <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="{{url('/invoices/approved/all')}}">All Approved Invoices</a></li>
-              <li><a href="{{url('/invoices/declined/all')}}">All Declined Invoices</a></li>
+              @set('approved_invoice',count(\Auth::user()->invoiceApprovedOrDeclined('approved')))
+              @set('declined_invoice',count(\Auth::user()->invoiceApprovedOrDeclined('declined')))
+              <li>
+                <a href="{{url('/invoices/approved/all')}}">All Approved Invoices</a>
+                @if($approved_invoice)
+                <span class="badge notification-bubble bubble-green">{{$approved_invoice}}</span>
+                @endif
+              </li>
+              <li>
+                <a href="{{url('/invoices/declined/all')}}">All Declined Invoices</a>
+                @if($declined_invoice)
+                <span class="badge notification-bubble bubble-red">{{$declined_invoice}}</span>
+                @endif
+              </li>
               <li role="separator" class="divider"></li>
-              <li><a href="{{url('/invoices/pending/all')}}">All Pending Invoices</a></li>
-              <li><a href="{{url('/invoices/pending/PC')}}">Pending Approval - Peter Campa</a></li>
-              <li><a href="{{url('/invoices/pending/JG')}}">Pending Approval - Jess Gunther</a></li>
-              <li><a href="{{url('/invoices/pending/JB')}}">Pending Approval - Johan Becker</a></li>
+              @set('pending_invoice_pc',count(\Auth::user()->pendingInvoiceGroupByPM('PC')))
+              @set('pending_invoice_jg',count(\Auth::user()->pendingInvoiceGroupByPM('JG')))
+              @set('pending_invoice_jb',count(\Auth::user()->pendingInvoiceGroupByPM('jb')))
+              @set('pending_invoice_all',$pending_invoice_pc + $pending_invoice_jg + $pending_invoice_jb)
+              <li>
+                <a href="{{url('/invoices/pending/all')}}">All Pending Invoices</a>
+                @if($pending_invoice_all)
+                <span class="badge notification-bubble bubble-yellow">{{$pending_invoice_all}}</span>
+                @endif
+              </li>
+              <li>
+                <a href="{{url('/invoices/pending/PC')}}">Pending Approval - Peter Campa</a>
+                @if($pending_invoice_pc)
+                <span class="badge notification-bubble bubble-yellow">{{$pending_invoice_pc}}</span>
+                @endif
+              </li>
+              <li>
+                <a href="{{url('/invoices/pending/JG')}}">Pending Approval - Jess Gunther</a>
+                @if($pending_invoice_jg)
+                <span class="badge notification-bubble bubble-yellow">{{$pending_invoice_jg}}</span>
+                @endif
+              </li>
+              <li>
+                <a href="{{url('/invoices/pending/JB')}}">Pending Approval - Johan Becker</a>
+                @if($pending_invoice_jb)
+                <span class="badge notification-bubble bubble-yellow">{{$pending_invoice_jb}}</span>
+                @endif
+              </li>
               <li role="separator" class="divider"></li>
               <li><a href="{{url('invoices/index/1' )}}">Issued / QB Invoices</a></li>
             </ul>

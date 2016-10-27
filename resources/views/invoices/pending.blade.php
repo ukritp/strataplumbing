@@ -10,8 +10,8 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-5">
-            <h1>Pending Invoices</h1>
+        <div class="col-md-10">
+            <h1>Pending Invoices {{'- '.$header}} </h1>
         </div>
 
         <div class="col-md-12">
@@ -25,6 +25,7 @@
             <table class="table table-hover mobile-table">
                 <thead>
                 <th>#</th>
+                <th>PM</th>
                 <th>Company</th>
                 <th>Contact</th>
                 <th class="text-center">Invoice Date</th>
@@ -39,6 +40,7 @@
                         @set('status', count($job->pendinginvoices)>0 ? '' : 'disabled')
                         <tr>
                             <th data-label="#">{{$job->id+20100}}</th>
+                            <th data-label="PM">{{$job->project_manager}}</th>
                             <th data-label="Company">{{!empty($job->client->company_name) ? $job->client->company_name : '-'}}</th>
                             @if(isset($job->site))
                                 <th data-label="Contact">{{$job->site->first_name.' '.$job->site->last_name}}</th>
@@ -64,11 +66,11 @@
                     <?php $grand_total += $totals[$index]; ?>
                     @endforeach
                     <tr>
-                        <td colspan="7" class="text-right"><strong>TOTAL: $ {{number_format($grand_total,2,'.',',')}}</strong></td>
+                        <td colspan="8" class="text-right"><strong>TOTAL: $ {{number_format($grand_total,2,'.',',')}}</strong></td>
                     </tr>
                 @else
                     <tr>
-                        <td colspan="7" class="text-center  no-item"><b>There is no invoice</b></td>
+                        <td colspan="8" class="text-center  no-item"><b>There is no invoice</b></td>
                     </tr>
                 @endif
 
