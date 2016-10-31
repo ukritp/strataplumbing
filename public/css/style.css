@@ -5,7 +5,7 @@ html, body {
 .container{
 	display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 105vh;
 }
 .main-row{
 	flex: 1;

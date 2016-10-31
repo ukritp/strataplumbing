@@ -155,7 +155,3 @@
     </div>
 
 @endsection
-
-@section('scripts')
-    {!! Html::script('js/default.js') !!}
-@endsection

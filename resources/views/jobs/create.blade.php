@@ -130,5 +130,4 @@
 
 @section('scripts')
 	{!! Html::script('js/parsley.min.js') !!}
-    {!! Html::script('js/default.js') !!}
 @endsection

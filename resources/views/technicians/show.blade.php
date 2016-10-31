@@ -169,7 +169,3 @@
     </div> <!-- /.row -->
 
 @endsection
-
-@section('scripts')
-    {!! Html::script('js/default.js') !!}
-@endsection

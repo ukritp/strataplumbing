@@ -252,5 +252,4 @@
     {!! Html::script('js/parsley.min.js') !!}
     {!! Html::script('js/maskedinput.min.js') !!}
     {!! Html::script('js/maskedinput.js') !!}
-    {!! Html::script('js/default.js') !!}
 @endsection

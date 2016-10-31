@@ -270,5 +270,4 @@
             new Clipboard('#copy-button');
         });
     </script>
-    {!! Html::script('js/default.js') !!}
 @endsection

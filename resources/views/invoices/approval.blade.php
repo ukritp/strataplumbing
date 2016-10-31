@@ -402,6 +402,5 @@
     </script>
     {!! Html::script('js/parsley.min.js') !!}
     {!! Html::script('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js') !!}
-    {!! Html::script('js/default.js') !!}
     {!! Html::script('js/datepicker.js') !!}
 @endsection

@@ -1,5 +1,15 @@
 $(document).ready(function () {
 
+    // sticky navbar after scroll-----------------------------
+    $(window).bind('scroll', function () {
+        // console.log($(window).scrollTop());
+        if ($(window).scrollTop() > $('.thumbnail-logo').outerHeight()) {
+            $('#main-navbar').addClass('navbar-fixed-top');
+        } else {
+            $('#main-navbar').removeClass('navbar-fixed-top');
+        }
+    });
+
 	// Mailing to Billing if checked -----------------------------
 	// http://jsfiddle.net/GaryC123/3gtSn/1/
 	$("#mail_to_bill_checkbox").change(function(){

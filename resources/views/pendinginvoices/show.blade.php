@@ -188,7 +188,7 @@
                         @set('camera_subtotal', $technician->camera_hours*$technician->camera_hours_cost)
                         @set('main_line_auger_subtotal', $technician->main_line_auger_hours*$technician->main_line_auger_hours_cost)
                         @set('other_subtotal', $technician->other_hours*$technician->other_hours_cost)
-                        <?php $other_hours_total += $flushing_subtotal+$camera_subtotal+$main_line_auger_subtotal+$other_subtotal?>
+                        <?php $other_hours_total += $flushing_subtotal+$camera_subtotal+$main_line_auger_subtotal+$other_subtotal;?>
                     @endforeach
                     <tr>
                     	<td></td>
@@ -213,7 +213,7 @@
                 			<td>{{$material->material_quantity.' - '.$material->material_name}}</td>
                 			<td class="text-right">$ {{number_format($material->material_quantity*$material->material_cost,2,'.',',')}}</td>
                 		</tr>
-                		<?php $material_total += $material->material_quantity*$material->material_cost?>
+                		<?php $material_total += $material->material_quantity*$material->material_cost;?>
                 		@endforeach
                 	@endforeach
 
@@ -240,8 +240,4 @@
         </div>
     </div>
 
-@endsection
-
-@section('scripts')
-    {!! Html::script('js/default.js') !!}
 @endsection

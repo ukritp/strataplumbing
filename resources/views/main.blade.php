@@ -18,7 +18,7 @@
     @endif
 
     <a href="{{$logo_route}}" class="thumbnail thumbnail-logo">
-      {{ Html::image('images/logo-new.png', 'strataplumbing', ['width'=>'400px'])}}
+      {{ Html::image('images/logo-new.png', 'strataplumbing', ['width'=>'280px'])}}
     </a>
 
     @include('partials._nav')
@@ -37,6 +37,7 @@
     @include('partials._javascript')
     <!-- extra script for each page to save the load time -->
     @yield('scripts')
+    {!! Html::script('js/default.js') !!}
 
   </body>
 </html>
