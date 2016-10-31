@@ -335,7 +335,11 @@ $(document).ready(function () {
 
         }
     })
-
+    if ( $('.tech-update-btn').length ){
+        $('.tech-update-btn').on('click', function(){
+            $('#tech-update-form').submit();
+        });
+    }
     // Confirm cancel-----------------------------
     cancel_confirmation_modal.init();
 
@@ -379,6 +383,7 @@ var cancel_confirmation_modal =
     init: function()
     {
         $('.confirm-cancel-modal').on('click', function(e){
+
             if($(this).attr('data-link') == "true")
             {
                 $(this).removeAttr('data-link');
@@ -402,6 +407,3 @@ var cancel_confirmation_modal =
         });
     }
 }
-
-
-//send for approval ajax and

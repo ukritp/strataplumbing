@@ -11,7 +11,7 @@
 
     <div class="row">
         <!-- model obj, array of other options -->
-        {!! Form::model($technician, ['route' => ['technicians.update',$technician->id], 'method'=>'PUT', 'data-parsley-validate'=>''] ) !!}
+        {!! Form::model($technician, ['route' => ['technicians.update',$technician->id], 'id'=>'tech-update-form', 'method'=>'PUT', 'data-parsley-validate'=>''] ) !!}
 
         <div class="col-md-8">
             <h3>Contact: {{$contact->first_name.' '.$contact->last_name}}</h3>
@@ -173,7 +173,7 @@
 
             {{ Form::hidden('job_id', $job->id) }}
         </div>
-
+        {!! Form::close() !!}
         <!-- Side bar -->
         <div class="col-md-4">
             <div class="well well-mobile">
@@ -200,9 +200,9 @@
 
                 <div class="row">
                     <div class="col-sm-6 form-group">
-                        {{ Form::submit('Update', ['class' => 'btn btn-success btn-block'] )}}
+                        {{ Form::submit('Update', ['class' => 'btn btn-success btn-block tech-update-btn'] )}}
                     </div>
-                    {!! Form::close() !!}
+
 
                     <div class="col-sm-6 ">
                         <div class="modal modal-effect-blur" id="modal-1">
