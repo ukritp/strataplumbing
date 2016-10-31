@@ -174,7 +174,7 @@ if(isset($site)){
                     <p>Office: (604) 588 - 8062</p>
                     <p>Dispatch: (604) 588 - 8038</p>
                     <p>info@strataplumbing.com</p>
-                    <p class="red">24 HRS EMERGENCY SERVICES</p>
+                    <p class="red">24 HR EMERGENCY SERVICES</p>
                 </div>
             </div>
         </div>
@@ -380,7 +380,7 @@ if(isset($site)){
                     @if($truck_services_amount!=0)
                     <div class="row invoice-truck no-gutter">
                         <div class="col-xs-9 col-xs-offset-1 invoice-truck-text">
-                            <p>Truck Services</p>
+                            <p style="text-indent: 20px;">Truck Services</p>
                         </div>
                         <div class="col-xs-2">
                             <p class="total-cost">$ {{number_format($truck_services_amount,2,'.',',')}}</p>

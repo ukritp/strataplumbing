@@ -14,6 +14,7 @@
 <!-- SITEGROUND MUST BE ABSOLUTE PATH, CANNOTE USE OTHERS AT ALL -->
 <link rel="stylesheet" href="/home/stratapl/public_html/css/bootstrap.min.css">
 <link rel="stylesheet" href="/home/stratapl/public_html/css/pdf.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" >
 
 <!-- localhost must also be absolute path, or put it in here, bootstrap is good with external source link -->
 {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" > --}}
@@ -82,18 +83,18 @@ if(isset($site)){
             <div class="col-xs-12 header">
                 <div class="col-xs-8 left-header">
                 <div class="row">
-                    <div class="col-xs-2">
+                    <div class="col-xs-3">
                         <p><span>INVOICE#</span></p>
                     </div>
-                    <div class="col-xs-10">
+                    <div class="col-xs-9">
                         <p>{{$job->id+20100}}</p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-2">
+                    <div class="col-xs-3">
                         <p><span>TO:</span></p>
                     </div>
-                    <div class="col-xs-10">
+                    <div class="col-xs-9">
                         <p>
                         @if(!empty($client->strata_plan_number))
                             {{'Strata Plan '.$client->strata_plan_number}}
@@ -105,10 +106,10 @@ if(isset($site)){
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-2">
+                    <div class="col-xs-3">
                         <p><span>BILLING<br>ADDRESS:</span>
                     </div>
-                    <div class="col-xs-10">
+                    <div class="col-xs-9">
                         {{$shown_billing_address_1}}
                         <br>
                         {{$shown_billing_address_2}}
@@ -116,10 +117,10 @@ if(isset($site)){
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-2">
+                    <div class="col-xs-3">
                         <p><span>SITE<br>ADDRESS:</span>
                     </div>
-                    <div class="col-xs-10">
+                    <div class="col-xs-9">
                         {{$shown_site_address_1}}
                         <br>
                         {{$shown_site_address_2}}
@@ -127,10 +128,10 @@ if(isset($site)){
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-2">
+                    <div class="col-xs-3">
                         <p><span>DATE:</span></p>
                     </div>
-                    <div class="col-xs-10">
+                    <div class="col-xs-9">
                         <p>{{$issued_date}}</p>
                     </p>
                     </div>
@@ -142,7 +143,7 @@ if(isset($site)){
                 <p>Office: (604) 588 - 8062</p>
                 <p>Dispatch: (604) 588 - 8038</p>
                 <p>info@strataplumbing.com</p>
-                <p class="red">24 HRS EMERGENCY SERVICES</p>
+                <p class="red">24 HR EMERGENCY SERVICES</p>
             </div>
         </div> <!-- ./ END - HEADER -->
 
@@ -345,7 +346,7 @@ if(isset($site)){
                 @if($truck_services_amount!=0)
                 <div class="row invoice-truck ">
                     <div class="col-xs-10 invoice-truck-text ">
-                        <p>Truck Services</p>
+                        <p style="text-indent: 25px;">Truck Services</p>
                     </div>
                     <div class="col-xs-2 ">
                         <p class="total-cost">$ {{number_format($truck_services_amount,2,'.',',')}}</p>
@@ -418,12 +419,12 @@ if(isset($site)){
 
         <!-- BOTTOM TEXT -->
         <div class="row bottom-text">
-            <div class="col-xs-7 bottom-text-left">
+            <div class="col-xs-8 bottom-text-left">
                 <P>*A monthly late payment charge of 1.5% is applied on unpaid balances.</P>
                 <P>*A charge of $25 is applied on payments returned by your financial institution.</P>
                 <p>*Please make cheques payable to: Strata Plumbing Drainage & Heating</p>
             </div>
-            <div class="col-xs-5 bottom-text-right">
+            <div class="col-xs-4 bottom-text-right">
                 <p class="bottom-text-large">THANK YOU</p>
                 <p class="bottom-text-big">WE APPRECIATE YOUR BUSINESS</p>
             </div>
