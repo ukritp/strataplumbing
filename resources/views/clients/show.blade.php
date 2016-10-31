@@ -95,7 +95,7 @@
                         {!! Html::linkRoute('sites.create', 'Add Site', array($client->id), array('class'=>'btn btn-default btn-block btn-margin') ) !!}
                     </div>
                     <div class="col-sm-12">
-                        {!! Html::linkRoute('jobs.create', 'Create Job from this Client', array($client->id,'client'), array('class'=>'btn btn-default btn-block btn-margin') ) !!}
+                        {!! Html::linkRoute('jobs.create', 'Create Job', array($client->id,'client'), array('class'=>'btn btn-default btn-block btn-margin') ) !!}
                     </div>
 
                 </div>
