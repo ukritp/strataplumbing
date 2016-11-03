@@ -283,6 +283,7 @@ $(document).ready(function () {
             $("#is_trucked").val('1');
             $("#truck_services_amount").removeAttr('disabled');
             $("#truck_services_amount").attr("required","");
+            document.getElementById("truck_services_amount").focus();
         }else{
             $("#is_trucked").val('0');
             $("#truck_services_amount").val('');
@@ -299,6 +300,7 @@ $(document).ready(function () {
             // remove disable on the mount txtbx
             $("#first_half_hour_amount").removeAttr('disabled');
             $("#first_half_hour_amount").attr("required","");
+            document.getElementById("first_half_hour_amount").focus();
             // uncheck the 1 hour chbx and put 0 in its hidden field
             $("#seperate_first_one_hour_chbx").prop( "checked", false );
             $("#seperate_first_one_hour").val('0');
@@ -320,6 +322,7 @@ $(document).ready(function () {
             $("#seperate_first_one_hour").val('1');
             $("#first_one_hour_amount").removeAttr('disabled');
             $("#first_one_hour_amount").attr("required","");
+            document.getElementById("first_one_hour_amount").focus();
 
             $("#seperate_first_half_hour_chbx").prop( "checked", false );
             $("#seperate_first_half_hour").val('0');
