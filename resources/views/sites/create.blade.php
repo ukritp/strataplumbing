@@ -12,19 +12,45 @@
         <div class="col-md-8 col-md-offset-2">
             <h1>Create New Site</h1>
 
-            <div class="jumbotron">
+            <div style="background-color: #eee; padding: 2%; margin:1% 0;">
                 @if(!empty($client->company_name)) <h2>Company: {{$client->company_name}}</h2> @endif
                 <h3>{{$client->first_name.' '.$client->last_name}}</h3>
-                <p class="lead"><strong>Title:</strong> {{$client->title}}</p>
-                <p class="lead"><strong>Address:</strong> {{$client->fullMailingAddress()}}</p>
-                @if(!empty($client->buzzer_code)) <p class="lead"><strong>Buzzer Code:</strong> {{$client->buzzer_code}}</p> @endif
+                @if(!empty($client->title)) <p class="lead-md"><strong>Title:</strong> {{$client->title}}</p> @endif
+                <p class="lead-md"><strong>Address:</strong> {{$client->fullMailingAddress()}}</p>
+                @if(!empty($client->buzzer_code)) <p class="lead-md"><strong>Buzzer Code:</strong> {{$client->buzzer_code}}</p> @endif
                 <div class="row">
+                    @if(!empty($client->home_number))
                     <div class="col-md-6">
-                        <p class="lead"><strong>Cell:</strong> {{$client->cell_number}}</p>
+                        <p class="lead-md"><strong>Home:</strong> {{$client->formatPhone($client->home_number)}}</p>
                     </div>
+                    @endif
+                    @if(!empty($client->cell_number))
                     <div class="col-md-6">
-                        <p class="lead"><strong>Email:</strong> {{$client->email}}</p>
+                        <p class="lead-md"><strong>Cell:</strong> {{$client->formatPhone($client->cell_number)}}</p>
                     </div>
+                    @endif
+                    @if(!empty($client->work_number))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Work:</strong> {{$client->formatPhone($client->work_number)}}</p>
+                    </div>
+                    @endif
+                    @if(!empty($client->fax_number))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Fax:</strong> {{$client->formatPhone($client->fax_number)}}</p>
+                    </div>
+                    @endif
+                </div>
+                <div class="row">
+                    @if(!empty($client->email))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Email:</strong> {{$client->email}}</p>
+                    </div>
+                    @endif
+                    @if(!empty($client->alternate_email))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Alternate Email:</strong> {{$client->alternate_email}}</p>
+                    </div>
+                    @endif
                 </div>
             </div>
 
