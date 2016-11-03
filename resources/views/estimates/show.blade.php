@@ -12,10 +12,10 @@
 <br>
 <div class="row">
     <div class="col-md-8">
-        <h2>Job ID: {{$estimate->job->id+20100}}</h2>
+        <h2  class="header-blue">Job ID: {{$estimate->job->id+20100}}</h2>
         <hr>
-        <p class="lead"><strong>Date From:</strong> {{date('M j', strtotime($estimate->invoiced_from))}}</p>
-        <p class="lead"><strong>Date To:</strong> {{date('M j', strtotime($estimate->invoiced_to))}}</p>
+        <p class="lead-md"><strong>Date From:</strong> {{date('M j, Y', strtotime($estimate->invoiced_from))}}</p>
+        <p class="lead-md"><strong>Date To:</strong> {{date('M j, Y', strtotime($estimate->invoiced_to))}}</p>
 
         {{-- Description section --}}
         <table class="table">
@@ -51,7 +51,7 @@
 
         {{-- Material section --}}
         <table class="table table-bordered material-table">
-            <thead>
+            <thead  style="background-color: #e9e9e9;">
                 <th>Material</th>
                 <th class="text-center">Cost</th>
                 <th class="text-center">Total</th>

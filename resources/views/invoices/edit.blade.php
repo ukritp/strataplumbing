@@ -12,7 +12,7 @@
     <div class="row">
         <!-- Contact info -->
         <div class="col-md-9">
-            <div style="background-color: #eee; padding: 2%; margin:1% 0;">
+            <div style="background-color: #eee; padding: 2%; margin:1% 0; min-height: 630px;">
                 @set('contact_company_name', $job->client->company_name)
                 @set('contact_first_name', $job->client->first_name)
                 @set('contact_last_name', $job->client->last_name)
