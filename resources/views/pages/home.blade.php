@@ -52,7 +52,7 @@
                         @if(count($clients)>0)
                             @foreach($clients as $client)
                                 @set('type','Client')
-                                <tr>
+                                <tr class="table-row" data-href="{{route('clients.show',$client->id)}}">
                                     <th data-label="Type">{{$type}}</th>
                                     <th data-label="Company">{{$client->company_name}}</th>
                                     <td data-label="Contact Info">{{$client->first_name.' '.$client->last_name}}</td>
@@ -85,7 +85,7 @@
                         @if(count($sites)>0)
                             @foreach($sites as $site)
                                 @set('type','Site')
-                                <tr>
+                                <tr  class="table-row" data-href="{{route('sites.show',$site->id)}}">
                                     <th data-label="Type">{{$type}}</th>
                                     <th data-label="Company">{{$site->client->company_name}}</th>
                                     <td data-label="Contact Info">
@@ -128,7 +128,7 @@
                                 @set('job_type', ($job->is_estimate)? 'estimate' : 'regular')
 
                                 @set('type','Job')
-                                <tr>
+                                <tr  class="table-row" data-href="{{route('jobs.show',$job->id)}}">
                                     <th data-label="Type" class="th-type">{{$type}} #{{$job->id+20100}}<br><span class="job-type type-{{$job_type}}">{{$job_type}}</span>
                                     </th>
                                     <th data-label="Company">{{isset($job->client->company_name) ? $job->client->company_name : '-'}}</th>

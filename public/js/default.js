@@ -10,6 +10,10 @@ $(document).ready(function () {
         }
     });
 
+    $(".table-row").click(function() {
+        window.document.location = $(this).data("href");
+    });
+
 	// Mailing to Billing if checked -----------------------------
 	// http://jsfiddle.net/GaryC123/3gtSn/1/
 	$("#mail_to_bill_checkbox").change(function(){

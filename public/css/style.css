@@ -207,6 +207,9 @@ color: red;
     margin-bottom: 10px;
 }
 
+.table-row{
+    cursor: pointer;
+}
 
 /* CSS Confirm Deleter */
 .modal {
