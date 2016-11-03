@@ -85,8 +85,10 @@
       <ul class="nav navbar-nav navbar-right">
         @if(Auth::check())
         <li class="dropdown">
-          <li><a href="#">Logged In as: <strong>{{Auth::user()->name}}</strong></a></li>
-          <li><a href="{{route('logout')}}">Logout</a></li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Logged In as: <strong>{{Auth::user()->name}}</strong> <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="{{route('logout')}}">Logout</a></li>
+            </ul>
         </li>
         @else
           <li><a href="{{route('login')}}" class="btn btn-link">Login</a></li>

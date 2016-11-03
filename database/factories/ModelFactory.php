@@ -61,24 +61,18 @@ $factory->define(App\Site::class, function (Faker\Generator $faker) {
     $initial_number = $faker->randomElement($array = array ('604','778'));
     return [
 
-        // 'first_name'         => $faker->firstName,
-        // 'last_name'          => $faker->lastName,
-        // 'relationship'       => $faker->jobTitle,
         'mailing_address'    => $faker->streetAddress,
         'mailing_city'       => $city,
         'mailing_province'   => 'BC',
         'mailing_postalcode' => 'V'.$faker->randomDigit.$faker->randomLetter.$faker->randomDigit.$faker->randomLetter.$faker->randomDigit,
         'buzzer_code'        => $faker->randomNumber,
+        'alarm_code'         => $faker->randomNumber,
+        'lock_box'           => $faker->word,
+        'lock_box_location'  => $faker->word,
         'billing_address'    => $faker->streetAddress,
         'billing_city'       => $city,
         'billing_province'   => 'BC',
         'billing_postalcode' => 'V'.$faker->randomDigit.$faker->randomLetter.$faker->randomDigit.$faker->randomLetter.$faker->randomDigit,
-        // 'home_number'        => $initial_number.$faker->randomNumber(7),
-        // 'cell_number'        => $initial_number.$faker->randomNumber(7),
-        // 'work_number'        => $initial_number.$faker->randomNumber(7),
-        // 'fax_number'         => $initial_number.$faker->randomNumber(7),
-        // 'email'              => $faker->email,
-        // 'alternate_email'    => $faker->email,
         'property_note'      => $faker->realText(),
     ];
 });

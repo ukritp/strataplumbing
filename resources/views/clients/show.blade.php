@@ -128,16 +128,19 @@
                             <td data-label="Name">
                                 @if(count($site->contacts)>0)
                                     {{$site->contacts->first()->first_name.' '.$site->contacts->first()->last_name}}
+                                @else -
                                 @endif
                             </td>
                             <td data-label="Title">
                                 @if(count($site->contacts)>0)
                                     {{(!empty($site->contacts->first()->title))?$site->contacts->first()->title:'-'}}
+                                @else -
                                 @endif
                             </td>
                             <td data-label="Cellphone">
                                 @if(count($site->contacts)>0)
                                     {{(!empty($site->contacts->first()->cell_number))?$site->formatPhone($site->contacts->first()->cell_number):'-'}}
+                                @else -
                                 @endif
                             </td>
                             <td data-label="Action" class="text-right">
