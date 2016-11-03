@@ -79,12 +79,15 @@
                 @if(count($site->contacts)>0)
                     <p class="lead-md"><strong>Additional Contact:</strong></p>
                     @foreach($site->contacts as $index => $contact)
-                        <div style="margin: 1% 0;padding: 2%;border:1px solid #999;">
+                        <div style="margin: 1% 0;padding: 2%;border:1px solid #bbb;">
                             @if(!empty($contact->company_name))
                             <p class="lead-md"><strong>Company:</strong> {{$contact->company_name}}</p>
                             @endif
                             @if(!empty($contact->first_name))
                             <p class="lead-md"><strong>Name:</strong> {{$contact->first_name.' '.$contact->last_name}}</p>
+                            @endif
+                            @if(!empty($contact->title))
+                            <p class="lead-md"><strong>Title:</strong> {{$contact->title}}</p>
                             @endif
 
                             <div class="row">
