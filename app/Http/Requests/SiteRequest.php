@@ -25,9 +25,10 @@ class SiteRequest extends Request
     {
         return [
             //
-            'first_name'         => 'required|max:255',
-            // 'last_name'          => 'required|max:255',
-            'relationship'       => 'required|max:255',
+            'company_name.*'     => 'required|max:255',
+            'first_name.*'       => 'required|max:255',
+            'last_name.*'        => 'required|max:255',
+            'title.*'            => 'required|max:255',
 
             'mailing_address'    => 'required|max:255',
             'mailing_city'       => 'max:50',
@@ -40,13 +41,13 @@ class SiteRequest extends Request
             'billing_province'   => '',
             'billing_postalcode' => 'max:6',
 
-            'home_number'        => 'digits:10',
-            'cell_number'        => 'digits:10',
-            'work_number'        => 'digits:10',
-            'fax_number'         => 'digits:10',
+            'home_number.*'      => 'digits:10',
+            'cell_number.*'      => 'digits:10',
+            'work_number.*'      => 'digits:10',
+            'fax_number.*'       => 'digits:10',
 
-            'email'              => 'email|max:255',
-            'alternate_email'    => 'email|max:255',
+            'email.*'            => 'email|max:255',
+            'alternate_email.*'  => 'email|max:255',
 
             'property_note'      => '',
             'client_id'          => 'required|numeric'

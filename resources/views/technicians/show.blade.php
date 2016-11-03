@@ -103,8 +103,8 @@
                     <p class="lead-md"><strong>Title:</strong> {{$client->title}}</p>
                     <p class="lead-md"><strong>Cell:</strong> {{$client->cell_number}}</p>
                     <p class="lead-md"><strong>Email:</strong> {{$client->email}}</p>
-                    <p class="lead-md"><strong>Created at:</strong> {{ date('M j, Y - H:i', strtotime($technician->created_at)) }}</p>
-                    <p class="lead-md"><strong>Last Updated at:</strong> {{ date('M j, Y - H:i', strtotime($technician->updated_at)) }}</p>
+                    {{-- <p class="lead-md"><strong>Created at:</strong> {{ date('M j, Y - H:i', strtotime($technician->created_at)) }}</p>
+                    <p class="lead-md"><strong>Last Updated at:</strong> {{ date('M j, Y - H:i', strtotime($technician->updated_at)) }}</p> --}}
                 </div>
                 {{--<dl class="dl-horizontal hidden-xs">
                     <dt>Title:</dt>

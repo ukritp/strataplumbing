@@ -215,7 +215,7 @@
         <!-- Side bar -->
         <div class="col-md-4">
             <div class="well">
-                <dl class="dl-horizontal">
+                {{-- <dl class="dl-horizontal">
                     <dt>Creat at:</dt>
                     <!-- http://php.net/manual/en/function.date.php -->
                     <!-- http://php.net/manual/en/function.strtotime.php -->
@@ -225,7 +225,7 @@
                     <dt>Last Update at:</dt>
                     <dd>{{ date('M j, Y - H:i', strtotime($client->updated_at)) }}</dd>
                 </dl>
-                <hr>
+                <hr> --}}
 
                 <div class="row">
                     <div class="col-sm-6">

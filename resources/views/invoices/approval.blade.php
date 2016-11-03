@@ -27,38 +27,38 @@
     <div class="row">
         <!-- Contact info -->
         <div class="col-md-12">
-            <div class="jumbotron">
+            <div style="background-color: #eee; padding: 2%; margin:1% 0;">
                 @if(isset($contact->company_name))
                     <h2>Company: {{$contact->company_name}}</h2>
                 @elseif(isset($contact->client->company_name))
                     <h2>Company: {{$contact->client->company_name}}</h2>
                 @endif
                 <h3>Contact: {{$contact->first_name.' '.$contact->last_name}}</h3>
-                @if(!empty($contact->relationship))<p class="lead"><strong>Relationship:</strong> {{$contact->relationship}}</p>@endif
-                <p class="lead"><strong>Address:</strong> {{
+                @if(!empty($contact->relationship))<p class="lead-md"><strong>Relationship:</strong> {{$contact->relationship}}</p>@endif
+                <p class="lead-md"><strong>Address:</strong> {{
                     ucwords(strtolower($contact->mailing_address)).', '.
                     ucwords(strtolower($contact->mailing_city)).', '.
                     strtoupper($contact->mailing_province).' '.
                     strtoupper($contact->mailing_postalcode)
                 }}
                 </p>
-                <p class="lead"><strong>Billing Address:</strong> {{
+                <p class="lead-md"><strong>Billing Address:</strong> {{
                     ucwords(strtolower($contact->billing_address)).', '.
                     ucwords(strtolower($contact->billing_city)).', '.
                     strtoupper($contact->billing_province).' '.
                     strtoupper($contact->billing_postalcode)
                 }}
                 </p>
-                <p class="lead"><strong>Email:</strong><br>{{$contact->email}}</p>
-                <p class="lead"><strong>Project Manager:</strong> {{$job->project_manager}}</p>
+                <p class="lead-md"><strong>Email:</strong><br>{{$contact->email}}</p>
+                <p class="lead-md"><strong>Project Manager:</strong> {{$job->project_manager}}</p>
                 @set('job_type', ($job->is_estimate)? 'estimate' : 'regular')
-                <p class="lead job-type type-{{$job_type}}"><strong>Job Type: {{$job_type}}</strong></p>
-                <p class="lead paragraph-wrap"><strong>Scope Of Works:</strong><br>{{$job->scope_of_works}}</p>
-                <p class="lead lead-status"><strong>Status:</strong> <span>{{($job->status) ? 'Completed' : 'Pending'}}</span></p>
-                <p class="lead"><strong>Quoted Rate:</strong>{{(!empty($job->quoted_rate)) ? $job->quoted_rate : '-'}}</p>
-                {{-- <p class="lead"><strong>Days working for this job:</strong> {{count($job->techniciansGroupByDateCount)}}</p>
-                <p class="lead"><strong>Days added to this invoice:</strong> {{count($job->pendinginvoices)}}</p>
-                <p class="lead"><strong>Days added missing:</strong> {{count($job->techniciansGroupByDateCount)-count($job->pendinginvoices)}}</p> --}}
+                <p class="lead-md job-type type-{{$job_type}}"><strong>Job Type: {{$job_type}}</strong></p>
+                <p class="lead-md paragraph-wrap"><strong>Scope Of Works:</strong><br>{{$job->scope_of_works}}</p>
+                <p class="lead-md lead-status"><strong>Status:</strong> <span>{{($job->status) ? 'Completed' : 'Pending'}}</span></p>
+                <p class="lead-md"><strong>Quoted Rate:</strong>{{(!empty($job->quoted_rate)) ? $job->quoted_rate : '-'}}</p>
+                {{-- <p class="lead-md"><strong>Days working for this job:</strong> {{count($job->techniciansGroupByDateCount)}}</p>
+                <p class="lead-md"><strong>Days added to this invoice:</strong> {{count($job->pendinginvoices)}}</p>
+                <p class="lead-md"><strong>Days added missing:</strong> {{count($job->techniciansGroupByDateCount)-count($job->pendinginvoices)}}</p> --}}
             </div>
         </div> <!-- END Contact info -->
     {{--modal window for sent for approval--}}

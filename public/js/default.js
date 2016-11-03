@@ -346,7 +346,8 @@ $(document).ready(function () {
     // Confirm delete-----------------------------
     delete_confirmation_modal.init();
 
-
+    // Add/Remove Contact-----------------------------
+    contact_add_row.init();
 
 });
 
@@ -405,5 +406,94 @@ var cancel_confirmation_modal =
             // to stop Form from submitting
             return false;
         });
+    }
+}
+
+
+// ADD/REMOVE CONTACT
+var contact_add_row =
+{
+    init: function()
+    {
+        var counter = 0;
+        $('#add-contact').click(function(){
+            $('#contact-add').prepend(
+            '<span class="contact-span">'+
+                // Company Name
+                '<div class="col-xs-12">'+
+                    '<fieldset class="form-group">' +
+                        '<input type="text" id="company_name'+counter+'" name="company_name[]" class="form-control" placeholder="Company Name"  maxlength="255">'+
+                    '</fieldset>' +
+                '</div>'+
+                // First name + Last name
+                '<div class="col-xs-6">'+
+                    '<fieldset class="form-group">' +
+                        '<input type="text" id="first_name'+counter+'" name="first_name[]" class="form-control" placeholder="First Name" required maxlength="255">'+
+                    '</fieldset>' +
+                '</div>'+
+                '<div class="col-xs-6">'+
+                    '<fieldset class="form-group">' +
+                        '<input type="text" id="last_name'+counter+'" name="last_name[]" class="form-control" placeholder="Last Name" maxlength="255">'+
+                    '</fieldset>' +
+                '</div>'+
+                // Title
+                '<div class="col-xs-12">'+
+                    '<fieldset class="form-group">' +
+                        '<input type="text" id="title'+counter+'" name="title[]" class="form-control" placeholder="Title"  maxlength="255">'+
+                    '</fieldset>' +
+                '</div>'+
+                // All numbers
+                '<div class="col-xs-3">'+
+                    '<fieldset class="form-group">' +
+                        '<input type="text" id="home_number'+counter+'" name="home_number[]" class="form-control home_number" placeholder="Home Number">'+
+                    '</fieldset>' +
+                '</div>'+
+                '<div class="col-xs-3">'+
+                    '<fieldset class="form-group">' +
+                        '<input type="text" id="work_number'+counter+'" name="work_number[]" class="form-control work_number" placeholder="Work Number">'+
+                    '</fieldset>' +
+                '</div>'+
+                '<div class="col-xs-3">'+
+                    '<fieldset class="form-group">' +
+                        '<input type="text" id="cell_number'+counter+'" name="cell_number[]" class="form-control cell_number" placeholder="Cell Number">'+
+                    '</fieldset>' +
+                '</div>'+
+                '<div class="col-xs-3">'+
+                    '<fieldset class="form-group">' +
+                        '<input type="text" id="fax_number'+counter+'" name="fax_number[]" class="form-control fax_number" placeholder="Fax Number">'+
+                    '</fieldset>' +
+                '</div>'+
+
+                // Email + Alternate email
+                '<div class="col-xs-5">'+
+                    '<fieldset class="form-group">' +
+                        '<input type="text" id="email'+counter+'" name="email[]" class="form-control" placeholder="Email" maxlength="255" data-parsley-type="email">'+
+                    '</fieldset>' +
+                '</div>'+
+                '<div class="col-xs-5">'+
+                    '<fieldset class="form-group">' +
+                        '<input type="text" id="alternate_email'+counter+'" name="alternate_email[]" class="form-control" placeholder="Altername Email" maxlength="255" data-parsley-type="email">'+
+                    '</fieldset>' +
+                '</div>'+
+                '<div class="col-xs-2">'+
+                    '<fieldset class="form-group">' +
+                        '<a id="remove-contact-'+counter+'" class="btn btn-danger btn-sm btn-block remove-contact"><i class="glyphicon glyphicon-remove"></i></a>'+
+                    '</fieldset>' +
+                '</div>'+
+                // '<div class="col-xs-12"><hr></div>'+
+            '</span>'
+            );
+            $("#home_number"+counter).mask("(999) 999-9999");
+            $("#cell_number"+counter).mask("(999) 999-9999");
+            $("#work_number"+counter).mask("(999) 999-9999");
+            $("#fax_number"+counter).mask("(999) 999-9999");
+            document.getElementById("first_name"+counter).focus();
+            counter += 1;
+        });
+        // remove contact
+        $("body").on("click", ".remove-contact", function (){
+            $(this).closest("span").remove();
+        });
+
     }
 }

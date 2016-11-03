@@ -28,4 +28,42 @@ $(document).ready(function () {
     });
 
 
+    $( ".home_number" ).each(function() {
+        $( this ).mask("(999) 999-9999");
+    });
+    $( ".cell_number" ).each(function() {
+        $( this ).mask("(999) 999-9999");
+    });
+    $( ".work_number" ).each(function() {
+        $( this ).mask("(999) 999-9999");
+    });
+    $( ".fax_number" ).each(function() {
+        $( this ).mask("(999) 999-9999");
+    });
+
+    $("#site-form").submit(function(e) {
+        // alert("before: "+$("#home-number").val());
+        $( ".home_number" ).each(function() {
+            $( this ).val( $( this ).data( $.mask.dataName )() );
+        });
+        $( ".cell_number" ).each(function() {
+            $( this ).val( $( this ).data( $.mask.dataName )() );
+        });
+        $( ".work_number" ).each(function() {
+            $( this ).val( $( this ).data( $.mask.dataName )() );
+        });
+        $( ".fax_number" ).each(function() {
+            $( this ).val( $( this ).data( $.mask.dataName )() );
+        });
+
+        $("#mailing_postalcode").val( $( "#mailing_postalcode" ).data( $.mask.dataName )() );
+
+        if($("#mail_to_bill_checkbox").is(":checked")){
+            $("#billing_postalcode").val( $( "#mailing_postalcode" ).data( $.mask.dataName )() );
+        }else{
+            $("#billing_postalcode").val( $( "#billing_postalcode" ).data( $.mask.dataName )() );
+        }
+
+    });
+
 });

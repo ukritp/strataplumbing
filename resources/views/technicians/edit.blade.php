@@ -14,26 +14,7 @@
         {!! Form::model($technician, ['route' => ['technicians.update',$technician->id], 'id'=>'tech-update-form', 'method'=>'PUT', 'data-parsley-validate'=>''] ) !!}
 
         <div class="col-md-8">
-            <h3>Contact: {{$contact->first_name.' '.$contact->last_name}}</h3>
-            @if(!empty($contact->relationship))<p class="lead"><strong>Relationship:</strong> {{$contact->relationship}}</p>@endif
-            <p class="lead"><strong>contact Address:</strong> {{
-                ucwords(strtolower($contact->mailing_address)).', '.
-                ucwords(strtolower($contact->mailing_city)).', '.
-                strtoupper($contact->mailing_province).' '.
-                strtoupper($contact->mailing_postalcode)
-            }}
-            </p>
-            @if(!empty($contact->buzzer_code)) <p class="lead"><strong>Buzzer Code:</strong> {{$contact->buzzer_code}}</p> @endif
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="lead"><strong>Cell:</strong> {{$contact->cell_number}}</p>
-                </div>
-                <div class="col-md-6">
-                    <p class="lead"><strong>Email:</strong> {{$contact->email}}</p>
-                </div>
-            </div>
 
-            <hr>
             <h3>Job ID: {{$job->id+20100}}</h3>
             <p class="lead lead-md"><strong>Project Manager:</strong> {{$job->project_manager}}</p>
             <p class="lead lead-md"><strong>Scope Of Works:</strong><br>{{$job->scope_of_works}}</p>
@@ -189,12 +170,12 @@
                     <dt>Email:</dt>
                     <dd>{{$client->email}}</dd>
 
-                    <dt>Details Created:</dt>
+                    {{-- <dt>Details Created:</dt>
                     <!-- http://php.net/manual/en/function.date.php -->
                     <!-- http://php.net/manual/en/function.strtotime.php -->
                     <dd>{{ date('M j, Y - H:i', strtotime($technician->created_at)) }}</dd>
                     <dt>Details Last Updated:</dt>
-                    <dd>{{ date('M j, Y - H:i', strtotime($technician->updated_at)) }}</dd>
+                    <dd>{{ date('M j, Y - H:i', strtotime($technician->updated_at)) }}</dd> --}}
                 </dl>
                 <hr>
 

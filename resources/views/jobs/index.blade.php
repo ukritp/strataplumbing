@@ -57,7 +57,15 @@
                         <th data-label="Type" class="job-type type-{{$job_type}}">{{($job->is_estimate)? 'Estimate':'Regular'}}</th>
                         <th data-label="Company">{{!empty($job->client->company_name) ? $job->client->company_name : '-'}}</th>
                         @if(isset($job->site))
-                            <td data-label="Name">{{$job->site->first_name.' '.$job->site->last_name}}</td>
+                            <td data-label="Name">
+                            @if(isset($job->site->contacts))
+                                @set('contact_first_name',!empty($job->site->contacts->first()->first_name) ? $job->site->contacts->first()->first_name:'-')
+                                @set('contact_last_name',!empty($job->site->contacts->first()->last_name) ? $job->site->contacts->first()->last_name:'')
+                                {{$contact_first_name.' '.$contact_last_name}}
+                                 {{-- {{$job->site->contacts->first()->first_name.' '.$job->site->contacts->first()->last_name}} --}}
+                            @else -
+                            @endif
+                            </td>
                             <td data-label="Address">{{
                             ucwords(strtolower($job->site->mailing_address)).', '.
                             ucwords(strtolower($job->site->mailing_city))

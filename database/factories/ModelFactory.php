@@ -33,7 +33,7 @@ $factory->define(App\Client::class, function (Faker\Generator $faker) {
 
         'company_name'       => $faker->company,
         'first_name'         => $faker->firstName,
-        'last_name'          => $faker->firstName,
+        'last_name'          => $faker->lastName,
         'title'              => $faker->jobTitle,
         'mailing_address'    => $faker->streetAddress,
         'mailing_city'       => $city,
@@ -44,10 +44,10 @@ $factory->define(App\Client::class, function (Faker\Generator $faker) {
         'billing_city'       => $city,
         'billing_province'   => 'BC',
         'billing_postalcode' => 'V'.$faker->randomDigit.$faker->randomLetter.$faker->randomDigit.$faker->randomLetter.$faker->randomDigit,
-        'home_number'        => $initial_number.$faker->randomNumber(7),
-        'cell_number'        => $initial_number.$faker->randomNumber(7),
-        'work_number'        => $initial_number.$faker->randomNumber(7),
-        'fax_number'         => $initial_number.$faker->randomNumber(7),
+        'home_number'        => $initial_number.$faker->numerify('#######'),
+        'cell_number'        => $initial_number.$faker->numerify('#######'),
+        'work_number'        => $initial_number.$faker->numerify('#######'),
+        'fax_number'         => $initial_number.$faker->numerify('#######'),
         'email'              => $faker->email,
         'alternate_email'    => $faker->email,
         'quoted_rates'       => $faker->word,
@@ -61,9 +61,9 @@ $factory->define(App\Site::class, function (Faker\Generator $faker) {
     $initial_number = $faker->randomElement($array = array ('604','778'));
     return [
 
-        'first_name'         => $faker->firstName,
-        'last_name'          => $faker->firstName,
-        'relationship'       => $faker->jobTitle,
+        // 'first_name'         => $faker->firstName,
+        // 'last_name'          => $faker->lastName,
+        // 'relationship'       => $faker->jobTitle,
         'mailing_address'    => $faker->streetAddress,
         'mailing_city'       => $city,
         'mailing_province'   => 'BC',
@@ -73,13 +73,36 @@ $factory->define(App\Site::class, function (Faker\Generator $faker) {
         'billing_city'       => $city,
         'billing_province'   => 'BC',
         'billing_postalcode' => 'V'.$faker->randomDigit.$faker->randomLetter.$faker->randomDigit.$faker->randomLetter.$faker->randomDigit,
-        'home_number'        => $initial_number.$faker->randomNumber(7),
-        'cell_number'        => $initial_number.$faker->randomNumber(7),
-        'work_number'        => $initial_number.$faker->randomNumber(7),
-        'fax_number'         => $initial_number.$faker->randomNumber(7),
-        'email'              => $faker->email,
-        'alternate_email'    => $faker->email,
+        // 'home_number'        => $initial_number.$faker->randomNumber(7),
+        // 'cell_number'        => $initial_number.$faker->randomNumber(7),
+        // 'work_number'        => $initial_number.$faker->randomNumber(7),
+        // 'fax_number'         => $initial_number.$faker->randomNumber(7),
+        // 'email'              => $faker->email,
+        // 'alternate_email'    => $faker->email,
         'property_note'      => $faker->realText(),
+    ];
+});
+
+// CONTACTS FACTORY - SITE
+$factory->defineAs(App\Contact::class, 'siteContact', function (Faker\Generator $faker) {
+    $site_ids = \DB::table('sites')->select('id')->get();
+    $site_id = $faker->randomElement($site_ids)->id;
+    $initial_number = $faker->randomElement($array = array ('604','778'));
+    return [
+        'company_name'    => $faker->company,
+        'first_name'      => $faker->firstName,
+        'last_name'       => $faker->lastName,
+        'title'           => $faker->jobTitle,
+
+        'home_number'     => $initial_number.$faker->numerify('#######'),
+        'cell_number'     => $initial_number.$faker->numerify('#######'),
+        'work_number'     => $initial_number.$faker->numerify('#######'),
+        'fax_number'      => $initial_number.$faker->numerify('#######'),
+
+        'email'           => $faker->email,
+        'alternate_email' => $faker->email,
+
+        'site_id'         => $site_id,
     ];
 });
 

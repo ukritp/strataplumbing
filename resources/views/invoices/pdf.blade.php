@@ -49,8 +49,8 @@ if(isset($site)){
 
     if(!empty($site->billing_address)){
 
-        $full_name = $site->first_name.' '.$site->last_name;
-        $email     = $site->email;
+        $full_name = $site->contacts->first()->first_name.' '.$site->contacts->first()->last_name;
+        $email     = $site->contacts->first()->email;
 
         $shown_billing_address_1 = ucwords(strtolower($site->billing_address));
         $shown_billing_address_2 = ucwords(strtolower($site->billing_city)).' '.

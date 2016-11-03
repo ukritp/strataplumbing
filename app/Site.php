@@ -12,89 +12,82 @@ class Site extends Model
     use Eloquence;
 
     protected $searchableColumns = [
-        'mailing_address'     => 20,
-        'billing_address'     => 20,
-        'first_name'          => 15,
-        'last_name'           => 15,
-        'client.company_name' => 15,
-        'client.first_name'   => 15,
-        'client.last_name'    => 15,
-        'cell_number'         =>15,
-        'email'               =>15,
-        'relationship'        => 10,
-        'mailing_city'        => 10,
-        'mailing_province'    => 10,
-        'mailing_postalcode'  =>10,
-        'billing_city'        => 10,
-        'billing_province'    => 10,
-        'billing_postalcode'  =>10,
-        'work_number'         =>5,
-        'fax_number'          =>5,
-        'home_number'         =>2,
-        'alternate_email'     =>2,
+        'mailing_address'         => 20,
+        'billing_address'         => 20,
+        'contacts.first_name'      => 15,
+        'contacts.last_name'       => 15,
+        'client.company_name'     => 15,
+        'client.first_name'       => 15,
+        'client.last_name'        => 15,
+        'contacts.cell_number'     =>15,
+        'contacts.email'           =>15,
+        'contacts.title'           => 10,
+        'mailing_city'            => 10,
+        'mailing_province'        => 10,
+        'mailing_postalcode'      =>10,
+        'billing_city'            => 10,
+        'billing_province'        => 10,
+        'billing_postalcode'      =>10,
+        'contacts.work_number'     =>5,
+        'contacts.fax_number'      =>5,
+        'contacts.home_number'     =>2,
+        'contacts.alternate_email' =>2,
     ];
 
     // Log activity
     use LogsActivity;
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'relationship',
+        // 'first_name',
+        // 'last_name',
+        // 'relationship',
         'mailing_address',
         'mailing_city',
         'mailing_province',
         'mailing_postalcode',
+        'alarm_code',
+        'lock_box',
+        'lock_box_location',
         'buzzer_code',
         'billing_address',
         'billing_city',
         'billing_province',
         'billing_postalcode',
-        'home_number',
-        'cell_number',
-        'work_number',
-        'fax_number',
-        'email',
-        'alternate_email',
+        // 'home_number',
+        // 'cell_number',
+        // 'work_number',
+        // 'fax_number',
+        // 'email',
+        // 'alternate_email',
         'property_note',
         'client_id',
     ];
     protected static $logAttributes = [
-        'first_name',
-        'last_name',
-        'relationship',
+        // 'first_name',
+        // 'last_name',
+        // 'relationship',
         'mailing_address',
         'mailing_city',
         'mailing_province',
         'mailing_postalcode',
+        'alarm_code',
+        'lock_box',
+        'lock_box_location',
         'buzzer_code',
         'billing_address',
         'billing_city',
         'billing_province',
         'billing_postalcode',
-        'home_number',
-        'cell_number',
-        'work_number',
-        'fax_number',
-        'email',
-        'alternate_email',
+        // 'home_number',
+        // 'cell_number',
+        // 'work_number',
+        // 'fax_number',
+        // 'email',
+        // 'alternate_email',
         'property_note',
         'client_id',
     ];
 
     /* ==========================================|| SET ATTRIBUTE ||==========================================*/
-    /**
-     * Always capitalize the first name when we save it to the database
-     */
-    public function setFirstNameAttribute($value) {
-        $this->attributes['first_name'] = ucfirst($value);
-    }
-
-    /**
-     * Always capitalize the last name when we save it to the database
-     */
-    public function setLastNameAttribute($value) {
-        $this->attributes['last_name'] = ucfirst($value);
-    }
 
     /**
      * Always capitalize the the first letter of every word in Address when we save it to the database
@@ -241,6 +234,11 @@ class Site extends Model
     public function jobs()
     {
         return $this->hasMany('App\Job');
+    }
+
+    public function contacts()
+    {
+        return $this->hasMany('App\Contact');
     }
 
     public function client()

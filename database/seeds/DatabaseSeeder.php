@@ -83,6 +83,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call( 'ClientTableSeeder' );
         $this->call( 'JobTableSeeder' );
+        $this->call( 'ContactsTableSeeder' );
         $this->call( 'MaterialTableSeeder' );
 
         Model::reguard();

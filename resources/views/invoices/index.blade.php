@@ -61,7 +61,11 @@
                         <th data-label="#">{{$job->id+20100}}</th>
                         <th data-label="Company">{{!empty($job->client->company_name) ? $job->client->company_name : '-'}}</th>
                         @if(isset($job->site))
-                            <th data-label="Contact">{{$job->site->first_name.' '.$job->site->last_name}}</th>
+                            <th data-label="Contact">
+                            @set('contact_first_name',!empty($job->site->contacts->first()->first_name) ? $job->site->contacts->first()->first_name:'')
+                            @set('contact_last_name',!empty($job->site->contacts->first()->last_name) ? $job->site->contacts->first()->last_name:'')
+                            {{$contact_first_name.' '.$contact_last_name}}
+                            </th>
                         @else
                             <th data-label="Contact">{{$job->client->first_name.' '.$job->client->last_name}}</th>
                         @endif

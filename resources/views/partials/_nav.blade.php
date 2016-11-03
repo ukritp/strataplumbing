@@ -80,7 +80,6 @@
           {{-- <li class="{{Request::is('activitylogs*') ? "active" : ""}}"><a href="{{route('activitylogs.index')}}">Activity Logs</a></li> --}}
         @endif
       @endif
-
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
@@ -94,6 +93,17 @@
           <li><a href="{{route('register')}}" class="btn btn-link">Register</a></li>
         @endif
       </ul>
+
+
+      {!! Form::open(array('route' => 'pages.search','method'=>'get', 'data-parsley-validate'=>'', 'class'=>'navbar-form navbar-right navbar-search-form')) !!}
+        <div class="input-group">
+            <input type="text" name="keyword" id="keyword" class="form-control " placeholder="Search all...." maxlegnth="255" required>
+            <span class="input-group-btn">
+                <button class="btn btn-primary " type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </span>
+        </div>
+      {!! Form::close() !!}
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

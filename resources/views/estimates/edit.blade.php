@@ -145,8 +145,8 @@
                 <p class="lead-md"><strong>Title:</strong> {{$estimate->job->client->title}}</p>
                 <p class="lead-md"><strong>Cell:</strong> {{$estimate->job->client->cell_number}}</p>
                 <p class="lead-md"><strong>Email:</strong> {{$estimate->job->client->email}}</p>
-                <p class="lead-md"><strong>Created at:</strong> {{ date('M j, Y - H:i', strtotime($estimate->job->created_at)) }}</p>
-                <p class="lead-md"><strong>Last Updated at:</strong> {{ date('M j, Y - H:i', strtotime($estimate->job->updated_at)) }}</p>
+                {{-- <p class="lead-md"><strong>Created at:</strong> {{ date('M j, Y - H:i', strtotime($estimate->job->created_at)) }}</p>
+                <p class="lead-md"><strong>Last Updated at:</strong> {{ date('M j, Y - H:i', strtotime($estimate->job->updated_at)) }}</p> --}}
             </div>
             <div class="row">
                 <div class="col-md-6">

@@ -14,50 +14,50 @@
         <div class="col-md-8">
             <!-- https://www.virendrachandak.com/techtalk/php-isset-vs-empty-vs-is_null/ -->
             @if(!empty($client->company_name)) <h2>Company: {{$client->company_name}}</h1> @endif
-            @if(!empty($client->strata_plan_number)) <h2>Strata Plan #: {{$client->strata_plan_number}}</h1> @endif
-            <h2>Name: {{$client->first_name.' '.$client->last_name}}</h2>
-            <p class="lead" class="lead"><strong>Title:</strong> {{$client->title}}</p>
+            @if(!empty($client->strata_plan_number)) <h3>Strata Plan #: {{$client->strata_plan_number}}</h3> @endif
+            <h3>Name: {{$client->first_name.' '.$client->last_name}}</h3>
+            <p class="lead-md"><strong>Title:</strong> {{$client->title}}</p>
             <hr>
-            <p class="lead"><b>Address:</b> {{$client->fullMailingAddress()}}</p>
-            @if(!empty($client->buzzer_code)) <p class="lead"><b>Buzzer Code:</b> {{$client->buzzer_code}}</p> @endif
-            <p class="lead"><b>Billing Address:</b> {{$client->fullBillingAddress()}}</p>
+            <p class="lead-md"><b>Address:</b> {{$client->fullMailingAddress()}}</p>
+            @if(!empty($client->buzzer_code)) <p class="lead-md"><b>Buzzer Code:</b> {{$client->buzzer_code}}</p> @endif
+            <p class="lead-md"><b>Billing Address:</b> {{$client->fullBillingAddress()}}</p>
             <div class="row">
                 <div class="col-md-6">
-                    <p class="lead"><strong>Home:</strong>
+                    <p class="lead-md"><strong>Home:</strong>
                     {{(!empty($client->home_number))?$client->formatPhone($client->home_number):'-'}}
                     </p>
                 </div>
                 <div class="col-md-6">
-                    <p class="lead"><strong>Cell:</strong>
+                    <p class="lead-md"><strong>Cell:</strong>
                     {{(!empty($client->cell_number))?$client->formatPhone($client->cell_number):'-'}}
                     </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <p class="lead"><strong>Work:</strong>
+                    <p class="lead-md"><strong>Work:</strong>
                     {{(!empty($client->work_number))?$client->formatPhone($client->work_number):'-'}}
                     </p>
                 </div>
                 <div class="col-md-6">
-                    <p class="lead"><strong>Fax:</strong>
+                    <p class="lead-md"><strong>Fax:</strong>
                     {{(!empty($client->fax_number))?$client->formatPhone($client->fax_number):'-'}}
                     </p>
                 </div>
             </div>
 
-            <p class="lead"><b>Email:</b> {{$client->email}}</p>
-            @if(!empty($client->alternate_emai)) <p class="lead"><b>Alternate Email:</b> {{$client->alternate_email}}</p> @endif
+            <p class="lead-md"><b>Email:</b> {{$client->email}}</p>
+            @if(!empty($client->alternate_emai)) <p class="lead-md"><b>Alternate Email:</b> {{$client->alternate_email}}</p> @endif
 
-            @if(!empty($client->quoted_rates)) <p class="lead"><b>Quoted Rates:</b> {{$client->quoted_rates}}</p> @endif
-            @if(!empty($client->property_note)) <p class="lead paragraph-wrap"><b>Property Note:</b><br>{{$client->property_note}}</p> @endif
+            @if(!empty($client->quoted_rates)) <p class="lead-md"><b>Quoted Rates:</b> {{$client->quoted_rates}}</p> @endif
+            @if(!empty($client->property_note)) <p class="lead-md paragraph-wrap"><b>Property Note:</b><br>{{$client->property_note}}</p> @endif
 
         </div>
 
         <!-- Side bar -->
         <div class="col-md-4">
             <div class="well">
-                <dl class="dl-horizontal">
+                {{-- <dl class="dl-horizontal">
                     <dt>Creat at:</dt>
                     <!-- http://php.net/manual/en/function.date.php -->
                     <!-- http://php.net/manual/en/function.strtotime.php -->
@@ -67,7 +67,7 @@
                     <dt>Last Update at:</dt>
                     <dd>{{ date('M j, Y - H:i', strtotime($client->updated_at)) }}</dd>
                 </dl>
-                <hr>
+                <hr> --}}
 
                 <div class="row">
                     <div class="col-sm-6">
@@ -113,7 +113,7 @@
                 <thead>
                     <th>Address</th>
                     <th>Name</th>
-                    <th>Relationship</th>
+                    <th>Title</th>
 
                     <th>Cellphone</th>
                     <th class="text-right">Action</th>
@@ -125,9 +125,21 @@
                         <tr>
                             <td data-label="Address">
                             {!! Html::linkRoute('sites.show',$site->mailing_address.', '.$site->mailing_city, array($site->id), array() ) !!}</td>
-                            <td data-label="Name">{{$site->first_name.' '.$site->last_name}}</td>
-                            <td data-label="Relationship">{{(!empty($site->relationship))?$site->relationship:'-'}}</td>
-                            <td data-label="Cellphone">{{(!empty($site->cell_number))?$site->cell_number:'-'}}</td>
+                            <td data-label="Name">
+                                @if(count($site->contacts)>0)
+                                    {{$site->contacts->first()->first_name.' '.$site->contacts->first()->last_name}}
+                                @endif
+                            </td>
+                            <td data-label="Title">
+                                @if(count($site->contacts)>0)
+                                    {{(!empty($site->contacts->first()->title))?$site->contacts->first()->title:'-'}}
+                                @endif
+                            </td>
+                            <td data-label="Cellphone">
+                                @if(count($site->contacts)>0)
+                                    {{(!empty($site->contacts->first()->cell_number))?$site->formatPhone($site->contacts->first()->cell_number):'-'}}
+                                @endif
+                            </td>
                             <td data-label="Action" class="text-right">
                             <div class="btn-group">
                                 <button type="button"

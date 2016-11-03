@@ -95,13 +95,14 @@ class TechnicianController extends Controller
     {
         $job    = Job::find($id);
         $site   = Site::find($job->site_id);
+        $client = Client::find($job->client_id);
         $contact = Client::find($job->client_id);
 
         if(!empty($site)){
             $contact   = Site::find($job->site_id);
         }
 
-        return view('technicians.create')->withJob($job)->withContact($contact);
+        return view('technicians.create')->withJob($job)->withContact($contact)->withClient($client)->withSite($site);
 
         //return view('technicians.create')->withJob($job)->withSite($site)->withClient($client);
     }

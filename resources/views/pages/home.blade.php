@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-12">
+        {{-- <div class="col-md-12">
 
             {!! Form::open(array('route' => 'pages.search','method'=>'get', 'data-parsley-validate'=>'')) !!}
             <div class="input-group">
@@ -17,13 +17,13 @@
             </div>
             {!! Form::close() !!}
             <hr>
-        </div>
+        </div> --}}
 
     </div> <!-- /.row -->
 
     <div class="row">
-    	<div class="col-md-10">
-            <div class="col-md-12">
+    	<div class="col-md-12">
+            {{-- <div class="col-md-12"> --}}
                 @if(!isset($clients)&&!isset($sites)&&!isset($jobs)&&!isset($technicians))
 
                 @else
@@ -39,7 +39,7 @@
 
                 <table class="table table-hover table-hover-blue mobile-table">
                     <thead>
-                        <th style="width:7%;">Type</th>
+                        <th style="width:10%;">Type</th>
                         <th>Company</th>
                         <th>Contact Info</th>
                         <th>Address</th>
@@ -63,8 +63,19 @@
                                     <td data-label="Status" class="td-status">-</td>
                                     <td data-label="Invoiced At" class="td-invoice">-</td>
                                     <td data-label="Action" class="text-right">
-                                    {!! Html::linkRoute('clients.show', 'View', array($client->id), array('class'=>'btn btn-default btn-sm btn-sm-margin'))!!}
-                                    {!! Html::linkRoute('clients.edit', 'Edit', array($client->id), array('class'=>'btn btn-default btn-sm btn-sm-margin') ) !!}
+                                    <div class="btn-group">
+                                        <button type="button"
+                                            class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-button-right">
+                                            <li>{!! Html::linkRoute('clients.show', 'View', array($client->id), array('class'=>'')) !!}</li>
+                                            <li>{!! Html::linkRoute('clients.edit', 'Edit', array($client->id), array('class'=>'')) !!}</li>
+                                            <li>{!! Html::linkRoute('jobs.create', 'Create Job', array($client->id,'client'), array('class'=>'')) !!}
+                                            </li>
+                                        </ul>
+                                    </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -77,7 +88,13 @@
                                 <tr>
                                     <th data-label="Type">{{$type}}</th>
                                     <th data-label="Company">{{$site->client->company_name}}</th>
-                                    <td data-label="Contact Info">{{$site->first_name.' '.$site->last_name}}</td>
+                                    <td data-label="Contact Info">
+                                        @if(count($site->contacts)>0)
+                                            {{$site->contacts->first()->first_name}}
+                                            {{$site->contacts->first()->last_name}}
+                                        @else -
+                                        @endif
+                                    </td>
                                     <td data-label="Address">{{
                                     ucwords(strtolower($site->mailing_address)).', '.
                                     ucwords(strtolower($site->mailing_city))
@@ -85,8 +102,19 @@
                                     <td data-label="Status" class="td-status">-</td>
                                     <td data-label="Invoiced At" class="td-invoice">-</td>
                                     <td data-label="Action" class="text-right">
-                                    {!! Html::linkRoute('sites.show', 'View', array($site->id), array('class'=>'btn btn-default btn-sm btn-sm-margin') ) !!}
-                                    {!! Html::linkRoute('sites.edit', 'Edit', array($site->id), array('class'=>'btn btn-default btn-sm btn-sm-margin') ) !!}
+                                    <div class="btn-group">
+                                        <button type="button"
+                                            class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-button-right">
+                                            <li>{!! Html::linkRoute('sites.show', 'View', array($site->id), array('class'=>'')) !!}</li>
+                                            <li>{!! Html::linkRoute('sites.edit', 'Edit', array($site->id), array('class'=>'')) !!}</li>
+                                            <li>{!! Html::linkRoute('jobs.create', 'Create Job', array($site->id,'site'), array('class'=>'')) !!}
+                                            </li>
+                                        </ul>
+                                    </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -95,12 +123,14 @@
                         <!-- If there are Jobs ===================================================== -->
                         @if(count($jobs)>0)
                             @foreach($jobs as $job)
+                                @set('status', ( (count($job->pendinginvoices)>0) || (count($job->estimates)>0) )? '' : 'disabled')
+                                @set('invoice_link', ( (count($job->pendinginvoices)>0) || (count($job->estimates)>0) ) ? route('invoices.show', $job->id) : '#')
+                                @set('job_type', ($job->is_estimate)? 'estimate' : 'regular')
+
                                 @set('type','Job')
-                                @if($job->status)
-                                    @set('type','Invoice')
-                                @endif
                                 <tr>
-                                    <th data-label="Type" class="th-type">{{$type}} #{{$job->id+20100}}</th>
+                                    <th data-label="Type" class="th-type">{{$type}} #{{$job->id+20100}}<br><span class="job-type type-{{$job_type}}">{{$job_type}}</span>
+                                    </th>
                                     <th data-label="Company">{{isset($job->client->company_name) ? $job->client->company_name : '-'}}</th>
                                     @if(isset($job->site))
                                         <td data-label="Contact Info">{{$job->site->first_name.' '.$job->site->last_name}}</td>
@@ -126,12 +156,20 @@
                                     <td data-label="Invoiced At" class="td-invoice">{{(!empty($job->invoiced_at)) ? date('M j, Y', strtotime($job->invoiced_at)) : '-'}}</td>
 
                                     <td data-label="Action" class="text-right">
-                                    @if($job->status)
-                                        {!! Html::linkRoute('invoices.show', 'View', array($job->id), array('class'=>'btn btn-default btn-sm btn-block'))!!}
-                                    @else
-                                        {!! Html::linkRoute('jobs.show', 'View', array($job->id), array('class'=>'btn btn-default btn-sm btn-sm-margin'))!!}
-                                        {!! Html::linkRoute('jobs.edit', 'Edit', array($job->id), array('class'=>'btn btn-default btn-sm btn-sm-margin') ) !!}
-                                    @endif
+                                    <div class="btn-group">
+                                        <button type="button"
+                                            class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-button-right">
+                                            <li>{!! Html::linkRoute('jobs.show', 'View', array($job->id), array('class'=>'')) !!}</li>
+                                            <li>{!! Html::linkRoute('jobs.edit', 'Edit', array($job->id), array('class'=>'')) !!}</li>
+                                            <li class="{{$status}}">
+                                                <a href="{{$invoice_link}}">View Invoice</a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -172,11 +210,11 @@
                 </table>
 
                 @endif
-            </div>
+            {{-- </div> --}}
 
         </div>
 
-        <div class="col-md-2">
+        {{-- <div class="col-md-2">
             <div class="form-group">
              {!! Html::linkRoute('clients.create','Create Client', array(), array('class'=>'btn  btn-warning btn-block btn-margin') ) !!}
              </div>
@@ -192,7 +230,7 @@
              <div class="form-group">
              {!! Html::linkRoute('invoices.index','Completed Invoices', array('0'), array('class'=>'btn  btn-warning btn-block btn-margin') ) !!}
              </div>
-        </div>
+        </div> --}}
     </div>
 
 

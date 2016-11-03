@@ -17,63 +17,66 @@
             @if(!empty($job->site))
                 <h2 class="header-blue">One of {{$job->client->company_name}} Properties</h2>
                 <hr>
-                <h3>Contact: {{$job->site->first_name.' '.$job->site->last_name}}</h3>
-                <p class="lead"><strong>Relationship:</strong> {{$job->site->relationship}}</p>
-                <p class="lead"><strong>Site Address:</strong> {{
-                    ucwords(strtolower($job->site->mailing_address)).', '.
-                    ucwords(strtolower($job->site->mailing_city)).', '.
-                    strtoupper($job->site->mailing_province).' '.
-                    strtoupper($job->site->mailing_postalcode)
-                }}
+                <p class="lead-md"><strong>Site Address:</strong>
+                    {{$job->site->fullMailingAddress()}}
                 </p>
-                <p class="lead"><strong>Billing Address:</strong> {{
-                    ucwords(strtolower($job->site->billing_address)).', '.
-                    ucwords(strtolower($job->site->billing_city)).', '.
-                    strtoupper($job->site->billing_province).' '.
-                    strtoupper($job->site->billing_postalcode)
-                }}
-                </p>
-                @if(!empty($job->site->buzzer_code)) <p class="lead"><strong>Buzzer Code:</strong> {{$job->site->buzzer_code}}</p> @endif
+                {{-- <p class="lead-md"><strong>Billing Address:</strong>
+                    {{$job->site->fullBillingAddress()}}
+                </p> --}}
                 <div class="row">
-                    <div class="col-md-6">
-                        <p class="lead"><strong>Cell:</strong> {{$job->site->cell_number}}</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p class="lead"><strong>Email:</strong> {{$job->site->email}}</p>
-                    </div>
+                @if(!empty($job->site->buzzer_code))
+                <div class="col-md-6">
+                    <p class="lead-md"><strong>Buzzer Code:</strong> {{$job->site->buzzer_code}}</p>
                 </div>
+                @endif
+                @if(!empty($job->site->alarm_code))
+                <div class="col-md-6">
+                    <p class="lead-md"><strong>Alarm Code:</strong> {{$job->site->alarm_code}}</p>
+                </div>
+                @endif
+                @if(!empty($job->site->lock_box))
+                <div class="col-md-6">
+                    <p class="lead-md"><strong>Lock Box:</strong> {{$job->site->lock_box}}</p>
+                </div>
+                @endif
+                @if(!empty($job->site->lock_box_location))
+                <div class="col-md-6">
+                    <p class="lead-md"><strong>Lock Box Location:</strong> {{$job->site->lock_box_location}}</p>
+                </div>
+                @endif
+            </div>
+                {{-- <div class="row">
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Cell:</strong> {{$job->site->formatPhone($job->site->cell_number)}}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Email:</strong> {{$job->site->email}}</p>
+                    </div>
+                </div> --}}
             @else
-                <p class="lead"><strong>Address:</strong> {{
-                    ucwords(strtolower($job->client->mailing_address)).', '.
-                    ucwords(strtolower($job->client->mailing_city)).', '.
-                    strtoupper($job->client->mailing_province).' '.
-                    strtoupper($job->client->mailing_postalcode)
-                }}
+                <p class="lead-md"><strong>Address:</strong>
+                    {{$job->client->fullMailingAddress()}}
                 </p>
-                <p class="lead"><strong>Billing Address:</strong> {{
-                    ucwords(strtolower($job->client->billing_address)).', '.
-                    ucwords(strtolower($job->client->billing_city)).', '.
-                    strtoupper($job->client->billing_province).' '.
-                    strtoupper($job->client->billing_postalcode)
-                }}
-                </p>
+                {{-- <p class="lead-md"><strong>Billing Address:</strong>
+                    {{$job->client->fullBillingAddress()}}
+                </p> --}}
             @endif
             <hr>
             <h3 class="header-blue">Job # {{$job->id+20100}}</h3>
             <hr>
             @set('job_type', ($job->is_estimate)? 'estimate' : 'regular')
-            <p class="lead job-type type-{{$job_type}}"><strong>Job Type: {{$job_type}}</strong></p>
+            <p class="lead-md job-type type-{{$job_type}}"><strong>Job Type: {{$job_type}}</strong></p>
             <hr>
-            <p class="lead"><strong>Purchase Order Number:</strong><br>{{$job->purchase_order_number}}</p>
-            <p class="lead"><strong>Project Manager:</strong> {{$job->project_manager}}</p>
-            <p class="lead paragraph-wrap"><strong>Scope Of Work:</strong><br>{{$job->scope_of_works}}</p>
-            <p class="lead lead-status"><strong>Status:</strong> <span>{{($job->status) ? 'Completed' : 'Pending'}}</span></p>
-            @if(!empty($job->first_name)) <p class="lead"><strong>Tenant:</strong> {{$job->first_name.' '.$job->last_name}}</p> @endif
-            @if(!empty($job->cell_number)) <p class="lead"><strong>Cell:</strong> {{$job->cell_number}}</p> @endif
+            <p class="lead-md"><strong>Purchase Order Number:</strong> {{$job->purchase_order_number}}</p>
+            <p class="lead-md"><strong>Project Manager:</strong> {{$job->project_manager}}</p>
+            <p class="lead-md paragraph-wrap"><strong>Scope Of Work:</strong><br>{{$job->scope_of_works}}</p>
+            <p class="lead-md lead-status"><strong>Status:</strong> <span>{{($job->status) ? 'Completed' : 'Pending'}}</span></p>
+            @if(!empty($job->first_name)) <p class="lead-md"><strong>Tenant:</strong> {{$job->first_name.' '.$job->last_name}}</p> @endif
+            @if(!empty($job->cell_number)) <p class="lead-md"><strong>Cell:</strong> {{$job->client->formatPhone($job->cell_number)}}</p> @endif
 
-            {{-- <p class="lead"><strong>Days working for this job:</strong> {{count($job->techniciansGroupByDateCount)}}</p>
-            <p class="lead"><strong>Days added to this invoice:</strong> {{count($job->pendinginvoices)}}</p>
-            <p class="lead"><strong>Days added missing:</strong> {{count($job->techniciansGroupByDateCount)-count($job->pendinginvoices)}}</p> --}}
+            {{-- <p class="lead-md"><strong>Days working for this job:</strong> {{count($job->techniciansGroupByDateCount)}}</p>
+            <p class="lead-md"><strong>Days added to this invoice:</strong> {{count($job->pendinginvoices)}}</p>
+            <p class="lead-md"><strong>Days added missing:</strong> {{count($job->techniciansGroupByDateCount)-count($job->pendinginvoices)}}</p> --}}
         </div>
 
 
@@ -95,10 +98,10 @@
                     <h3 class="text-center">{{$job->client->first_name.' '.$job->client->last_name}}</h3>
                     <br>
                     <p class="lead-md"><strong>Title:</strong> {{$job->client->title}}</p>
-                    <p class="lead-md"><strong>Cell:</strong> {{$job->client->cell_number}}</p>
+                    <p class="lead-md"><strong>Cell:</strong> {{$job->client->formatPhone($job->client->cell_number)}}</p>
                     <p class="lead-md"><strong>Email:</strong> {{$job->client->email}}</p>
-                    <p class="lead-md"><strong>Job Created at:</strong> {{ date('M j, Y - H:i', strtotime($job->created_at)) }}</p>
-                    <p class="lead-md"><strong>Job Last Updated at:</strong> {{ date('M j, Y - H:i', strtotime($job->updated_at)) }}</p>
+                    {{-- <p class="lead-md"><strong>Job Created at:</strong> {{ date('M j, Y - H:i', strtotime($job->created_at)) }}</p>
+                    <p class="lead-md"><strong>Job Last Updated at:</strong> {{ date('M j, Y - H:i', strtotime($job->updated_at)) }}</p> --}}
                 </div>
                 {{-- <dl class="dl-horizontal">
                     <dt>Title:</dt>

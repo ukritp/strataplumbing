@@ -27,6 +27,15 @@ h1.page_title{
     margin: 0;
     padding: 20px 0;
 }
+
+.navbar-search-form .input-group input[type="text"]{
+    width: 100%;
+    min-width: 300px;
+}
+.navbar-search-form ul.parsley-errors-list{
+    display:none;
+}
+
 /* make button transition slower */
 .btn:hover{
 	 transition: all 0.6s;
@@ -397,6 +406,17 @@ ul.dropdown-menu li{
     margin: 20px 0;
     border: 2px solid #fff;
     border-radius: 5px;
+}
+
+.contact-span{
+    background-color: #DEECEE;
+    border: 1px solid #DEECEE;
+    border-radius: 3px;
+    display: block;
+    height: auto;
+    overflow: hidden;
+    padding: 2% 0 0;
+    margin: 1% 0;
 }
 
 /* MOBILE DESIGN CSS-----------------------------------------------------------------------*/

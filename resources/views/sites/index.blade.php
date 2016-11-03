@@ -38,7 +38,7 @@
                     <th>Company</th>
                     <th>Address</th>
                     <th>Name</th>
-                    <th>Relationship</th>
+                    <th>Title</th>
                     <th class="text-right" style="width:20%;">Action</th>
                 </thead>
                 <tbody>
@@ -49,8 +49,18 @@
                                 <td data-label="Address">
                                 {!! Html::linkRoute('sites.show',$site->mailing_address.', '.$site->mailing_city, array($site->id), array() ) !!}
                                 </td>
-                                <td data-label="Name">{{$site->first_name.' '.$site->last_name}}</td>
-                                <td data-label="Relationship">{{$site->relationship}}</td>
+                                <td data-label="Name">
+                                    @if(count($site->contacts)>0)
+                                        {{$site->contacts->first()->first_name}}
+                                        {{$site->contacts->first()->last_name}}
+                                        {{-- {{$site->contacts->first()->first_name.' '.(!empty($site->contacts->first()->last_name))?$site->contacts->first()->last_name:''}} --}}
+                                    @endif
+                                </td>
+                                <td data-label="Title">
+                                    @if(count($site->contacts)>0)
+                                        {{(!empty($site->contacts->first()->title))?$site->contacts->first()->title:'-'}}
+                                    @endif
+                                </td>
                                 <td data-label="Action" class="text-right">
                                 <div class="btn-group">
                                     <button type="button"

@@ -8,6 +8,7 @@ use App\Http\Requests\SiteRequest;
 
 use App\Client;
 use App\Site;
+use App\Contact;
 use App\Job;
 use App\Technician;
 use App\Material;
@@ -55,7 +56,7 @@ class SiteController extends Controller
         $sites = Site::search($request->keyword)->paginate(25)->appends(['keyword' => $request->keyword]);
         //echo count($sites);
         if(count($sites)==0){
-            $sites = Site::search($request->keyword, ['mailing_address', 'billing_address','relationship'])
+            $sites = Site::search($request->keyword, ['mailing_address', 'billing_address'])
                         ->paginate(25)
                         ->appends(['keyword' => $request->keyword]);
         }
@@ -89,20 +90,18 @@ class SiteController extends Controller
      */
     public function store(SiteRequest $request)
     {
-
         // store the data in database
         $site = new Site;
-        $site->first_name         = $request->first_name;
-        $site->last_name          = $request->last_name;
-        $site->relationship       = $request->relationship;
-
-        $site->additional_contact = $request->additional_contact;
 
         $site->mailing_address    = $request->mailing_address;
         $site->mailing_city       = $request->mailing_city;
         $site->mailing_province   = $request->mailing_province;
         $site->mailing_postalcode = $request->mailing_postalcode;
         $site->buzzer_code        = $request->buzzer_code;
+        $site->alarm_code         = $request->alarm_code;
+        $site->lock_box           = $request->lock_box;
+        $site->lock_box_location  = $request->lock_box_location;
+
 
         if($request->radiobox_billing == '1'){
             $client = Client::find($request->client_id);
@@ -127,17 +126,34 @@ class SiteController extends Controller
             $site->billing_postalcode = $request->billing_postalcode;
         }
 
-        $site->home_number        = $request->home_number;
-        $site->cell_number        = $request->cell_number;
-        $site->work_number        = $request->work_number;
-        $site->fax_number         = $request->fax_number;
-
-        $site->email              = $request->email;
-        $site->alternate_email    = $request->alternate_email;
         $site->property_note      = $request->property_note;
         $site->client_id          = $request->client_id;
 
         $site->save();
+
+        if(isset($request->first_name)){
+            for($i = 0; $i < count($request->first_name); ++$i) {
+                $contact = new Contact;
+
+                $contact->company_name    = $request->company_name[$i];
+
+                $contact->first_name      = $request->first_name[$i];
+                $contact->last_name       = $request->last_name[$i];
+                $contact->title           = $request->title[$i];
+
+                $contact->home_number     = $request->home_number[$i];
+                $contact->cell_number     = $request->cell_number[$i];
+                $contact->work_number     = $request->work_number[$i];
+                $contact->fax_number      = $request->fax_number[$i];
+
+                $contact->email           = $request->email[$i];
+                $contact->alternate_email = $request->alternate_email[$i];
+
+                $contact->site_id     = $site->id;
+
+                $contact->save();
+            }
+        }
 
         // use session to store .... for a while -> flash( 'key', 'value')
         // use Put() for long term til session is removed
@@ -189,16 +205,16 @@ class SiteController extends Controller
 
         // store the data in database
         $site = Site::find($id);
-        $site->first_name         = $request->first_name;
-        $site->last_name          = $request->last_name;
-        $site->relationship       = $request->relationship;
-        $site->additional_contact = $request->additional_contact;
 
         $site->mailing_address    = $request->mailing_address;
         $site->mailing_city       = $request->mailing_city;
         $site->mailing_province   = $request->mailing_province;
         $site->mailing_postalcode = $request->mailing_postalcode;
         $site->buzzer_code        = $request->buzzer_code;
+        $site->alarm_code         = $request->alarm_code;
+        $site->lock_box           = $request->lock_box;
+        $site->lock_box_location  = $request->lock_box_location;
+
 
         if($request->radiobox_billing == '1'){
             $client = Client::find($request->client_id);
@@ -223,23 +239,52 @@ class SiteController extends Controller
             $site->billing_postalcode = $request->billing_postalcode;
         }
 
-        $site->home_number        = $request->home_number;
-        $site->cell_number        = $request->cell_number;
-        $site->work_number        = $request->work_number;
-        $site->fax_number         = $request->fax_number;
-
-        $site->email              = $request->email;
-        $site->alternate_email    = $request->alternate_email;
         $site->property_note      = $request->property_note;
         $site->client_id          = $request->client_id;
 
         $site->save();
 
-        // use session to store .... for a while -> flash( 'key', 'value')
-        // use Put() for long term til session is removed
+        if(isset($request->contact_id) || isset($request->first_name)){
+
+            $exist_contacts = Contact::where('site_id',$id)->get();
+            $exist_contact_ids = array();
+            if(count($exist_contacts) > 0){
+                foreach($exist_contacts as $index => $exist_contact){
+                    $exist_contact_ids[$index] = $exist_contact->id;
+                }
+            }
+
+            Contact::where('site_id', $site->id)->delete();
+
+            for($i = 0; $i < count($request->first_name); ++$i) {
+                $contact = new Contact;
+                // use the same existing id
+                if(isset($exist_contact_ids[$i])){
+                    $contact->id                = $exist_contact_ids[$i];
+                }
+
+                $contact->company_name    = $request->company_name[$i];
+
+                $contact->first_name      = $request->first_name[$i];
+                $contact->last_name       = $request->last_name[$i];
+                $contact->title           = $request->title[$i];
+
+                $contact->home_number     = $request->home_number[$i];
+                $contact->cell_number     = $request->cell_number[$i];
+                $contact->work_number     = $request->work_number[$i];
+                $contact->fax_number      = $request->fax_number[$i];
+
+                $contact->email           = $request->email[$i];
+                $contact->alternate_email = $request->alternate_email[$i];
+
+                $contact->site_id     = $site->id;
+
+                $contact->save();
+            }
+        }
+
         Session::flash('success','The Site was successfully updated');
 
-        // redirect to another page
         return redirect()->route('sites.show',$site->id);
     }
 

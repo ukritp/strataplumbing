@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Client;
 use App\Site;
 use App\Job;
+use App\Contact;
 use App\Technician;
 
 class PageController extends Controller
@@ -40,7 +41,7 @@ class PageController extends Controller
         // get Sites
         $sites = Site::search($keyword)->get();
         if(count($sites)==0){
-            $sites = Site::search($keyword, ['mailing_address', 'relationship'])->get();
+            $sites = Site::search($keyword, ['mailing_address'])->get();
         }
 
         // get Jobs

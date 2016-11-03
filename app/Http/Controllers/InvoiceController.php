@@ -76,8 +76,6 @@ class InvoiceController extends Controller
                     'site.billing_address'   => 10,
                     'client.billing_city'    => 10,
                     'site.billing_city'      => 10,
-                    'site.first_name'        => 5,
-                    'site.last_name'         => 5,
                     'first_name'             => 5,
                     'last_name'              => 5,
                     'cell_number'            => 5,
