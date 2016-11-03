@@ -87,6 +87,9 @@
                             @if(!empty($contact->first_name))
                             <p class="lead-md"><strong>Name:</strong> {{$contact->first_name.' '.(!empty($contact->last_name))?$contact->last_name:''}}</p>
                             @endif
+                            @if(!empty($contact->title))
+                            <p class="lead-md"><strong>Title:</strong> {{$contact->title}}</p>
+                            @endif
 
                             <div class="row">
                                 @if(!empty($contact->home_number))
