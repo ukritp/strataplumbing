@@ -83,10 +83,10 @@
                 </tbody>
             </table>
             <br>
-            <p class="lead-md"><strong>Flushing Hours:</strong> {{$technician->flushing_hours}}</p>
-            <p class="lead-md"><strong>Camera Hours:</strong> {{$technician->camera_hours}}</p>
-            <p class="lead-md"><strong>Main Line Auger Hours:</strong> {{$technician->main_line_auger_hours}}</p>
-            <p class="lead-md"><strong>Other Hours:</strong> {{$technician->other_hours}}</p>
+            @if(!empty($technician->flushing_hours)) <p class="lead-md"><strong>Flushing Hours:</strong> {{$technician->flushing_hours}}</p> @endif
+            @if(!empty($technician->camera_hours)) <p class="lead-md"><strong>Camera Hours:</strong> {{$technician->camera_hours}}</p> @endif
+            @if(!empty($technician->main_line_auger_hours)) <p class="lead-md"><strong>Main Line Auger Hours:</strong> {{$technician->main_line_auger_hours}}</p> @endif
+            @if(!empty($technician->other_hours)) <p class="lead-md"><strong>Other Hours:</strong> {{$technician->other_hours}}</p> @endif
             @if(!empty($technician->notes)) <p class="lead-md paragraph-wrap"><strong>Recommendations / Notes:</strong><br>{{$technician->notes}}</p>@endif
             <p class="lead-md"><strong>Equipment Left on Site:</strong> {{($technician->equipment_left_on_site) ? 'yes - ' : 'no'}}{{$technician->equipment_name}}</p>
 
