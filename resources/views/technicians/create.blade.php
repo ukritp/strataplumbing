@@ -15,75 +15,15 @@
 
             <div style="background-color: #eee; padding: 2%; margin:1% 0;">
 
-
+                @set('contact_first_name', $job->client->first_name)
+                @set('contact_last_name', $job->client->last_name)
                 @if(isset($job->site))
-                    <?php
-                    $contact_first_name = $job->client->first_name;
-                    $contact_last_name = $job->client->last_name;
-                    $contact_home_number = $job->client->formatPhone($job->client->home_number);
-                    $contact_work_number = $job->client->formatPhone($job->client->work_number);
-                    $contact_cell_number = $job->client->formatPhone($job->client->cell_number);
-                    $contact_fax_number = $job->client->formatPhone($job->client->fax_number);
-
-                    if(count($job->site->contacts)>0){
-                        $contact_first_name = $job->site->contacts->first()->first_name;
-                        $contact_last_name = $job->site->contacts->first()->last_name;
-                        $contact_home_number = $job->client->formatPhone($job->site->contacts->first()->home_number);
-                        $contact_work_number = $job->client->formatPhone($job->site->contacts->first()->work_number);
-                        $contact_cell_number = $job->client->formatPhone($job->site->contacts->first()->cell_number);
-                        $contact_fax_number = $job->client->formatPhone($job->site->contacts->first()->fax_number);
-                    }
-                    ?>
-                    <h3>Contact: {{$contact_first_name.' '.$contact_last_name}}</h3>
-                    <div class="row">
-                        @if(!empty($contact_home_number))
-                        <div class="col-md-6">
-                            <p class="lead-md"><strong>Home:</strong> {{$contact_home_number}}</p>
-                        </div>
-                        @endif
-                        @if(!empty($contact_cell_number))
-                        <div class="col-md-6">
-                            <p class="lead-md"><strong>Cell:</strong> {{$contact_cell_number}}</p>
-                        </div>
-                        @endif
-                        @if(!empty($contact_work_number))
-                        <div class="col-md-6">
-                            <p class="lead-md"><strong>Work:</strong> {{$contact_work_number}}</p>
-                        </div>
-                        @endif
-                        @if(!empty($contact_fax_number))
-                        <div class="col-md-6">
-                            <p class="lead-md"><strong>Fax:</strong> {{$contact_fax_number}}</p>
-                        </div>
-                        @endif
-                    </div>
-
-                @else
-                    <h3>Contact: {{$contact->first_name.' '.$contact->last_name}}</h3>
-                    <div class="row">
-                        @if(!empty($contact->home_number))
-                        <div class="col-md-6">
-                            <p class="lead-md"><strong>Home:</strong> {{$job->client->formatPhone($contact->home_number)}}</p>
-                        </div>
-                        @endif
-                        @if(!empty($contact->contacts->cell_number))
-                        <div class="col-md-6">
-                            <p class="lead-md"><strong>Cell:</strong> {{$job->client->formatPhone($contact->cell_number)}}</p>
-                        </div>
-                        @endif
-                        @if(!empty($contact->work_number))
-                        <div class="col-md-6">
-                            <p class="lead-md"><strong>Work:</strong> {{$job->client->formatPhone($contact->work_number)}}</p>
-                        </div>
-                        @endif
-                        @if(!empty($contact->fax_number))
-                        <div class="col-md-6">
-                            <p class="lead-md"><strong>Fax:</strong> {{$job->client->formatPhone($contact->fax_number)}}</p>
-                        </div>
-                        @endif
-                    </div>
+                    @if(count($job->site->contacts)>0)
+                        @set('contact_first_name', $job->site->contacts->first()->first_name)
+                        @set('contact_last_name', $job->site->contacts->first()->last_name)
+                    @endif
                 @endif
-
+                <h3>Contact: {{$contact_first_name.' '.$contact_last_name}}</h3>
                 <p class="lead-md"><strong>Address:</strong> {{
                     ucwords(strtolower($contact->mailing_address)).', '.
                     ucwords(strtolower($contact->mailing_city)).', '.
