@@ -28,9 +28,9 @@ class Site extends Model
         'billing_city'            => 10,
         'billing_province'        => 10,
         'billing_postalcode'      =>10,
-        'contacts.work_number'     =>5,
-        'contacts.fax_number'      =>5,
-        'contacts.home_number'     =>2,
+        'contacts.work_number'     =>15,
+        'contacts.fax_number'      =>15,
+        'contacts.home_number'     =>15,
         'contacts.alternate_email' =>2,
     ];
 

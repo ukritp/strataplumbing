@@ -9,6 +9,21 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Contact extends Model
 {
     //
+    // Search all column using Sofa Eloque
+    use Eloquence;
+    protected $searchableColumns = [
+        'company_name'       => 15,
+        'first_name'         => 15,
+        'last_name'          => 15,
+        'cell_number'        => 15,
+        'email'              => 15,
+        'title'              => 10,
+        'work_number'        => 15,
+        'fax_number'         => 15,
+        'home_number'        => 15,
+        'alternate_email'    => 15,
+    ];
+
 
     /* ==========================================|| SET ATTRIBUTE ||==========================================*/
     /**
