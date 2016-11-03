@@ -12,19 +12,19 @@ class Technician extends Model
     use Eloquence;
 
     protected $searchableColumns = [
-        'technician_name'            => 20,
-        'job.project_manager'        => 20,
-        'job.client.company_name'    => 10,
-        'job.client.first_name'      => 10,
-        'job.client.last_name'       => 10,
-        'job.client.mailing_address' => 10,
-        'job.site.mailing_address'   => 10,
-        'job.client.mailing_city'    => 10,
-        'job.site.mailing_city'      => 10,
-        'tech_details'               => 10,
-        'job.site.contacts.first_name'        => 5,
-        'job.site.contacts.last_name'         => 5,
-        'tech_details'               => 5,
+        'technician_name'              => 20,
+        'job.project_manager'          => 20,
+        'job.client.company_name'      => 10,
+        'job.client.first_name'        => 10,
+        'job.client.last_name'         => 10,
+        'job.client.mailing_address'   => 10,
+        'job.site.mailing_address'     => 10,
+        'job.client.mailing_city'      => 10,
+        'job.site.mailing_city'        => 10,
+        'tech_details'                 => 10,
+        'job.site.contacts.first_name' => 10,
+        'job.site.contacts.last_name'  => 10,
+        'tech_details'                 => 10,
     ];
 
     // Log activity
