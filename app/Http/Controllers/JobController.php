@@ -10,6 +10,8 @@ use App\Http\Requests\JobRequest;
 use App\Client;
 use App\Site;
 use App\Job;
+use App\Estimate;
+use App\Extras;
 use App\Technician;
 use App\Material;
 use App\PendingInvoice;
@@ -50,7 +52,7 @@ class JobController extends Controller
                         'client.mailing_address',
                         'site.mailing_address',
                         'estimates.description',
-                        'estimates.extras.extras_description'
+                        'estimates.extras_table.extras_description'
                     ])->paginate(25)->appends(['keyword' => $request->keyword]);
         }
         // check id
