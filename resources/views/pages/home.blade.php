@@ -35,7 +35,7 @@
                 j{{count($jobs)}}
                 t{{count($technicians)}} --}}
 
-                <p class="lead"><strong>Found: {{count($clients)+count($sites)+count($jobs)+count($technicians)}} Results for "{{Request::get('keyword')}}"</strong></p>
+                <p class="lead"><strong>Results for "{{Request::get('keyword')}}"</strong></p>
 
                 <table class="table table-hover table-hover-blue mobile-table">
                     <thead>

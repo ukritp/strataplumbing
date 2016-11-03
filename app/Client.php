@@ -27,10 +27,10 @@ class Client extends Model
         'billing_city'       => 10,
         'billing_province'   => 10,
         'billing_postalcode' =>10,
-        'work_number'        =>5,
-        'fax_number'         =>5,
-        'home_number'        =>2,
-        'alternate_email'    =>2,
+        'work_number'        =>15,
+        'fax_number'         =>15,
+        'home_number'        =>15,
+        'alternate_email'    =>15,
     ];
 
     // Log activity
