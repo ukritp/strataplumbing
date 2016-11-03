@@ -64,7 +64,7 @@
             <p class="lead-md paragraph-wrap"><strong>Technician Details:</strong><br>{{$technician->tech_details}}</p>
 
             <table class="table table-bordered material-table">
-                <thead>
+                <thead style="background-color: #ddd;">
                     <th>Material Name</th>
                     <th class="text-center">Quantity</th>
                 </thead>
