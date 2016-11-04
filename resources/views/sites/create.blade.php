@@ -101,7 +101,7 @@
                         {{ Form::text('buzzer_code',null, array(
                             'class'             => 'form-control',
                             'tabindex'          =>'5',
-                            'data-parsley-type' =>'digits'
+                            //'data-parsley-type' =>'digits'
                         ))}}
                         </fieldset>
                         <fieldset class="form-group">
@@ -118,7 +118,7 @@
                         {{ Form::text('alarm_code',null, array(
                             'class'             => 'form-control',
                             'tabindex'          =>'6',
-                            'data-parsley-type' =>'digits'
+                            //'data-parsley-type' =>'digits'
                         ))}}
                         </fieldset>
 

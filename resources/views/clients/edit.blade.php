@@ -144,8 +144,7 @@
                     'class'             => 'form-control',
                     'tabindex' => '16',
                     //'required'          =>'',
-                    'data-parsley-type' =>'digits'
-
+                    //'data-parsley-type' =>'digits'
                 ))}}
                 </fieldset>
 
