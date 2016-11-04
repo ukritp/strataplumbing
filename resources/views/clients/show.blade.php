@@ -122,12 +122,13 @@
 
                     @foreach($client->sites as $site)
 
-                        <tr>
+                        <tr  class="table-row" data-href="{{route('sites.show',$site->id)}}">
                             <td data-label="Address">
-                            {!! Html::linkRoute('sites.show',$site->mailing_address.', '.$site->mailing_city, array($site->id), array() ) !!}</td>
+                            {{$site->mailing_address.', '.$site->mailing_city}}</td>
                             <td data-label="Name">
                                 @if(count($site->contacts)>0)
-                                    {{$site->contacts->first()->first_name.' '.$site->contacts->first()->last_name}}
+                                    {{$site->contacts->first()->first_name}}
+                                    {{(!empty($site->contacts->first()->last_name))?$site->contacts->first()->last_name: ''}}
                                 @else -
                                 @endif
                             </td>

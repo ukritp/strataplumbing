@@ -50,7 +50,7 @@
                     @set('job_id', array())
                     @foreach($technicians as $index => $technician)
                     @set('job_id[$index]',$technician->job_id)
-                    <tr >
+                    <tr   class="table-row" data-href="{{route('technicians.show',$technician->id)}}">
                         @if($index == 0)
                             <th data-label="Job #" class="td-status">{{$technician->job_id+20100}}</th>
                         @elseif($job_id[$index] == $job_id[$index-1])

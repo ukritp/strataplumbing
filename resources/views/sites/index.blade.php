@@ -39,26 +39,27 @@
                     <th>Address</th>
                     <th>Name</th>
                     <th>Title</th>
-                    <th class="text-right" style="width:20%;">Action</th>
+                    <th class="text-right">Action</th>
                 </thead>
                 <tbody>
                     @if(count($sites)>0)
                         @foreach($sites as $index => $site)
-                            <tr>
+                            <tr class="table-row" data-href="{{route('sites.show',$site->id)}}">
                                 <th data-label="Company">{{(!empty($site->client->company_name)) ? $site->client->company_name : '-'}}</th>
                                 <td data-label="Address">
-                                {!! Html::linkRoute('sites.show',$site->mailing_address.', '.$site->mailing_city, array($site->id), array() ) !!}
+                                {{$site->mailing_address.', '.$site->mailing_city}}
                                 </td>
                                 <td data-label="Name">
                                     @if(count($site->contacts)>0)
                                         {{$site->contacts->first()->first_name}}
-                                        {{$site->contacts->first()->last_name}}
-                                        {{-- {{$site->contacts->first()->first_name.' '.(!empty($site->contacts->first()->last_name))?$site->contacts->first()->last_name:''}} --}}
+                                        {{(!empty($site->contacts->first()->last_name))?$site->contacts->first()->last_name: ''}}
+                                    @else -
                                     @endif
                                 </td>
                                 <td data-label="Title">
                                     @if(count($site->contacts)>0)
                                         {{(!empty($site->contacts->first()->title))?$site->contacts->first()->title:'-'}}
+                                    @else -
                                     @endif
                                 </td>
                                 <td data-label="Action" class="text-right">

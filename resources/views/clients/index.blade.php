@@ -43,27 +43,27 @@
                     <th style="width:15%;">Contact</th>
                     <th>Title</th>
                     <th>Address</th>
-                    <th class="text-right" style="width:20%;">Action</th>
+                    <th class="text-right">Action</th>
                 </thead>
                 <tbody>
                 @if(count($clients)>0)
                     @foreach($clients as $client)
 
-                        <tr>
+                        <tr class="table-row" data-href="{{route('clients.show',$client->id)}}">
                             <th data-label="#" class="td-id">{{$client->id}}</th>
                             <th data-label="Company" class="td-company-name">
                             @if(!empty($client->company_name))
-                            {!!Html::linkRoute('clients.show',$client->company_name, array($client->id), array() )!!}
+                            {{$client->company_name}}
                             @else
                             -
                             @endif
                             </th>
                             <td data-label="Contact" class="td-contact">
-                            {!!Html::linkRoute('clients.show',$client->first_name.' '.$client->last_name, array($client->id), array() )!!}
+                            {{$client->first_name.' '.$client->last_name}}
                             </td>
                             <td data-label="Title">{{(!empty($client->title)) ? $client->title : '-'}}</td>
                             <td data-label="Address">{{$client->mailing_address.', '.$client->mailing_city}}</td>
-                            <td data-label="Action" class="text-right td-action">
+                            <td data-label="Action" class="text-right">
                             <div class="btn-group">
                                 <button type="button"
                                     class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"

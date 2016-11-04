@@ -10,8 +10,8 @@ $(document).ready(function () {
         }
     });
 
-    $(".table-row").click(function() {
-        window.document.location = $(this).data("href");
+    $(".table-row td:not(:last-child)").click(function() {
+        window.document.location = $(this).parent().data("href");
     });
 
 	// Mailing to Billing if checked -----------------------------

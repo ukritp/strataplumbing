@@ -51,14 +51,14 @@
                     @set('status', ( (count($job->pendinginvoices)>0) || (count($job->estimates)>0) )? '' : 'disabled')
                     @set('invoice_link', ( (count($job->pendinginvoices)>0) || (count($job->estimates)>0) ) ? route('invoices.show', $job->id) : '#')
                     @set('job_type', ($job->is_estimate)? 'estimate' : 'regular')
-                    <tr>
-                        <th data-label="#">{!! Html::linkRoute('jobs.show', $job->id+20100, array($job->id), array('class'=>'')) !!}</th>
+                    <tr  class="table-row" data-href="{{route('jobs.show',$job->id)}}">
+                        <th data-label="#">{{$job->id+20100}}</th>
                         <th data-label="PM">{{$job->project_manager}}</th>
                         <th data-label="Type" class="job-type type-{{$job_type}}">{{($job->is_estimate)? 'Estimate':'Regular'}}</th>
                         <th data-label="Company">{{!empty($job->client->company_name) ? $job->client->company_name : '-'}}</th>
                         @if(isset($job->site))
                             <td data-label="Name">
-                            @if(isset($job->site->contacts))
+                            @if(count($job->site->contacts)>0)
                                 @set('contact_first_name',!empty($job->site->contacts->first()->first_name) ? $job->site->contacts->first()->first_name:'-')
                                 @set('contact_last_name',!empty($job->site->contacts->first()->last_name) ? $job->site->contacts->first()->last_name:'')
                                 {{$contact_first_name.' '.$contact_last_name}}
