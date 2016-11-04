@@ -72,20 +72,8 @@
                     </div>
                     @endif
                 </div>
-                <p class="lead-md"><strong>Address:</strong> {{
-                    ucwords(strtolower($contact->mailing_address)).', '.
-                    ucwords(strtolower($contact->mailing_city)).', '.
-                    strtoupper($contact->mailing_province).' '.
-                    strtoupper($contact->mailing_postalcode)
-                }}
-                </p>
-                <p class="lead-md"><strong>Billing Address:</strong> {{
-                    ucwords(strtolower($contact->billing_address)).', '.
-                    ucwords(strtolower($contact->billing_city)).', '.
-                    strtoupper($contact->billing_province).' '.
-                    strtoupper($contact->billing_postalcode)
-                }}
-                </p>
+                <p class="lead-md"><strong>Address:</strong> {{$contact->fullMailingAddress()}}</p>
+                <p class="lead-md"><strong>Billing Address:</strong> {{$contact->fullBillingAddress()}} </p>
                 <p class="lead-md"><strong>Project Manager:</strong> {{$job->project_manager}}</p>
                 @if(!empty($job->approval_status))
                 <div class="lead-approval">

@@ -17,12 +17,7 @@
             @if(!empty($site))
                 <h3>Contact: {{$site->first_name.' '.$site->last_name}}</h3>
                 <p class="lead-md"><strong>Relationship:</strong> {{$site->relationship}}</p>
-                <p class="lead-md"><strong>Site Address:</strong> {{
-                    ucwords(strtolower($site->mailing_address)).', '.
-                    ucwords(strtolower($site->mailing_city)).', '.
-                    strtoupper($site->mailing_province).' '.
-                    strtoupper($site->mailing_postalcode)
-                }}
+                <p class="lead-md"><strong>Site Address:</strong> {{$site->fullMailingAddress()}}
                 </p>
                 @if(!empty($site->buzzer_code)) <p class="lead-md"><strong>Buzzer Code:</strong> {{$site->buzzer_code}}</p> @endif
                 <div class="row">
@@ -34,12 +29,7 @@
                     </div>
                 </div>
             @else
-                <p class="lead"><strong>Address:</strong> {{
-                    ucwords(strtolower($technician->job->client->mailing_address)).', '.
-                    ucwords(strtolower($technician->job->client->mailing_city)).', '.
-                    strtoupper($technician->job->client->mailing_province).' '.
-                    strtoupper($technician->job->client->mailing_postalcode)
-                }}
+                <p class="lead"><strong>Address:</strong> {{$technician->job->client->fullMailingAddress()}}
                 </p>
             @endif
 

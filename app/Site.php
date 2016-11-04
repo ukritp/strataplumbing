@@ -261,7 +261,7 @@ class Site extends Model
         if(!empty($this->mailing_province)){
             $full_address .= $this->mailing_province.' ';
         }
-        $full_address .= strtoupper($this->mailing_postalcode);
+        $full_address .= wordwrap(strtoupper($this->mailing_postalcode) , 3 , ' ' , true );
         return $full_address;
     }
 
@@ -278,7 +278,7 @@ class Site extends Model
         if(!empty($this->billing_province)){
             $full_address .= $this->billing_province.' ';
         }
-        $full_address .= strtoupper($this->billing_postalcode);
+        $full_address .= wordwrap(strtoupper($this->billing_postalcode) , 3 , ' ' , true );
         return $full_address;
     }
 
