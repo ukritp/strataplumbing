@@ -13,6 +13,9 @@ $(document).ready(function () {
     $(".table-row td:not(:last-child)").click(function() {
         window.document.location = $(this).parent().data("href");
     });
+    $(".table-row th:not(:last-child)").click(function() {
+        window.document.location = $(this).parent().data("href");
+    });
 
 	// Mailing to Billing if checked -----------------------------
 	// http://jsfiddle.net/GaryC123/3gtSn/1/

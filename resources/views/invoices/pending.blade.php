@@ -38,7 +38,7 @@
                     @set('grand_total',0)
                     @foreach($jobs as $index => $job)
                         @set('status', count($job->pendinginvoices)>0 ? '' : 'disabled')
-                        <tr>
+                        <tr  class="table-row" data-href="{{url('/invoices/approval/'.$job->id)}}">
                             <th data-label="#">{{$job->id+20100}}</th>
                             <th data-label="PM">{{$job->project_manager}}</th>
                             <th data-label="Company">{{!empty($job->client->company_name) ? $job->client->company_name : '-'}}</th>

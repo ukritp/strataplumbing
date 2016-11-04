@@ -190,7 +190,7 @@
                     @foreach($job->techniciansGroupByDate as $index => $technician)
                         @set('created_at[$index]',date('M j, Y', strtotime($technician->pendinginvoiced_at)))
                         @set('count_rowspan', count($job->techniciansCountByDate($technician->pendinginvoiced_at)))
-                        <tr>
+                        <tr class="table-row" data-href="{{route('technicians.show',$technician->id)}}">
                             <!-- <th>{{$technician->id}}</th> -->
                             @if($index == 0)
                                 <th data-label="Date" rowspan="{{$count_rowspan}}">{{$created_at[$index]}}</th>
@@ -202,8 +202,8 @@
                             <td data-label="Details">{{substr($technician->tech_details, 0,50)}}{{strlen($technician->tech_details)>50 ? '....' : ''}}</td>
                             <td data-label="Equipment Left on Site" class="text-center hidden-xs">{{($technician->equipment_left_on_site) ? 'yes' : 'no'}}</td>
                             <td data-label="Action" class="text-right">
-                            {!! Html::linkRoute('technicians.show', 'View', array($technician->id), array('class'=>'btn btn-default btn-sm btn-sm-margin') ) !!}
-                            @can('technician-gate', $technician)
+                            {{-- {!! Html::linkRoute('technicians.show', 'View', array($technician->id), array('class'=>'btn btn-default btn-sm btn-sm-margin') ) !!}
+ --}}                            @can('technician-gate', $technician)
                             {!! Html::linkRoute('technicians.edit', 'Edit', array($technician->id), array('class'=>'btn btn-default btn-sm btn-sm-margin') ) !!}
                             @endcan
                             </td>
