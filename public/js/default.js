@@ -1,14 +1,14 @@
 $(document).ready(function () {
 
     // sticky navbar after scroll-----------------------------
-    $(window).bind('scroll', function () {
-        // console.log($(window).scrollTop());
-        if ($(window).scrollTop() > $('.thumbnail-logo').outerHeight()) {
-            $('#main-navbar').addClass('navbar-fixed-top');
-        } else {
-            $('#main-navbar').removeClass('navbar-fixed-top');
-        }
-    });
+    // $(window).bind('scroll', function () {
+    //     // console.log($(window).scrollTop());
+    //     if ($(window).scrollTop() > $('.thumbnail-logo').outerHeight()) {
+    //         $('#main-navbar').addClass('navbar-fixed-top');
+    //     } else {
+    //         $('#main-navbar').removeClass('navbar-fixed-top');
+    //     }
+    // });
 
     $(".table-row td:not(:last-child)").click(function() {
         window.document.location = $(this).parent().data("href");

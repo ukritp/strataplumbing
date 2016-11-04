@@ -1,5 +1,18 @@
 <!-- Default Bootstrap navbar -->
-<nav id="main-navbar" class="navbar navbar-default">
+<nav id="main-navbar" class="navbar navbar-default navbar-fixed-top">
+  @if(Auth::check())
+      @set('user', \Auth::user()->roles()->first()->name)
+      @if($user === 'Admin' || $user === 'Owner')
+        @set('logo_route', route('home'))
+      @else
+        @set('logo_route', route('technicians.index',0))
+      @endif
+    @else
+        @set('logo_route', '#')
+    @endif
+  <a href="{{$logo_route}}" class="thumbnail thumbnail-logo">
+      {{ Html::image('images/logo-new.png', 'strataplumbing', ['width'=>'230px'])}}
+    </a>
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">

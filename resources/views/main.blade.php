@@ -6,7 +6,7 @@
   </head>
   <body>
 
-    @if(Auth::check())
+    {{-- @if(Auth::check())
       @set('user', \Auth::user()->roles()->first()->name)
       @if($user === 'Admin' || $user === 'Owner')
         @set('logo_route', route('home'))
@@ -18,8 +18,8 @@
     @endif
 
     <a href="{{$logo_route}}" class="thumbnail thumbnail-logo">
-      {{ Html::image('images/logo-new.png', 'strataplumbing', ['width'=>'280px'])}}
-    </a>
+      {{ Html::image('images/logo-new.png', 'strataplumbing', ['width'=>'230px'])}}
+    </a> --}}
 
     @include('partials._nav')
 
