@@ -86,13 +86,17 @@ $(document).ready(function () {
     $(".type-estimate").css('color','#477610');
 
     // toggle for tenant-----------------------------
-    $(".toggle").hide();
+    if($('#tenant_contact_info').val() != ''){
+        $("#tenant_checkbox").prop( "checked", true );
+    }else{
+        $(".toggle").hide();
+    }
     $("#tenant_checkbox").change(function(){
         if($(this).is(":checked")){
             $(".toggle").show();
-            $(".toggle :input").attr("data-parsley-required","true");
+            // $(".toggle :input").attr("data-parsley-required","true");
         }else{
-            $(".toggle :input").attr("data-parsley-required","false");
+            // $(".toggle :input").attr("data-parsley-required","false");
             $(".toggle :input").val("");
             $(".toggle").hide();
         }

@@ -24,12 +24,7 @@
                     @endif
                 @endif
                 <h3>Contact: {{$contact_first_name.' '.$contact_last_name}}</h3>
-                <p class="lead-md"><strong>Address:</strong> {{
-                    ucwords(strtolower($contact->mailing_address)).', '.
-                    ucwords(strtolower($contact->mailing_city)).', '.
-                    strtoupper($contact->mailing_province).' '.
-                    strtoupper($contact->mailing_postalcode)
-                }}
+                <p class="lead-md"><strong>Address:</strong> {{$contact->fullMailindAddress()}}
                 </p>
 
                 @if(isset($job->site))

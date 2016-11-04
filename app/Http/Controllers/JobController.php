@@ -136,9 +136,11 @@ class JobController extends Controller
         $job->is_estimate           = $request->is_estimate;
         $job->project_manager       = $request->project_manager;
         $job->purchase_order_number = $request->purchase_order_number;
-        $job->first_name            = $request->first_name;
-        $job->last_name             = $request->last_name;
-        $job->cell_number           = $request->cell_number;
+
+        $job->tenant_contact_info   = $request->tenant_contact_info;
+        // $job->first_name            = $request->first_name;
+        // $job->last_name             = $request->last_name;
+        // $job->cell_number           = $request->cell_number;
         $job->client_id             = $request->client_id;
 
         if(isset($request->site_id)){
@@ -199,9 +201,10 @@ class JobController extends Controller
         $job->is_estimate           = $request->is_estimate;
         $job->project_manager       = $request->project_manager;
         $job->purchase_order_number = $request->purchase_order_number;
-        $job->first_name            = $request->first_name;
-        $job->last_name             = $request->last_name;
-        $job->cell_number           = $request->cell_number;
+        $job->tenant_contact_info   = $request->tenant_contact_info;
+        // $job->first_name            = $request->first_name;
+        // $job->last_name             = $request->last_name;
+        // $job->cell_number           = $request->cell_number;
         $job->client_id             = $request->client_id;
 
         if(isset($request->site_id)){

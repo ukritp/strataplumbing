@@ -185,27 +185,10 @@
                     </div>
 
                     <div class="row toggle">
-                        <div class="col-md-6">
-                            <fieldset class="form-group">
-                            {{ Form::label('first_name', 'First Name:')  }}
-                            {{ Form::text('first_name',null, array('class' => 'form-control', 'maxlength'=>'255'))}}
-                            </fieldset>
-                        </div>
-                        <div class="col-md-6">
-                            <fieldset class="form-group">
-                            {{ Form::label('last_name', 'Last Name:')  }}
-                            {{ Form::text('last_name',null, array('class' => 'form-control', 'maxlength'=>'255'))}}
-                            </fieldset>
-                        </div>
                         <div class="col-md-12">
                             <fieldset class="form-group">
-                            {{ Form::label('cell_number', 'Cell Number:')  }}
-                            {{ Form::text('cell_number',null, array(
-                                'class'             => 'form-control',
-                                'minlength'         =>'10' ,
-                                'maxlength'         =>'10',
-                                'data-parsley-type' =>'digits'
-                            ))}}
+                            {{ Form::label('tenant_contact_info', 'Contact Info:')  }}
+                            {{ Form::text('tenant_contact_info',null, array('class' => 'form-control', 'maxlength'=>'255'))}}
                             </fieldset>
                         </div>
                     </div>

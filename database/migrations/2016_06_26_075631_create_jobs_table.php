@@ -20,9 +20,11 @@ class CreateJobsTable extends Migration
             $table->text('scope_of_works');
             $table->string('purchase_order_number', 50)->nullable();
 
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('cell_number', 10)->nullable();
+            $table->string('tenant_contact_info')->nullable();
+
+            // $table->string('first_name')->nullable();
+            // $table->string('last_name')->nullable();
+            // $table->string('cell_number', 10)->nullable();
 
             $table->string('labor_discount', 2)->default(0)->nullable();
             $table->string('material_discount',2)->default(0)->nullable();

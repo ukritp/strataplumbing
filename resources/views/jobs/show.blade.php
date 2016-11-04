@@ -71,8 +71,7 @@
             <p class="lead-md"><strong>Project Manager:</strong> {{$job->project_manager}}</p>
             <p class="lead-md paragraph-wrap"><strong>Scope Of Work:</strong><br>{{$job->scope_of_works}}</p>
             <p class="lead-md lead-status"><strong>Status:</strong> <span>{{($job->status) ? 'Completed' : 'Pending'}}</span></p>
-            @if(!empty($job->first_name)) <p class="lead-md"><strong>Tenant:</strong> {{$job->first_name.' '.$job->last_name}}</p> @endif
-            @if(!empty($job->cell_number)) <p class="lead-md"><strong>Cell:</strong> {{$job->client->formatPhone($job->cell_number)}}</p> @endif
+            @if(!empty($job->tenant_contact_info)) <p class="lead-md"><strong>Tenant:</strong> {{$job->tenant_contact_info}}</p> @endif
 
             {{-- <p class="lead-md"><strong>Days working for this job:</strong> {{count($job->techniciansGroupByDateCount)}}</p>
             <p class="lead-md"><strong>Days added to this invoice:</strong> {{count($job->pendinginvoices)}}</p>
