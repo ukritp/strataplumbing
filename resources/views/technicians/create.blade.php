@@ -24,7 +24,7 @@
                     @endif
                 @endif
                 <h3>Contact: {{$contact_first_name.' '.$contact_last_name}}</h3>
-                <p class="lead-md"><strong>Address:</strong> {{$contact->fullMailindAddress()}}
+                <p class="lead-md"><strong>Address:</strong> {{$contact->fullMailingAddress()}}
                 </p>
 
                 @if(isset($job->site))

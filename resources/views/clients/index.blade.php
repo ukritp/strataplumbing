@@ -75,6 +75,7 @@
                                     <li>{!! Html::linkRoute('clients.edit', 'Edit', array($client->id), array('class'=>'')) !!}</li>
                                     <li>{!! Html::linkRoute('jobs.create', 'Create Job', array($client->id,'client'), array('class'=>'')) !!}
                                     </li>
+                                    <li>{!! Html::linkRoute('sites.create', 'Add Site', array($client->id), array('class'=>'') ) !!}</li>
                                 </ul>
                             </div>
                            {{--  {!! Html::linkRoute('clients.show', 'View', array($client->id), array('class'=>'btn btn-default btn-sm btn-sm-margin'))!!}

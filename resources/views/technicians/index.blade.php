@@ -62,7 +62,15 @@
                         <th data-label="Date" class="td-status">{{date('M j, Y', strtotime($technician->pendinginvoiced_at))}}</th>
                         <td data-label="Tech Name" class="td-status">{{$technician->technician_name}}</td>
                         @if(isset($technician->job->site))
-                            <td data-label="Contact" class="hidden-xs">{{$technician->job->site->first_name.' '.$technician->job->site->last_name}}</td>
+                            <td data-label="Contact" class="hidden-xs">
+                            @if(count($technician->job->site->contacts)>0)
+                                @set('contact_first_name',!empty($technician->job->site->contacts->first()->first_name) ? $technician->job->site->contacts->first()->first_name:'-')
+                                @set('contact_last_name',!empty($technician->job->site->contacts->first()->last_name) ? $technician->job->site->contacts->first()->last_name:'')
+                                {{$contact_first_name.' '.$contact_last_name}}
+                                 {{-- {{$job->site->contacts->first()->first_name.' '.$job->site->contacts->first()->last_name}} --}}
+                            @else -
+                            @endif
+                            </td>
                             <td data-label="Address">{{
                             ucwords(strtolower($technician->job->site->mailing_address)).', '.
                             ucwords(strtolower($technician->job->site->mailing_city))

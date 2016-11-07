@@ -97,7 +97,11 @@ class ClientController extends Controller
         $client->mailing_city       = $request->mailing_city;
         $client->mailing_province   = $request->mailing_province;
         $client->mailing_postalcode = $request->mailing_postalcode;
+
         $client->buzzer_code        = $request->buzzer_code;
+        $client->alarm_code         = $request->alarm_code;
+        $client->lock_box           = $request->lock_box;
+        $client->lock_box_location  = $request->lock_box_location;
 
         $client->billing_address    = $request->billing_address;
         $client->billing_city       = $request->billing_city;
@@ -177,7 +181,11 @@ class ClientController extends Controller
         $client->mailing_city       = $request->mailing_city;
         $client->mailing_province   = $request->mailing_province;
         $client->mailing_postalcode = $request->mailing_postalcode;
+
         $client->buzzer_code        = $request->buzzer_code;
+        $client->alarm_code         = $request->alarm_code;
+        $client->lock_box           = $request->lock_box;
+        $client->lock_box_location  = $request->lock_box_location;
 
         $client->billing_address    = $request->billing_address;
         $client->billing_city       = $request->billing_city;

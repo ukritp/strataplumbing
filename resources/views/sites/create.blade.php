@@ -64,6 +64,8 @@
                         {{ Form::label('mailing_address', 'Address:', array('class'=>'control-label'))  }}
                         {{ Form::text('mailing_address',null, array('class' => 'form-control', 'required'=>'','tabindex'=>'1', 'maxlength'=>'255'))}}
                         </fieldset>
+                    </div>
+                    <div class="col-md-6">
                         <fieldset class="form-group">
                         {{ Form::label('mailing_city', 'City:')  }}
                         {{ Form::text('mailing_city',null, array('class' => 'form-control', 'tabindex'=>'2','maxlength'=>'50'))}}
@@ -84,9 +86,11 @@
                             'PE' => 'Prince Edward Island',
                             'NL' => 'Newfoundland and Labrador'),
                             null,
-                            array('class' => 'form-control', 'tabindex'=>'3')
+                            array('class' => 'form-control', 'tabindex'=>'')
                         )}}
                         </fieldset>
+                    </div>
+                    <div class="col-md-6">
                         <fieldset class="form-group">
                         {{ Form::label('mailing_postalcode', 'Postal Code:')  }}
                         {{ Form::text('mailing_postalcode',null, array('class' => 'form-control', 'tabindex'=>'4'))}}
@@ -104,13 +108,6 @@
                             //'data-parsley-type' =>'digits'
                         ))}}
                         </fieldset>
-                        <fieldset class="form-group">
-                        {{ Form::label('lock_box', 'Lock Box:')  }}
-                        {{ Form::text('lock_box',null, array(
-                            'class'    => 'form-control',
-                            'tabindex' =>'7',
-                        ))}}
-                        </fieldset>
                     </div>
                     <div class="col-md-6">
                         <fieldset class="form-group">
@@ -122,6 +119,17 @@
                         ))}}
                         </fieldset>
 
+                    </div>
+                    <div class="col-md-6">
+                        <fieldset class="form-group">
+                        {{ Form::label('lock_box', 'Lock Box:')  }}
+                        {{ Form::text('lock_box',null, array(
+                            'class'    => 'form-control',
+                            'tabindex' =>'7',
+                        ))}}
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6">
                         <fieldset class="form-group">
                         {{ Form::label('lock_box_location', 'Lock Box Location:')  }}
                         {{ Form::text('lock_box_location',null, array(
@@ -162,6 +170,8 @@
                         {{ Form::label('billing_address', 'Address:')  }}
                         {{ Form::text('billing_address',null, array('class' => 'form-control', 'tabindex'=>'12','maxlength'=>'255'))}}
                         </fieldset>
+                    </div>
+                    <div class="col-md-6">
                         <fieldset class="form-group">
                         {{ Form::label('billing_city', 'City:')  }}
                         {{ Form::text('billing_city',null, array('class' => 'form-control','tabindex'=>'13', 'maxlength'=>'50'))}}
@@ -182,9 +192,11 @@
                             'PE' => 'Prince Edward Island',
                             'NL' => 'Newfoundland and Labrador'),
                             null,
-                            array('class' => 'form-control' ,'tabindex'=>'14')
+                            array('class' => 'form-control' ,'tabindex'=>'')
                         )}}
                         </fieldset>
+                    </div>
+                    <div class="col-md-6">
                         <fieldset class="form-group">
                         {{ Form::label('billing_postalcode', 'Postal Code:')  }}
                         {{ Form::text('billing_postalcode',null, array('class' => 'form-control', 'tabindex'=>'15'))}}
@@ -203,15 +215,15 @@
 
                 <fieldset class="form-group">
 			    {{ Form::label('property_note', 'Property Note:')  }}
-			    {{ Form::textarea('property_note',null, array('class' => 'form-control', 'tabindex'=>'27'))}}
+			    {{ Form::textarea('property_note',null, array('class' => 'form-control', 'tabindex'=>'16'))}}
                 </fieldset>
 
                 {{ Form::hidden('client_id', $client->id) }}
 
-			    {{ Form::submit('Create Site', array('class' => 'btn btn-success btn-lg btn-block btn-margin', 'tabindex'=>'28'))}}
+			    {{ Form::submit('Create Site', array('class' => 'btn btn-success btn-lg btn-block btn-margin', 'id'=>'site-submit', 'tabindex'=>'17'))}}
                 <div class="row">
                     <div class="col-sm-12">
-                        <a href="{{url()->previous()}}" class="btn btn-danger btn-lg btn-block btn-margin" tabindex="29">Cancel</a>
+                        <a href="{{url()->previous()}}" id="site-cancel" class="btn btn-danger btn-lg btn-block btn-margin" tabindex="18">Cancel</a>
                     </div>
                 </div>
 

@@ -34,7 +34,7 @@ class SiteRequest extends Request
             'mailing_city'       => 'max:50',
             'mailing_province'   => '',
             'mailing_postalcode' => 'max:6',
-            'buzzer_code'        => 'numeric',
+            'buzzer_code'        => '',
 
             'billing_address'    => 'max:255',
             'billing_city'       => 'max:50',

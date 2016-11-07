@@ -23,7 +23,12 @@ class CreateClientsTable extends Migration
             $table->string('mailing_city',50)->nullable();
             $table->string('mailing_province',50)->nullable();
             $table->string('mailing_postalcode',6)->nullable();
+
             $table->string('buzzer_code')->nullable();
+            $table->string('alarm_code')->nullable();
+            $table->string('lock_box')->nullable();
+            $table->string('lock_box_location')->nullable();
+
             $table->string('billing_address')->nullable();
             $table->string('billing_city',50)->nullable();
             $table->string('billing_province',50)->nullable();

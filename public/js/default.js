@@ -10,6 +10,7 @@ $(document).ready(function () {
     //     }
     // });
 
+    // Table tr click link
     $(".table-row td:not(:last-child)").click(function() {
         window.document.location = $(this).parent().data("href");
     });
@@ -430,68 +431,73 @@ var contact_add_row =
     init: function()
     {
         var counter = 0;
+        var tabindex = Number($('#billing_postalcode').attr('tabindex'));
+        if( $('.remove-contact').length > 0 ){
+            var tabindex = Number($('.remove-contact:last-child').attr('tabindex'));
+        }
         $('#add-contact').click(function(){
+            // alert(tabindex);
             $('#contact-add').prepend(
             '<span class="contact-span">'+
                 // Company Name
                 '<div class="col-xs-12">'+
                     '<fieldset class="form-group">' +
-                        '<input type="text" id="company_name'+counter+'" name="company_name[]" class="form-control" placeholder="Company Name"  maxlength="255">'+
+                        '<input type="text" id="company_name'+counter+'" name="company_name[]" class="form-control" placeholder="Company Name"  maxlength="255" tabindex="'+ (tabindex += 1) +'">'+
                     '</fieldset>' +
                 '</div>'+
                 // First name + Last name
                 '<div class="col-xs-6">'+
                     '<fieldset class="form-group">' +
-                        '<input type="text" id="first_name'+counter+'" name="first_name[]" class="form-control" placeholder="First Name" required maxlength="255">'+
+                        '<input type="text" id="first_name'+counter+'" name="first_name[]" class="form-control" placeholder="First Name" required maxlength="255" tabindex="'+ (tabindex += 1) +'">'+
                     '</fieldset>' +
                 '</div>'+
                 '<div class="col-xs-6">'+
                     '<fieldset class="form-group">' +
-                        '<input type="text" id="last_name'+counter+'" name="last_name[]" class="form-control" placeholder="Last Name" maxlength="255">'+
+                        '<input type="text" id="last_name'+counter+'" name="last_name[]" class="form-control" placeholder="Last Name" maxlength="255" tabindex="'+ (tabindex += 1) +'">'+
                     '</fieldset>' +
                 '</div>'+
                 // Title
                 '<div class="col-xs-12">'+
                     '<fieldset class="form-group">' +
-                        '<input type="text" id="title'+counter+'" name="title[]" class="form-control" placeholder="Title"  maxlength="255">'+
+                        '<input type="text" id="title'+counter+'" name="title[]" class="form-control" placeholder="Title"  maxlength="255" tabindex="'+ (tabindex += 1) +'">'+
                     '</fieldset>' +
                 '</div>'+
                 // All numbers
                 '<div class="col-xs-3">'+
                     '<fieldset class="form-group">' +
-                        '<input type="text" id="home_number'+counter+'" name="home_number[]" class="form-control home_number" placeholder="Home Number">'+
+                        '<input type="text" id="home_number'+counter+'" name="home_number[]" class="form-control home_number" placeholder="Home Number" tabindex="'+ (tabindex += 1) +'">'+
                     '</fieldset>' +
                 '</div>'+
                 '<div class="col-xs-3">'+
                     '<fieldset class="form-group">' +
-                        '<input type="text" id="work_number'+counter+'" name="work_number[]" class="form-control work_number" placeholder="Work Number">'+
+                        '<input type="text" id="work_number'+counter+'" name="work_number[]" class="form-control work_number" placeholder="Work Number" tabindex="'+ (tabindex += 1) +'">'+
                     '</fieldset>' +
                 '</div>'+
                 '<div class="col-xs-3">'+
                     '<fieldset class="form-group">' +
-                        '<input type="text" id="cell_number'+counter+'" name="cell_number[]" class="form-control cell_number" placeholder="Cell Number">'+
+                        '<input type="text" id="cell_number'+counter+'" name="cell_number[]" class="form-control cell_number" placeholder="Cell Number" tabindex="'+ (tabindex += 1) +'">'+
                     '</fieldset>' +
                 '</div>'+
                 '<div class="col-xs-3">'+
                     '<fieldset class="form-group">' +
-                        '<input type="text" id="fax_number'+counter+'" name="fax_number[]" class="form-control fax_number" placeholder="Fax Number">'+
+                        '<input type="text" id="fax_number'+counter+'" name="fax_number[]" class="form-control fax_number" placeholder="Fax Number" tabindex="'+ (tabindex += 1) +'">'+
                     '</fieldset>' +
                 '</div>'+
 
                 // Email + Alternate email
                 '<div class="col-xs-5">'+
                     '<fieldset class="form-group">' +
-                        '<input type="text" id="email'+counter+'" name="email[]" class="form-control" placeholder="Email" maxlength="255" data-parsley-type="email">'+
+                        '<input type="text" id="email'+counter+'" name="email[]" class="form-control" placeholder="Email" maxlength="255" data-parsley-type="email" tabindex="'+ (tabindex += 1) +'">'+
                     '</fieldset>' +
                 '</div>'+
                 '<div class="col-xs-5">'+
                     '<fieldset class="form-group">' +
-                        '<input type="text" id="alternate_email'+counter+'" name="alternate_email[]" class="form-control" placeholder="Altername Email" maxlength="255" data-parsley-type="email">'+
+                        '<input type="text" id="alternate_email'+counter+'" name="alternate_email[]" class="form-control" placeholder="Altername Email" maxlength="255" data-parsley-type="email" tabindex="'+ (tabindex += 1) +'">'+
                     '</fieldset>' +
                 '</div>'+
                 '<div class="col-xs-2">'+
                     '<fieldset class="form-group">' +
-                        '<a id="remove-contact-'+counter+'" class="btn btn-danger btn-sm btn-block remove-contact"><i class="glyphicon glyphicon-remove"></i></a>'+
+                        '<a id="remove-contact-'+counter+'" class="btn btn-danger btn-sm btn-block remove-contact" tabindex="'+ (tabindex += 1) +'"><i class="glyphicon glyphicon-remove"></i></a>'+
                     '</fieldset>' +
                 '</div>'+
                 // '<div class="col-xs-12"><hr></div>'+
@@ -502,12 +508,14 @@ var contact_add_row =
             $("#work_number"+counter).mask("(999) 999-9999");
             $("#fax_number"+counter).mask("(999) 999-9999");
             document.getElementById("first_name"+counter).focus();
+            $('#property_note').attr('tabindex',tabindex += 1);
+            $('#site-submit').attr('tabindex',tabindex += 1);
+            $('#site-cancel').attr('tabindex',tabindex += 1);
             counter += 1;
         });
         // remove contact
         $("body").on("click", ".remove-contact", function (){
             $(this).closest("span").remove();
         });
-
     }
 }
