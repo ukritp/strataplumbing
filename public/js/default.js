@@ -20,34 +20,34 @@ $(document).ready(function () {
 
 	// Mailing to Billing if checked -----------------------------
 	// http://jsfiddle.net/GaryC123/3gtSn/1/
-	$("#mail_to_bill_checkbox").change(function(){
-	    if($(this).is(":checked")){
-			$("[id^='billing_']").each(function(){
-				data=$(this).attr("id");
-				tmpID = data.split('billing_');
-				$(this).val($("#mailing_"+tmpID[1]).val());
-                $(this).prop('readonly', true);
-			})
-            // $("#billing-address-row").slideUp();
-	    }else{
-			$("[id^='billing_']").each(function(){
-				$(this).val("");
-                $(this).prop('readonly', false);
-			})
-            // $("#billing-address-row").slideDown();
-    	}
-	})
-    $("#mail_to_client_bill_checkbox").change(function(){
-        if($(this).is(":checked")){
-            $("[id^='billing_']").each(function(){
-                $(this).prop('readonly', true);
-            })
-        }else{
-            $("[id^='billing_']").each(function(){
-                $(this).prop('readonly', false);
-            })
-        }
-    })
+	// $("#mail_to_bill_checkbox").change(function(){
+	//     if($(this).is(":checked")){
+	// 		$("[id^='billing_']").each(function(){
+	// 			data=$(this).attr("id");
+	// 			tmpID = data.split('billing_');
+	// 			$(this).val($("#mailing_"+tmpID[1]).val());
+ //                $(this).prop('readonly', true);
+	// 		})
+ //            // $("#billing-address-row").slideUp();
+	//     }else{
+	// 		$("[id^='billing_']").each(function(){
+	// 			$(this).val("");
+ //                $(this).prop('readonly', false);
+	// 		})
+ //            // $("#billing-address-row").slideDown();
+ //    	}
+	// })
+ //    $("#mail_to_client_bill_checkbox").change(function(){
+ //        if($(this).is(":checked")){
+ //            $("[id^='billing_']").each(function(){
+ //                $(this).prop('readonly', true);
+ //            })
+ //        }else{
+ //            $("[id^='billing_']").each(function(){
+ //                $(this).prop('readonly', false);
+ //            })
+ //        }
+ //    })
 
     // Different billing address for client --------------------------------------
     if($('#different_billing_address').val() == 1){
