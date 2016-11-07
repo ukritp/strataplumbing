@@ -66,6 +66,9 @@
                     <td class="text-center"> {{($total < 0)? '$ ('.$total.')' : '$ '.$total }}</td>
                 </tr>
                 @empty
+                    <tr>
+                        <td colspan="3" class="text-center">There are no materials</td>
+                    </tr>
                 @endforelse
 
             </tbody>
