@@ -103,10 +103,18 @@ class ClientController extends Controller
         $client->lock_box           = $request->lock_box;
         $client->lock_box_location  = $request->lock_box_location;
 
-        $client->billing_address    = $request->billing_address;
-        $client->billing_city       = $request->billing_city;
-        $client->billing_province   = $request->billing_province;
-        $client->billing_postalcode = $request->billing_postalcode;
+        $client->different_billing_address  = $request->different_billing_address;
+        if($request->different_billing_address == 1){
+            $client->billing_address    = $request->billing_address;
+            $client->billing_city       = $request->billing_city;
+            $client->billing_province   = $request->billing_province;
+            $client->billing_postalcode = $request->billing_postalcode;
+        }else{
+            $client->billing_address    = $request->mailing_address;
+            $client->billing_city       = $request->mailing_city;
+            $client->billing_province   = $request->mailing_province;
+            $client->billing_postalcode = $request->mailing_postalcode;
+        }
 
         $client->home_number        = $request->home_number;
         $client->cell_number        = $request->cell_number;
@@ -187,10 +195,18 @@ class ClientController extends Controller
         $client->lock_box           = $request->lock_box;
         $client->lock_box_location  = $request->lock_box_location;
 
-        $client->billing_address    = $request->billing_address;
-        $client->billing_city       = $request->billing_city;
-        $client->billing_province   = $request->billing_province;
-        $client->billing_postalcode = $request->billing_postalcode;
+        $client->different_billing_address  = $request->different_billing_address;
+        if($request->different_billing_address == 1){
+            $client->billing_address    = $request->billing_address;
+            $client->billing_city       = $request->billing_city;
+            $client->billing_province   = $request->billing_province;
+            $client->billing_postalcode = $request->billing_postalcode;
+        }else{
+            $client->billing_address    = $request->mailing_address;
+            $client->billing_city       = $request->mailing_city;
+            $client->billing_province   = $request->mailing_province;
+            $client->billing_postalcode = $request->mailing_postalcode;
+        }
 
         $client->home_number        = $request->home_number;
         $client->cell_number        = $request->cell_number;

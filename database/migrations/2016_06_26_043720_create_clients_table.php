@@ -29,6 +29,7 @@ class CreateClientsTable extends Migration
             $table->string('lock_box')->nullable();
             $table->string('lock_box_location')->nullable();
 
+            $table->boolean('different_billing_address')->default(false);
             $table->string('billing_address')->nullable();
             $table->string('billing_city',50)->nullable();
             $table->string('billing_province',50)->nullable();

@@ -192,12 +192,16 @@
                 <legend><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Billing Address:</legend>
 
                 <div class="checkbox">
-                    <label>
+                    {{-- <label>
                     <input type="checkbox" name="mail_to_bill_checkbox" id="mail_to_bill_checkbox" value="1" tabindex="20"> Same as Address
+                    </label> --}}
+                    <label>
+                    <input type="checkbox" name="different_billing_address_chbx" id="different_billing_address_chbx" value="1" tabindex="20"> Different Billing Address
                     </label>
+                    <input name="different_billing_address" id="different_billing_address" type="hidden" value="0">
                 </div>
 
-                <div class="row">
+                <div class="row client-billing-row">
                     <div class="col-md-6">
                         <fieldset class="form-group">
                         {{ Form::label('billing_address', 'Address:')  }}

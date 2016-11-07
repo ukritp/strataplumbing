@@ -49,6 +49,26 @@ $(document).ready(function () {
         }
     })
 
+    // Different billing address for client --------------------------------------
+    if($('#different_billing_address').val() == 1){
+        $("#different_billing_address_chbx").prop( "checked", true );
+    }else{
+        $(".client-billing-row").hide();
+    }
+    $("#different_billing_address_chbx").change(function(){
+        if($(this).is(":checked")){
+            $(".client-billing-row").slideDown();
+            $(".client-billing-row :input").attr("data-parsley-required","true");
+            $("#different_billing_address").val('1');
+        }else{
+            $(".client-billing-row :input").attr("data-parsley-required","false");
+            $(".client-billing-row :input").val("");
+            $(".client-billing-row #billing_province").val("BC");
+            $(".client-billing-row").slideUp();
+            $("#different_billing_address").val('0');
+        }
+    })
+
     // Radio button for billing address when creating site -----------------------
     $("#billing-address-row").hide();
     // same as client's billing address
