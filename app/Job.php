@@ -26,6 +26,10 @@ class Job extends Model
         'client.mailing_address'    => 20,
         'site.mailing_address'      => 20,
         'client.mailing_city'       => 20,
+        'client.cell_number'        => 15,
+        'client.home_number'        => 15,
+        'client.fax_number'         => 15,
+        'client.work_number'        => 15,
         'site.mailing_city'         => 20,
         'site.contacts.first_name'  => 15,
         'site.contacts.last_name'   => 15,
@@ -34,9 +38,9 @@ class Job extends Model
         'site.contacts.fax_number'  => 15,
         'site.contacts.work_number' => 15,
         'tenant_contact_info'       => 10,
-        // 'first_name'                => 5,
-        // 'last_name'                 => 5,
-        // 'cell_number'               => 5,
+        // 'first_name'             => 5,
+        // 'last_name'              => 5,
+        // 'cell_number'            => 5,
     ];
 
     // Log activity

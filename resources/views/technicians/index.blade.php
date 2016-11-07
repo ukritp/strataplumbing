@@ -9,19 +9,21 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-9">
             <h1>All Technician Details</h1>
         </div>
 
         @set('user', \Auth::user()->roles()->first()->name)
         @if($user === 'Admin' || $user === 'Owner')
-            <div class="col-md-5 search-bar">
+            <div class="col-md-3 search-bar">
                 <div class="form-inline">
                 {!! Form::open(array('route' => 'technicians.search','method'=>'get', 'data-parsley-validate'=>'')) !!}
-
-                {{ Form::text('keyword',null, array('class' => 'form-control','required'=>'', 'maxlength'=>'255'))}}
-                {{ Form::submit('Search Technician Details', array('class' => 'btn btn-primary search-buttom'))}}
-
+                <div class="input-group">
+                    <input type="text" name="keyword" id="keyword" class="form-control " placeholder="Search tech details" maxlegnth="255" required>
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary " type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </span>
+                </div>
                 {!! Form::close() !!}
                 </div>
             </div>

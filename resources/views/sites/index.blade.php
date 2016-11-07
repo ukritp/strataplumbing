@@ -9,17 +9,19 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <h1>All Sites</h1>
         </div>
 
-        <div class="col-md-4 search-bar">
+        <div class="col-md-3 search-bar">
             <div class="form-inline">
             {!! Form::open(array('route' => 'sites.search', 'method'=>'get', 'data-parsley-validate'=>'')) !!}
-
-            {{ Form::text('keyword',null, array('class' => 'form-control','required'=>'', 'maxlength'=>'255'))}}
-            {{ Form::submit('Search Site', array('class' => 'btn btn-primary search-buttom'))}}
-
+            <div class="input-group">
+                <input type="text" name="keyword" id="keyword" class="form-control " placeholder="Search sites" maxlegnth="255" required>
+                <span class="input-group-btn">
+                    <button class="btn btn-primary " type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </span>
+            </div>
             {!! Form::close() !!}
             </div>
         </div>

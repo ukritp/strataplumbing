@@ -29,6 +29,7 @@ h1.page_title{
     padding: 20px 0;
 }
 
+/* global search */
 .navbar-search-form .input-group input[type="text"]{
     width: 100%;
     min-width: 300px;
@@ -46,6 +47,7 @@ h1.page_title{
     left: 105%;
     min-width: 120px;
 }
+
 /* add some color to tabel on top of bootstrap */
 .table-hover-blue tbody tr:hover td, .table-hover-blue tbody tr:hover th {
   background-color: #E0FAFD;
@@ -57,19 +59,24 @@ h1.page_title{
 .paragraph-wrap{
 	white-space: pre-wrap;
 }
+
+/* search on each page */
 .search-bar{
 	/*border:1px solid #ddd;*/
 	margin-top:20px;
 }
 .search-bar .input-group{
-	margin-right: 10px;
+
 }
 .search-bar .input-group input[type="text"]{
-	width:100px;
+    width: 100%;
+    min-width: 180px;
 }
 .search-bar  ul.parsley-errors-list{
 	display:none;
 }
+
+
 #extras-add  ul.parsley-errors-list{
     display:none;
 }
