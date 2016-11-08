@@ -119,6 +119,12 @@ div{
     letter-spacing: 2px;
     font-weight: 900;
 }
+.bottom-text p.bottom-text-large{
+    font-size:2.4em;
+    letter-spacing: .2em;
+    font-weight: 900;
+    margin-bottom: 0;
+}
 .table-invoice tbody tr{
     page-break-before: always !important;
     page-break-inside: avoid !important;

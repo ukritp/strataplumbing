@@ -158,10 +158,12 @@ body{
 	letter-spacing: 0.02em;
 	font-weight: bold;
 }
-.bottom-text-right p.bottom-text-large{
-	font-size:2em;
+.bottom-text-right p.bottom-text-large,
+.bottom-text p.bottom-text-large{
+	font-size:2.4em;
 	letter-spacing: .2em;
 	font-weight: 900;
+	margin-bottom: 0;
 }
 
 .header{

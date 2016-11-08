@@ -32,10 +32,28 @@ h1.page_title{
 /* global search */
 .navbar-search-form .input-group input[type="text"]{
     width: 100%;
-    min-width: 300px;
+    min-width: 350px;
 }
 .navbar-search-form ul.parsley-errors-list{
     display:none;
+}
+/* search on each page */
+.search-bar{
+    margin-top:20px;
+}
+.search-bar .input-group{
+}
+.search-bar .input-group input[type="text"]{
+    width: 100%;
+    min-width: 180px;
+}
+.search-bar  ul.parsley-errors-list{
+    display:none;
+}
+/* date range on invoice search */
+.search-bar .input-daterange input[type="text"]{
+    width: 100%;
+    min-width: 150px;
 }
 
 /* make button transition slower */
@@ -60,21 +78,7 @@ h1.page_title{
 	white-space: pre-wrap;
 }
 
-/* search on each page */
-.search-bar{
-	/*border:1px solid #ddd;*/
-	margin-top:20px;
-}
-.search-bar .input-group{
 
-}
-.search-bar .input-group input[type="text"]{
-    width: 100%;
-    min-width: 180px;
-}
-.search-bar  ul.parsley-errors-list{
-	display:none;
-}
 
 
 #extras-add  ul.parsley-errors-list{
@@ -215,7 +219,8 @@ color: red;
     margin-bottom: 10px;
 }
 
-.table-row{
+.table-row,
+.table-row-no-action{
     cursor: pointer;
 }
 
@@ -428,6 +433,20 @@ ul.dropdown-menu li{
     overflow: hidden;
     padding: 2% 0 0;
     margin: 1% 0;
+}
+
+/* Tablets in portrait mode and below (980px) =========================================== */
+@media only screen and ( min-width: 768px ) and ( max-width: 1060px ) {
+    .navbar-search-form .input-group input[type="text"]{
+        width: 100%;
+        min-width: 200px;
+    }
+
+}
+
+/* Tablets in portrait mode and below (980px) =========================================== */
+@media only screen and ( min-width: 768px ) and ( max-width: 960px ) {
+    body { padding-top: 200px; }
 }
 
 /* MOBILE DESIGN CSS-----------------------------------------------------------------------*/

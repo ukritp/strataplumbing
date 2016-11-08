@@ -455,14 +455,26 @@ if(isset($site)){
         </div> <!-- END Row invoice-row -->
 
         <div class="row bottom-text">
-            <div class="col-xs-7 bottom-text-left">
-                <P>*A monthly late payment charge of 1.5% is applied on unpaid balances.</P>
-                <P>*A charge of $25 is applied on payments returned by your financial institution.</P>
-                <p class="bottom-text-small">*Please make cheques payable to: Strata Plumbing Drainage & Heating</p>
+            <div class="col-xs-6 bottom-text-left">
+                {{-- <P>*A monthly late payment charge of 1.5% is applied on unpaid balances.</P> --}}
+                {{-- <P>*A charge of $25 is applied on payments returned by your financial institution.</P> --}}
+                {{-- <p class="bottom-text-small">*Please make cheques payable to: Strata Plumbing Drainage & Heating</p> --}}
+
+                {{-- <P class="bottom-text-small">*A monthly late payment charge of 1.5% is applied on unpaid balances.</P> --}}
             </div>
-            <div class="col-xs-5 bottom-text-right">
+            <div class="col-xs-6 bottom-text-right">
+                {{-- <p class="bottom-text-large">THANK YOU</p> --}}
+                {{-- <p class="bottom-text-big">WE APPRECIATE YOUR BUSINESS</p> --}}
+
+                {{-- <P class="bottom-text-small">*A charge of $25 is applied on payments returned by your financial institution.</P> --}}
+            </div>
+            <div class="col-xs-10 col-xs-offset-1">
+                <P class="bottom-text-small">*A monthly late payment charge of 1.5% is applied on unpaid balances.</P>
+                <P class="bottom-text-small">*A charge of $25 is applied on payments returned by your financial institution.</P>
+
                 <p class="bottom-text-large">THANK YOU</p>
                 <p class="bottom-text-big">WE APPRECIATE YOUR BUSINESS</p>
+                <p class="bottom-text-big">*Please make cheques payable to: Strata Plumbing Drainage & Heating*</p>
             </div>
         </div>
 

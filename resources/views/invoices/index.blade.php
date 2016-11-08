@@ -18,7 +18,6 @@
         <div class="col-md-7 search-bar">
 
             <div class="form-inline">
-
                 {!! Form::open(array('route' => 'invoices.search', 'method'=>'get', 'data-parsley-validate'=>'')) !!}
                 {{ Form::label('date_from', 'Date:')}}
                 <div class="form-group input-group input-daterange">
@@ -26,8 +25,12 @@
                     <span class="input-group-addon">to</span>
                     {{ Form::text('date_to',null, array('class' => 'form-control','id'=>'date_to', 'maxlength'=>'255'))}}
                 </div>
-                {{ Form::text('keyword',null, array('class' => 'form-control','maxlength'=>'255', 'placeholder'=>'keyword...'))}}
-                {{ Form::submit('Search Invoice', array('class' => 'btn btn-primary search-buttom'))}}
+                <div class="input-group">
+                    <input type="text" name="keyword" id="keyword" class="form-control " placeholder="keyword..." maxlegnth="255" required>
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary " type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </span>
+                </div>
 
                 {!! Form::close() !!}
             </div>
@@ -47,9 +50,10 @@
                     <th>Company</th>
                     <th>Contact</th>
                     <th class="text-center">Invoice Date</th>
-                    <th class="text-center">Total</th>
+
                     <th class="text-center">Approval Status</th>
-                    <th class="text-right">Action</th>
+                    <th class="text-right">Total</th>
+                    {{-- <th class="text-right">Action</th> --}}
                 </thead>
                 <tbody>
 
@@ -57,7 +61,7 @@
                     @set('grand_total',0)
                     @foreach($jobs as $index => $job)
                     @set('status', count($job->pendinginvoices)>0 ? '' : 'disabled')
-                    <tr class="table-row" data-href="{{route('invoices.show',$job->id)}}">
+                    <tr class="table-row-no-action" data-href="{{route('invoices.show',$job->id)}}">
                         <th data-label="#">{{$job->id+20100}}</th>
                         <th data-label="Company">{{!empty($job->client->company_name) ? $job->client->company_name : '-'}}</th>
                         @if(isset($job->site))
@@ -72,28 +76,29 @@
                         <td data-label="Invoiced Date" class="td-status">
                             {{(!empty($job->invoiced_at)) ? date('M j, Y', strtotime($job->invoiced_at)) : '-'}}
                         </td>
-                        <td data-label="Total" class="td-status"> $
+
+                        <td data-label="Approval Status" class="td-status">
+                            {{(!is_null($job->approval_status))? $job->approval_status : '-'}}
+                        </td>
+                        <td data-label="Total" class="text-right"> $
                             @if( $job->is_estimate || count($job->pendinginvoices)>0 )
                                 {{number_format($totals[$index],2,'.',',')}}
                             @else
                                 -
                             @endif
                         </td>
-                        <td data-label="Approval Status" class="td-status">
-                            {{(!is_null($job->approval_status))? $job->approval_status : '-'}}
-                        </td>
-                        <td data-label="Action" class="text-right">
+                        {{-- <td data-label="Action" class="text-right">
                         {!! Html::linkRoute('invoices.show', 'View', array($job->id), array('class'=>'btn btn-default btn-sm  btn-sm-margin'.$status))!!}
-                        </td>
+                        </td> --}}
                     </tr>
                     <?php $grand_total += $totals[$index]; ?>
                     @endforeach
                     <tr>
-                        <td colspan="7" class="text-right"><strong>TOTAL: $ {{number_format($grand_total,2,'.',',')}}</strong></td>
+                        <td colspan="6" class="text-right"><strong>TOTAL: $ {{number_format($grand_total,2,'.',',')}}</strong></td>
                     </tr>
                 @else
                     <tr>
-                        <td colspan="7" class="text-center  no-item"><b>There is no invoice</b></td>
+                        <td colspan="6" class="text-center  no-item"><b>There is no invoice</b></td>
                     </tr>
                 @endif
 

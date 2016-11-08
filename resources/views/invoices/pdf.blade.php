@@ -419,7 +419,7 @@ if(isset($site)){
 
         <!-- BOTTOM TEXT -->
         <div class="row bottom-text">
-            <div class="col-xs-8 bottom-text-left">
+            {{-- <div class="col-xs-8 bottom-text-left">
                 <P>*A monthly late payment charge of 1.5% is applied on unpaid balances.</P>
                 <P>*A charge of $25 is applied on payments returned by your financial institution.</P>
                 <p>*Please make cheques payable to: Strata Plumbing Drainage & Heating</p>
@@ -427,6 +427,15 @@ if(isset($site)){
             <div class="col-xs-4 bottom-text-right">
                 <p class="bottom-text-large">THANK YOU</p>
                 <p class="bottom-text-big">WE APPRECIATE YOUR BUSINESS</p>
+            </div> --}}
+
+            <div class="col-xs-10 col-xs-offset-1">
+                <P class="bottom-text-small">*A monthly late payment charge of 1.5% is applied on unpaid balances.</P>
+                <P class="bottom-text-small">*A charge of $25 is applied on payments returned by your financial institution.</P>
+
+                <p class="bottom-text-large">THANK YOU</p>
+                <p class="bottom-text-big">WE APPRECIATE YOUR BUSINESS</p>
+                <p class="bottom-text-big">*Please make cheques payable to: Strata Plumbing Drainage & Heating*</p>
             </div>
         </div> <!-- ./ END - BOTTOM TEXT -->
 
