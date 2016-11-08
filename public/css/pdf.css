@@ -97,11 +97,11 @@ div{
     /*position: absolute; bottom: 0;*/
     margin-top:30px !important;
     border-top: 1px solid #ddd;
-    padding-top: 15px !important;
+    padding-top: 0px !important;
 }
 .bottom-text-left p{
     text-align: left;
-    font-size: 7.5px;
+    font-size: 7px;
     letter-spacing: 0px !important;
     line-height: 5px !important;
 }
@@ -119,12 +119,32 @@ div{
     letter-spacing: 2px;
     font-weight: 900;
 }
-.bottom-text p.bottom-text-large{
-    font-size:2.4em;
-    letter-spacing: .2em;
-    font-weight: 900;
+
+.bottom-text p.bottom-text-small{
+    font-size: 7.5px;
+    letter-spacing: 1px;
+    text-align: center;
     margin-bottom: 0;
 }
+.bottom-text p.bottom-text-big{
+    color:#1a83c6;
+    font-size: 8.5px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+.bottom-text p.bottom-text-large{
+    color:#1a83c6;
+    font-size: 25px;
+    letter-spacing: 2px;
+    font-weight: 900;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+
 .table-invoice tbody tr{
     page-break-before: always !important;
     page-break-inside: avoid !important;
