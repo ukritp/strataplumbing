@@ -17,7 +17,16 @@
 
                 @set('contact_first_name', $job->client->first_name)
                 @set('contact_last_name', $job->client->last_name)
+                @set('contact_buzzer_code', $job->client->buzzer_code)
+                @set('contact_alarm_code', $job->client->alarm_code)
+                @set('contact_lock_box', $job->client->lock_box)
+                @set('contact_lock_box_location', $job->client->lock_box_location)
+
                 @if(isset($job->site))
+                    @set('contact_buzzer_code', $job->site->buzzer_code)
+                    @set('contact_alarm_code', $job->site->alarm_code)
+                    @set('contact_lock_box', $job->site->lock_box)
+                    @set('contact_lock_box_location', $job->site->lock_box_location)
                     @if(count($job->site->contacts)>0)
                         @set('contact_first_name', $job->site->contacts->first()->first_name)
                         @set('contact_last_name', $job->site->contacts->first()->last_name)
@@ -26,47 +35,28 @@
                 <h3>Contact: {{$contact_first_name.' '.$contact_last_name}}</h3>
                 <p class="lead-md"><strong>Address:</strong> {{$contact->fullMailingAddress()}}
                 </p>
-
-                @if(isset($job->site))
-                    <?php
-                    $buzzer_code = $job->client->buzzer_code;
-                    $alarm_code = '';
-                    $lock_box = '';
-                    $lock_box_location = '';
-
-                    if(count($job->site->contacts)>0){
-                        $buzzer_code = $job->site->contacts->first()->buzzer_code;
-                        $alarm_code = $job->site->contacts->first()->alarm_code;
-                        $lock_box = $job->site->contacts->first()->lock_box;
-                        $lock_box_location = $job->site->contacts->first()->lock_box_location;
-                    }
-                    ?>
-                    <div class="row">
-                        @if(!empty($buzzer_code))
-                        <div class="col-md-6">
-                            <p class="lead-md"><strong>Buzzer Code:</strong> {{$buzzer_code}}</p>
-                        </div>
-                        @endif
-                        @if(!empty($alarm_code))
-                        <div class="col-md-6">
-                            <p class="lead-md"><strong>Alarm Code:</strong> {{$alarm_code}}</p>
-                        </div>
-                        @endif
-                        @if(!empty($lock_box))
-                        <div class="col-md-6">
-                            <p class="lead-md"><strong>Lock Box:</strong> {{$lock_box}}</p>
-                        </div>
-                        @endif
-                        @if(!empty($lock_box_location))
-                        <div class="col-md-6">
-                            <p class="lead-md"><strong>Lock Box Location:</strong> {{$lock_box_location}}</p>
-                        </div>
-                        @endif
+                <div class="row">
+                    @if(!empty($contact_buzzer_code))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Buzzer Code:</strong> {{$contact_buzzer_code}}</p>
                     </div>
-                @else
-                    @if(!empty($contact->buzzer_code)) <p class="lead-md"><strong>Buzzer Code:</strong> {{$contact->buzzer_code}}</p> @endif
-                @endif
-
+                    @endif
+                    @if(!empty($contact_alarm_code))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Alarm Code:</strong> {{$contact_alarm_code}}</p>
+                    </div>
+                    @endif
+                    @if(!empty($contact_lock_box))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Lock Box:</strong> {{$contact_lock_box}}</p>
+                    </div>
+                    @endif
+                    @if(!empty($contact_lock_box_location))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Lock Box Location:</strong> {{$contact_lock_box_location}}</p>
+                    </div>
+                    @endif
+                </div>
                 <p class="lead-md"><strong>Project Manager:</strong> {{$job->project_manager}}</p>
                 <p class="lead-md"><strong>Scope Of Works:</strong><br>{{$job->scope_of_works}}</p>
 

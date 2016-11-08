@@ -14,23 +14,64 @@
     <br>
     <div class="row">
         <div class="col-md-8">
-            @if(!empty($site))
-                <h3>Contact: {{$site->first_name.' '.$site->last_name}}</h3>
-                <p class="lead-md"><strong>Relationship:</strong> {{$site->relationship}}</p>
-                <p class="lead-md"><strong>Site Address:</strong> {{$site->fullMailingAddress()}}
+            @set('contact_first_name', $technician->job->client->first_name)
+            @set('contact_last_name', $technician->job->client->last_name)
+            @if(isset($technician->job->site))
+                @if(count($technician->job->site->contacts)>0)
+                    @set('contact_first_name', $job->site->contacts->first()->first_name)
+                    @set('contact_last_name', $job->site->contacts->first()->last_name)
+                @endif
+                <h3>Contact: {{$contact_first_name.' '.$contact_last_name}}</h3>
+                <p class="lead-md"><strong>Site Address:</strong> {{$technician->job->site->fullMailingAddress()}}
                 </p>
-                @if(!empty($site->buzzer_code)) <p class="lead-md"><strong>Buzzer Code:</strong> {{$site->buzzer_code}}</p> @endif
                 <div class="row">
+                    @if(!empty($technician->job->site->buzzer_code))
                     <div class="col-md-6">
-                        <p class="lead-md"><strong>Cell:</strong> {{$site->cell_number}}</p>
+                        <p class="lead-md"><strong>Buzzer Code:</strong> {{$technician->job->site->buzzer_code}}</p>
                     </div>
+                    @endif
+                    @if(!empty($technician->job->site->alarm_code))
                     <div class="col-md-6">
-                        <p class="lead-md"><strong>Email:</strong> {{$site->email}}</p>
+                        <p class="lead-md"><strong>Alarm Code:</strong> {{$technician->job->site->alarm_code}}</p>
                     </div>
+                    @endif
+                    @if(!empty($technician->job->site->lock_box))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Lock Box:</strong> {{$technician->job->site->lock_box}}</p>
+                    </div>
+                    @endif
+                    @if(!empty($technician->job->site->lock_box_location))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Lock Box Location:</strong> {{$technician->job->site->lock_box_location}}</p>
+                    </div>
+                    @endif
                 </div>
             @else
-                <p class="lead"><strong>Address:</strong> {{$technician->job->client->fullMailingAddress()}}
+                <h3>Contact: {{$contact_first_name.' '.$contact_last_name}}</h3>
+                <p class="lead-md"><strong>Address:</strong> {{$technician->job->client->fullMailingAddress()}}
                 </p>
+                <div class="row">
+                    @if(!empty($technician->job->client->buzzer_code))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Buzzer Code:</strong> {{$technician->job->client->buzzer_code}}</p>
+                    </div>
+                    @endif
+                    @if(!empty($technician->job->client->alarm_code))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Alarm Code:</strong> {{$technician->job->client->alarm_code}}</p>
+                    </div>
+                    @endif
+                    @if(!empty($technician->job->client->lock_box))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Lock Box:</strong> {{$technician->job->client->lock_box}}</p>
+                    </div>
+                    @endif
+                    @if(!empty($technician->job->client->lock_box_location))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Lock Box Location:</strong> {{$technician->job->client->lock_box_location}}</p>
+                    </div>
+                    @endif
+                </div>
             @endif
 
             <hr>

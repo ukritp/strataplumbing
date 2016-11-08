@@ -15,7 +15,28 @@
             <p class="lead-md"><strong>Name:</strong> {{$client->first_name.' '.$client->last_name}}</p>
             <p class="lead-md"><strong>Title:</strong> {{$client->title}}</p>
             <p class="lead-md"><b>Address:</b> {{$client->fullMailingAddress()}}</p>
-            @if(!empty($client->buzzer_code)) <p class="lead-md"><b>Buzzer Code:</b> {{$client->buzzer_code}}</p> @endif
+            <div class="row">
+                @if(!empty($client->buzzer_code))
+                <div class="col-md-6">
+                    <p class="lead-md"><strong>Buzzer Code:</strong> {{$client->buzzer_code}}</p>
+                </div>
+                @endif
+                @if(!empty($client->alarm_code))
+                <div class="col-md-6">
+                    <p class="lead-md"><strong>Alarm Code:</strong> {{$client->alarm_code}}</p>
+                </div>
+                @endif
+                @if(!empty($client->lock_box))
+                <div class="col-md-6">
+                    <p class="lead-md"><strong>Lock Box:</strong> {{$client->lock_box}}</p>
+                </div>
+                @endif
+                @if(!empty($client->lock_box_location))
+                <div class="col-md-6">
+                    <p class="lead-md"><strong>Lock Box Location:</strong> {{$client->lock_box_location}}</p>
+                </div>
+                @endif
+            </div>
             <p class="lead-md"><b>Billing Address:</b> {{$client->fullBillingAddress()}}</p>
             <div class="row">
                 <div class="col-md-6">

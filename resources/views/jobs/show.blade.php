@@ -57,6 +57,28 @@
                 <p class="lead-md"><strong>Address:</strong>
                     {{$job->client->fullMailingAddress()}}
                 </p>
+                <div class="row">
+                    @if(!empty($job->client->buzzer_code))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Buzzer Code:</strong> {{$job->client->buzzer_code}}</p>
+                    </div>
+                    @endif
+                    @if(!empty($job->client->alarm_code))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Alarm Code:</strong> {{$job->client->alarm_code}}</p>
+                    </div>
+                    @endif
+                    @if(!empty($job->client->lock_box))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Lock Box:</strong> {{$job->client->lock_box}}</p>
+                    </div>
+                    @endif
+                    @if(!empty($job->client->lock_box_location))
+                    <div class="col-md-6">
+                        <p class="lead-md"><strong>Lock Box Location:</strong> {{$job->client->lock_box_location}}</p>
+                    </div>
+                    @endif
+                </div>
                 {{-- <p class="lead-md"><strong>Billing Address:</strong>
                     {{$job->client->fullBillingAddress()}}
                 </p> --}}
