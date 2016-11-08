@@ -65,7 +65,7 @@
                     <span class="material-row-span">
                     <div class="col-xs-6" id="material-row-{{$i}}">
                         <fieldset class="form-group">
-                            <input type="text" class="form-control" required="" id="material_name_0" maxlength="255" name="material_name[]"  value="{{$material->material_name}}">
+                            <input type="text" class="form-control" required="" id="material_name_{{$i}}" maxlength="255" name="material_name[]"  value="{{$material->material_name}}">
                         </fieldset>
                     </div>
                     <div class="col-xs-3" id="material-row-{{$i}}">
@@ -79,6 +79,7 @@
                             <i class="glyphicon glyphicon-remove"></i></a>
                         </fieldset>
                     </div>
+                    <input name="material_id_exist[]" type="hidden" value="{{$material->id}}">
                     </span>
                 @endforeach
             </div>

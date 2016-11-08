@@ -280,13 +280,13 @@ var tech_material_add_row =
             '<span><div class="col-xs-6" id="material-row-'+counter+'">' +
                 '<fieldset class="form-group">' +
                 // '<label for="material_name_'+counter+'">Material Name:</label>'+
-                '<input type="text" id="material_name_'+counter+'[]" name="material_name[]" class="form-control" placeholder="Material Name" required maxlength="255">'+
+                '<input type="text" id="material_name_'+counter+'[]" name="material_name_add[]" class="form-control" placeholder="Material Name" required maxlength="255">'+
                 '</fieldset>' +
             '</div>'+
             '<div class="col-xs-3"  id="material-row-'+counter+'">' +
                 '<fieldset class="form-group">' +
                 // '<label for="material_quantity_'+counter+'">Quantity:</label>'+
-                '<input type="text" id="material_quantity_'+counter+'[]" name="material_quantity[]" class="form-control" placeholder="Quantity" required maxlength="255" data-parsley-type="digits">'+
+                '<input type="text" id="material_quantity_'+counter+'[]" name="material_quantity_add[]" class="form-control" placeholder="Quantity" required maxlength="255" data-parsley-type="digits">'+
                 '</fieldset>' +
             '</div>'+
             '<div class="col-xs-3"  id="material-row-'+counter+'">' +

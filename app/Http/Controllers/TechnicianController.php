@@ -135,16 +135,16 @@ class TechnicianController extends Controller
         $technician->save();
 
         // check if there is materials
-        if(isset($request->material_name)){
+        if(isset($request->material_name_add)){
             //print_r($request->material_name);
-            for($i = 0; $i < count($request->material_name); ++$i) {
+            for($i = 0; $i < count($request->material_name_add); ++$i) {
                 //echo $request->material_name[$i];
                 //echo $request->material_quantity[$i];
                 //echo '<br>';
                 $material = new Material;
 
-                $material->material_name     = $request->material_name[$i];
-                $material->material_quantity = $request->material_quantity[$i];
+                $material->material_name     = $request->material_name_add[$i];
+                $material->material_quantity = $request->material_quantity_add[$i];
                 $material->technician_id     = $technician->id;
 
                 $material->save();
@@ -238,35 +238,126 @@ class TechnicianController extends Controller
 
         $technician->save();
 
-        if(isset($request->material_id) || isset($request->material_name)){
+        // Update the existing material
+        if(isset($request->material_id)){
+            // echo 'update|';
 
-            $exist_materials = Material::where('technician_id',$id)->get();
-            $exist_material_ids = array();
-            // if there are existing materials
-            if(count($exist_materials) > 0){
-                foreach($exist_materials as $index => $exist_material){
-                    $exist_material_ids[$index] = $exist_material->id;
+            // Technician doesnt delete any existing materials
+            if(count($request->material_id) == count($request->material_id_exist)){
+                // echo 'no-delete|';
+                foreach($request->material_id as $index => $material_id){
+
+                    $material = Material::find($material_id);
+
+                    $material->material_name     = $request->material_name[$index];
+                    $material->material_quantity = $request->material_quantity[$index];
+                    $material->technician_id     = $technician->id;
+
+                    $material->save();
+                }
+
+            // Technician deletes some materials
+            }else{
+
+                // echo 'delete|';
+
+                // get original materials before delete
+                $exist_materials = Material::where('technician_id',$technician->id)->get();
+                $exist_material_ids = array();
+                $exist_material_names = array();
+                $exist_material_quantities = array();
+                $exist_material_costs = array();
+                if(count($exist_materials) > 0){
+                    foreach($exist_materials as $index => $exist_material){
+                        $exist_material_ids[$index] = $exist_material->id;
+                        $exist_material_names[$index] = $exist_material->material_name;
+                        $exist_material_quantities[$index] = $exist_material->material_quantity;
+                        $exist_material_costs[$index] = $exist_material->material_cost;
+                    }
+                }
+
+                // print_r($exist_material_ids);
+                // echo '<br>';
+                // print_r($request->material_id_exist);
+
+                // deleter original materials
+                Material::where('technician_id', $technician->id)->delete();
+
+                // loop thru the material lists after delete
+                foreach($request->material_id_exist as $index => $material_id){
+                    // echo 'exist|';
+
+                    // add material using the ids from the existing
+                    $material = new Material;
+
+                    $material->id                = $material_id;
+                    $material->material_name     = $request->material_name[$index];
+                    $material->material_quantity = $request->material_quantity[$index];
+                    $material->technician_id     = $technician->id;
+
+                    $material->save();
+                }
+
+                // at the end update the material costs
+                foreach($exist_material_ids as $index => $exist_material_id){
+                    // echo 'cost-update|';
+
+                    $material = Material::find($exist_material_id);
+                    // $material = Material::where('id',$exist_material_id)->get();
+                    if( count($material) > 0){
+                        $material->material_cost     = $exist_material_costs[$index];
+                        $material->save();
+                    }
+
                 }
             }
-            // print_r($exist_material_ids);
 
-            //print_r($request->material_id);
-            // DB::table('materials')->whereIn('id', $request->material_id)->delete();
-            Material::where('technician_id', $technician->id)->delete();
+        }
 
-            for($i = 0; $i < count($request->material_name); ++$i) {
+        // Add the new material
+        if(isset($request->material_name_add)){
+            // echo 'add|';
+
+            foreach($request->material_name_add as $index => $material_add){
                 $material = new Material;
-                // use the same existing id
-                if(isset($exist_material_ids[$i])){
-                    $material->id                = $exist_material_ids[$i];
-                }
-                $material->material_name     = $request->material_name[$i];
-                $material->material_quantity = $request->material_quantity[$i];
+
+                $material->material_name     = $request->material_name_add[$index];
+                $material->material_quantity = $request->material_quantity_add[$index];
                 $material->technician_id     = $technician->id;
 
                 $material->save();
             }
         }
+
+        // if(isset($request->material_id) || isset($request->material_name)){
+
+        //     $exist_materials = Material::where('technician_id',$id)->get();
+        //     $exist_material_ids = array();
+        //     // if there are existing materials
+        //     if(count($exist_materials) > 0){
+        //         foreach($exist_materials as $index => $exist_material){
+        //             $exist_material_ids[$index] = $exist_material->id;
+        //         }
+        //     }
+        //     // print_r($exist_material_ids);
+
+        //     //print_r($request->material_id);
+        //     // DB::table('materials')->whereIn('id', $request->material_id)->delete();
+        //     Material::where('technician_id', $technician->id)->delete();
+
+        //     for($i = 0; $i < count($request->material_name); ++$i) {
+        //         $material = new Material;
+        //         // use the same existing id
+        //         if(isset($exist_material_ids[$i])){
+        //             $material->id                = $exist_material_ids[$i];
+        //         }
+        //         $material->material_name     = $request->material_name[$i];
+        //         $material->material_quantity = $request->material_quantity[$i];
+        //         $material->technician_id     = $technician->id;
+
+        //         $material->save();
+        //     }
+        // }
 
         Session::flash('success','The Technician Details was successfully updated');
         return redirect()->route('technicians.show',$technician->id);
