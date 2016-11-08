@@ -81,10 +81,10 @@ class DatabaseSeeder extends Seeder
 
         // $this->call(UsersTableSeeder::class);
 
-        $this->call( 'ClientTableSeeder' );
-        $this->call( 'JobTableSeeder' );
-        $this->call( 'ContactsTableSeeder' );
-        $this->call( 'MaterialTableSeeder' );
+        // $this->call( 'ClientTableSeeder' );
+        // $this->call( 'JobTableSeeder' );
+        // $this->call( 'ContactsTableSeeder' );
+        // $this->call( 'MaterialTableSeeder' );
 
         Model::reguard();
     }

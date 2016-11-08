@@ -105,7 +105,7 @@
         </li>
         @else
           <li><a href="{{route('login')}}" class="btn btn-link">Login</a></li>
-          <li><a href="{{route('register')}}" class="btn btn-link">Register</a></li>
+          {{-- <li><a href="{{route('register')}}" class="btn btn-link">Register</a></li> --}}
         @endif
       </ul>
 
