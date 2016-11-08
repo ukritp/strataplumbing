@@ -24,35 +24,38 @@ class TechnicianController extends Controller
      */
     public function index($id)
     {
-        $user = \Auth::user()->roles()->first();
+        $user_role = \Auth::user()->roles()->first();
         //echo $user->name;
+
+        // show all tech details
         if($id == '0'){
-            if( $user->name === 'Technician'){
+
+            // user is technician
+            if( $user_role->name === 'Technician'){
                 $technicians  = Technician::where('user_id',\Auth::user()->id)
-                                ->orderby('pendinginvoiced_at','desc')
-                                ->join('jobs', function ($join) {
-                                    $join->on('job_id', '=', 'jobs.id')
-                                         ->where('jobs.status', '=', '0');
-                                })
+                                ->join('jobs', 'technicians.job_id', '=', 'jobs.id')
+                                ->select('technicians.*', 'jobs.id AS job_id', 'jobs.status AS job_status')
+                                ->orderby('technicians.pendinginvoiced_at','desc')
                                 ->paginate(25);
+
+            // user is admin or owner
             }else{
-                $technicians  = Technician::orderby('pendinginvoiced_at','desc')
-                                ->join('jobs', function ($join) {
-                                    $join->on('job_id', '=', 'jobs.id')
-                                         ->where('jobs.status', '=', '0');
-                                })
+
+                $technicians  = Technician::join('jobs', 'technicians.job_id', '=', 'jobs.id')
+                                ->select('technicians.*', 'jobs.id AS job_id', 'jobs.status AS job_status')
+                                ->orderby('technicians.pendinginvoiced_at','desc')
                                 ->paginate(25);
-            }
+                }
         }
+        // show tech details from one specific job
         else{
             $technicians  = Technician::where('job_id',$id)
-                                ->join('jobs', function ($join) {
-                                    $join->on('job_id', '=', 'jobs.id')
-                                         ->where('jobs.status', '=', '0');
-                                })
-                                ->orderBy('pendinginvoiced_at', 'desc')
+                                ->join('jobs', 'technicians.job_id', '=', 'jobs.id')
+                                ->select('technicians.*', 'jobs.id AS job_id', 'jobs.status AS job_status')
+                                ->orderby('technicians.pendinginvoiced_at','desc')
                                 ->paginate(25);
         }
+        // dd($technicians);
 
         return view('technicians.index')->withTechnicians($technicians);
     }
@@ -328,36 +331,6 @@ class TechnicianController extends Controller
                 $material->save();
             }
         }
-
-        // if(isset($request->material_id) || isset($request->material_name)){
-
-        //     $exist_materials = Material::where('technician_id',$id)->get();
-        //     $exist_material_ids = array();
-        //     // if there are existing materials
-        //     if(count($exist_materials) > 0){
-        //         foreach($exist_materials as $index => $exist_material){
-        //             $exist_material_ids[$index] = $exist_material->id;
-        //         }
-        //     }
-        //     // print_r($exist_material_ids);
-
-        //     //print_r($request->material_id);
-        //     // DB::table('materials')->whereIn('id', $request->material_id)->delete();
-        //     Material::where('technician_id', $technician->id)->delete();
-
-        //     for($i = 0; $i < count($request->material_name); ++$i) {
-        //         $material = new Material;
-        //         // use the same existing id
-        //         if(isset($exist_material_ids[$i])){
-        //             $material->id                = $exist_material_ids[$i];
-        //         }
-        //         $material->material_name     = $request->material_name[$i];
-        //         $material->material_quantity = $request->material_quantity[$i];
-        //         $material->technician_id     = $technician->id;
-
-        //         $material->save();
-        //     }
-        // }
 
         Session::flash('success','The Technician Details was successfully updated');
         return redirect()->route('technicians.show',$technician->id);
