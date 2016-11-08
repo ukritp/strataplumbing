@@ -10,14 +10,13 @@ $(document).ready(function () {
     //     }
     // });
 
-    // Table tr click link
+    // Table tr click link -----------------------------------------------------------
     $(".table-row td:not(:last-child)").click(function() {
         window.document.location = $(this).parent().data("href");
     });
     $(".table-row th:not(:last-child)").click(function() {
         window.document.location = $(this).parent().data("href");
     });
-
     // Invoice talbe has no action column at the end
     $(".table-row-no-action th").click(function() {
         window.document.location = $(this).parent().data("href");
@@ -114,7 +113,7 @@ $(document).ready(function () {
 
     $(".type-estimate").css('color','#477610');
 
-    // toggle for tenant-----------------------------
+    // toggle for tenant------------- ----------------------------------------------
     if($('#tenant_contact_info').val() != ''){
         $("#tenant_checkbox").prop( "checked", true );
     }else{
@@ -130,130 +129,6 @@ $(document).ready(function () {
             $(".toggle").hide();
         }
     })
-
-    // Add/Remove Material-----------------------------
-    var counter=0;
-    $('#add-material').click(function(){
-        counter += 1;
-        $('#material-add').prepend(
-        '<span><div class="col-xs-6" id="material-row-'+counter+'">' +
-            '<fieldset class="form-group">' +
-            // '<label for="material_name_'+counter+'">Material Name:</label>'+
-            '<input type="text" id="material_name_'+counter+'[]" name="material_name[]" class="form-control" placeholder="Material Name" required maxlength="255">'+
-            '</fieldset>' +
-        '</div>'+
-        '<div class="col-xs-3"  id="material-row-'+counter+'">' +
-            '<fieldset class="form-group">' +
-            // '<label for="material_quantity_'+counter+'">Quantity:</label>'+
-            '<input type="text" id="material_quantity_'+counter+'[]" name="material_quantity[]" class="form-control" placeholder="Quantity" required maxlength="255" data-parsley-type="digits">'+
-            '</fieldset>' +
-        '</div>'+
-        '<div class="col-xs-3"  id="material-row-'+counter+'">' +
-            '<fieldset class="form-group">' +
-            '<a id="remove-material-'+counter+'" class="btn btn-danger btn-sm btn-block remove-material"><i class="glyphicon glyphicon-remove"></i></a>'+
-            '</fieldset>' +
-        '</div></span>'
-        );
-        document.getElementById("material_name_"+counter+"[]").focus();
-    });
-    $("body").on("click", ".remove-material", function (){
-        $(this).closest("span").remove();
-    });
-
-    // Add material in pending invoice
-    $('.add-revised-material').click(function(){
-        counter += 1;
-        var tech_id = $(this).attr('data-tech-id');
-        //alert(tech_id);
-        $('#material-add-'+tech_id).prepend(
-        '<span class="material-row-span"><div class="col-xs-5 col-xs-offset-1" id="material-row-'+counter+'">' +
-            '<fieldset class="form-group">' +
-            '<input type="text" id="material_name_'+counter+'[]" name="material_name_add['+tech_id+'][]" placeholder="Material Name" class="form-control" required maxlength="255">'+
-            '</fieldset>' +
-        '</div>'+
-        '<div class="col-xs-2"  id="material-row-'+counter+'">' +
-            '<fieldset class="form-group">' +
-            '<input type="text" id="material_quantity_'+counter+'[]" name="material_quantity_add['+tech_id+'][]" placeholder="Quantity" class="form-control" required maxlength="255" data-parsley-type="digits">'+
-            '</fieldset>' +
-        '</div>'+
-        '<div class="col-xs-2"  id="material-row-'+counter+'">' +
-            '<fieldset class="form-group">' +
-            '<input type="text" id="material_cost_'+counter+'[]" name="material_cost_add['+tech_id+'][]" placeholder="Cost" class="form-control" required maxlength="255">'+
-            '</fieldset>' +
-        '</div>'+
-        '<div class="col-xs-1 off-set-1"  id="material-row-'+counter+'">' +
-            '<fieldset class="form-group">' +
-            '<a id="remove-material-'+counter+'" class="btn btn-danger btn-sm remove-material-revised"><i class="glyphicon glyphicon-remove"></i></a>'+
-            '</fieldset>' +
-        '</div></span>'
-        );
-        document.getElementById("material_name_"+counter+"[]").focus();
-    });
-    $("body").on("click", ".remove-material-revised", function (){
-        $(this).parents(".material-row-span").remove();
-    });
-
-    // Add/Remove Material-----------------------------
-    var i=0;
-    $('#add-estimate-material').click(function(){
-        i += 1;
-        $('#estimate-material-add').prepend(
-        '<span><div class="col-xs-6" id="material-row-'+i+'">' +
-            '<fieldset class="form-group">' +
-            '<input type="text" id="material_name_'+i+'[]" name="material_name[]" class="form-control" placeholder="Material Name" required maxlength="255">'+
-            '</fieldset>' +
-        '</div>'+
-        '<div class="col-xs-2"  id="material-row-'+i+'">' +
-            '<fieldset class="form-group">' +
-            '<input type="text" id="material_quantity_'+i+'[]" name="material_quantity[]" class="form-control" placeholder="Quantity" required maxlength="255" data-parsley-type="digits">'+
-            '</fieldset>' +
-        '</div>'+
-        '<div class="col-xs-2"  id="material-row-'+i+'">' +
-            '<fieldset class="form-group">' +
-            '<input type="text" id="material_cost_'+i+'[]" name="material_cost[]" placeholder="Cost" class="form-control" required maxlength="255">'+
-            '</fieldset>' +
-        '</div>'+
-        '<div class="col-xs-2"  id="material-row-'+i+'">' +
-            '<fieldset class="form-group">' +
-            '<a id="remove-material-'+i+'" class="btn btn-danger btn-sm btn-block remove-material"><i class="glyphicon glyphicon-remove"></i></a>'+
-            '</fieldset>' +
-        '</div></span>'
-        );
-        document.getElementById("material_name_"+i+"[]").focus();
-    });
-    $("body").on("click", ".remove-material", function (){
-        $(this).closest("span").remove();
-    });
-
-    // Add/Remove Extra's-----------------------------
-    var index=0;
-    $('#add-extras').click(function(){
-        index += 1;
-        $('#extras-add').prepend(
-        '<span><div class="col-xs-10" id="extras-row-'+index+'">' +
-            '<fieldset class="form-group">' +
-            // '<label for="extras_description'+index+'">Description:</label>'+
-            // '<input type="text" id="extras_description'+index+'[]" name="extras_description[]" class="form-control" placeholder="Description" required maxlength="255">'+
-            '<textarea class="form-control description" id="extras_description'+index+'[]" required="" name="extras_description[]" cols="50" rows="10" placeholder="Description"></textarea>'+
-            '</fieldset>' +
-        '</div>'+
-        '<div class="col-xs-2"  id="extras-row-'+index+'">' +
-            '<fieldset class="form-group">' +
-            // '<label for="extras_cost'+index+'">Cost: $</label>'+
-            '<input type="text" id="extras_cost'+index+'[]" name="extras_cost[]" class="form-control" placeholder="Cost" maxlength="255">'+
-            '</fieldset>' +
-        // '</div>'+
-        // '<div class="col-xs-3"  id="extras-row-'+index+'">' +
-            '<fieldset class="form-group">' +
-            '<a id="remove-extras-'+index+'" class="btn btn-danger btn-sm btn-block remove-extras"><i class="glyphicon glyphicon-remove"></i></a>'+
-            '</fieldset>' +
-        '</div></span>'
-        );
-        document.getElementById("extras_description"+index+"[]").focus();
-    });
-    $("body").on("click", ".remove-extras", function (){
-        $(this).closest("span").remove();
-    });
 
     // Equipment left on site checkbox to hidden input-----------------------------
     $("#equipment_left_on_site_chbx").change(function(){
@@ -300,24 +175,7 @@ $(document).ready(function () {
         }
     });
 
-    // Add Hyphen point on the Description area when press enter-----------------------------
-    // $(".description").focus(function() {
-    //     if(document.getElementById('description').value === ''){
-    //         document.getElementById('description').value +='- ';
-    //     }
-    // });
-    // $(".description").keyup(function(event){
-    //     var keycode = (event.keyCode ? event.keyCode : event.which);
-    //     if(keycode == '13'){
-    //         document.getElementById('description').value +='- ';
-    //     }
-    //     var txtval = document.getElementById('description').value;
-    //     if(txtval.substr(txtval.length - 1) == '\n'){
-    //         document.getElementById('description').value = txtval.substring(0,txtval.length - 1);
-    //     }
-    // });
-
-    // Truck Overhead-----------------------------
+    // Truck Overhead--------------------------------------------------------------------
     $("#is_trucked_chbx").change(function(){
         if($(this).is(":checked")){
             $("#is_trucked").val('1');
@@ -332,7 +190,7 @@ $(document).ready(function () {
         }
     })
 
-    // First 1/2 Hour-----------------------------
+    // First 1/2 Hour------------------------------------------------------------------
     $("#seperate_first_half_hour_chbx").change(function(){
         if($(this).is(":checked")){
             // put 1 in hidden field
@@ -356,7 +214,7 @@ $(document).ready(function () {
         }
     })
 
-    // First 1 Hour-----------------------------
+    // First 1 Hour----------------------------------------------------------------
     $("#seperate_first_one_hour_chbx").change(function(){
         if($(this).is(":checked")){
             $("#seperate_first_one_hour").val('1');
@@ -378,23 +236,154 @@ $(document).ready(function () {
 
         }
     })
+
+    //  Update Tech Detail button to submit form ---------------------------
+    //  this is bcoz its conflict witth the cancel confirmation due to the page layout ----------------
     if ( $('.tech-update-btn').length ){
         $('.tech-update-btn').on('click', function(){
             $('#tech-update-form').submit();
         });
     }
-    // Confirm cancel-----------------------------
-    cancel_confirmation_modal.init();
+
+    // Add/Remove Tech Detail Materials-----------------------------
+    tech_material_add_row.init();
+
+    // Add/Remove Pending Invoice Materials-----------------------------
+    pending_invoice_material_add_row.init();
+
+    // Add/Remove Estimate Materials-----------------------------
+    estimate_material_add_row.init();
 
     // Confirm delete-----------------------------
     delete_confirmation_modal.init();
 
+    // Confirm cancel-----------------------------
+    cancel_confirmation_modal.init();
+
     // Add/Remove Contact-----------------------------
     contact_add_row.init();
 
+    // Add/Remove Extra's-----------------------------
+    extras_add_row.init();
+
 });
 
+// ADD/REMOVE TECH DETAIL MATERIALS =============================================================================
+var tech_material_add_row =
+{
+    init: function()
+    {
+        var counter=0;
+        $('#add-material').click(function(){
+            counter += 1;
+            $('#material-add').prepend(
+            '<span><div class="col-xs-6" id="material-row-'+counter+'">' +
+                '<fieldset class="form-group">' +
+                // '<label for="material_name_'+counter+'">Material Name:</label>'+
+                '<input type="text" id="material_name_'+counter+'[]" name="material_name[]" class="form-control" placeholder="Material Name" required maxlength="255">'+
+                '</fieldset>' +
+            '</div>'+
+            '<div class="col-xs-3"  id="material-row-'+counter+'">' +
+                '<fieldset class="form-group">' +
+                // '<label for="material_quantity_'+counter+'">Quantity:</label>'+
+                '<input type="text" id="material_quantity_'+counter+'[]" name="material_quantity[]" class="form-control" placeholder="Quantity" required maxlength="255" data-parsley-type="digits">'+
+                '</fieldset>' +
+            '</div>'+
+            '<div class="col-xs-3"  id="material-row-'+counter+'">' +
+                '<fieldset class="form-group">' +
+                '<a id="remove-material-'+counter+'" class="btn btn-danger btn-sm btn-block remove-material"><i class="glyphicon glyphicon-remove"></i></a>'+
+                '</fieldset>' +
+            '</div></span>'
+            );
+            document.getElementById("material_name_"+counter+"[]").focus();
+        });
+        $("body").on("click", ".remove-material", function (){
+            $(this).closest("span").remove();
+        });
+    }
+}
+
+// ADD/REMOVE PENDING INVOICE MATERIALS =============================================================================
+var pending_invoice_material_add_row =
+{
+    init: function()
+    {
+        var counter=0;
+        $('.add-revised-material').click(function(){
+            counter += 1;
+            var tech_id = $(this).attr('data-tech-id');
+            //alert(tech_id);
+            $('#material-add-'+tech_id).prepend(
+            '<span class="material-row-span"><div class="col-xs-5 col-xs-offset-1" id="material-row-'+counter+'">' +
+                '<fieldset class="form-group">' +
+                '<input type="text" id="material_name_'+counter+'[]" name="material_name_add['+tech_id+'][]" placeholder="Material Name" class="form-control" required maxlength="255">'+
+                '</fieldset>' +
+            '</div>'+
+            '<div class="col-xs-2"  id="material-row-'+counter+'">' +
+                '<fieldset class="form-group">' +
+                '<input type="text" id="material_quantity_'+counter+'[]" name="material_quantity_add['+tech_id+'][]" placeholder="Quantity" class="form-control" required maxlength="255" data-parsley-type="digits">'+
+                '</fieldset>' +
+            '</div>'+
+            '<div class="col-xs-2"  id="material-row-'+counter+'">' +
+                '<fieldset class="form-group">' +
+                '<input type="text" id="material_cost_'+counter+'[]" name="material_cost_add['+tech_id+'][]" placeholder="Cost" class="form-control" required maxlength="255">'+
+                '</fieldset>' +
+            '</div>'+
+            '<div class="col-xs-1 off-set-1"  id="material-row-'+counter+'">' +
+                '<fieldset class="form-group">' +
+                '<a id="remove-material-'+counter+'" class="btn btn-danger btn-sm remove-material-revised"><i class="glyphicon glyphicon-remove"></i></a>'+
+                '</fieldset>' +
+            '</div></span>'
+            );
+            document.getElementById("material_name_"+counter+"[]").focus();
+        });
+        $("body").on("click", ".remove-material-revised", function (){
+            $(this).parents(".material-row-span").remove();
+        });
+    }
+}
+
+// ADD/REMOVE ESTIMATE MATERIALS =============================================================================
+var estimate_material_add_row =
+{
+    init: function()
+    {
+        var i=0;
+        $('#add-estimate-material').click(function(){
+            i += 1;
+            $('#estimate-material-add').prepend(
+            '<span><div class="col-xs-6" id="material-row-'+i+'">' +
+                '<fieldset class="form-group">' +
+                '<input type="text" id="material_name_'+i+'[]" name="material_name[]" class="form-control" placeholder="Material Name" required maxlength="255">'+
+                '</fieldset>' +
+            '</div>'+
+            '<div class="col-xs-2"  id="material-row-'+i+'">' +
+                '<fieldset class="form-group">' +
+                '<input type="text" id="material_quantity_'+i+'[]" name="material_quantity[]" class="form-control" placeholder="Quantity" required maxlength="255" data-parsley-type="digits">'+
+                '</fieldset>' +
+            '</div>'+
+            '<div class="col-xs-2"  id="material-row-'+i+'">' +
+                '<fieldset class="form-group">' +
+                '<input type="text" id="material_cost_'+i+'[]" name="material_cost[]" placeholder="Cost" class="form-control" required maxlength="255">'+
+                '</fieldset>' +
+            '</div>'+
+            '<div class="col-xs-2"  id="material-row-'+i+'">' +
+                '<fieldset class="form-group">' +
+                '<a id="remove-material-'+i+'" class="btn btn-danger btn-sm btn-block remove-material"><i class="glyphicon glyphicon-remove"></i></a>'+
+                '</fieldset>' +
+            '</div></span>'
+            );
+            document.getElementById("material_name_"+i+"[]").focus();
+        });
+        $("body").on("click", ".remove-material", function (){
+            $(this).closest("span").remove();
+        });
+    }
+}
+
+
 /* Confirm delete function: https://paulund.co.uk/add-delete-confirmation-to-form */
+// DELETE CONFIMATION =============================================================================
 var delete_confirmation_modal =
 {
     init: function()
@@ -422,6 +411,7 @@ var delete_confirmation_modal =
     }
 }
 
+// TECH DETAIL CANCEL CONFIRMATION =============================================================================
 var cancel_confirmation_modal =
 {
     init: function()
@@ -453,7 +443,7 @@ var cancel_confirmation_modal =
 }
 
 
-// ADD/REMOVE CONTACT
+// ADD/REMOVE CONTACT =============================================================================
 var contact_add_row =
 {
     init: function()
@@ -543,6 +533,43 @@ var contact_add_row =
         });
         // remove contact
         $("body").on("click", ".remove-contact", function (){
+            $(this).closest("span").remove();
+        });
+    }
+}
+
+
+// ADD/REMOVE EXTRA'S =============================================================================
+var extras_add_row =
+{
+    init: function()
+    {
+        var index=0;
+        $('#add-extras').click(function(){
+            index += 1;
+            $('#extras-add').prepend(
+            '<span><div class="col-xs-10" id="extras-row-'+index+'">' +
+                '<fieldset class="form-group">' +
+                // '<label for="extras_description'+index+'">Description:</label>'+
+                // '<input type="text" id="extras_description'+index+'[]" name="extras_description[]" class="form-control" placeholder="Description" required maxlength="255">'+
+                '<textarea class="form-control description" id="extras_description'+index+'[]" required="" name="extras_description[]" cols="50" rows="10" placeholder="Description"></textarea>'+
+                '</fieldset>' +
+            '</div>'+
+            '<div class="col-xs-2"  id="extras-row-'+index+'">' +
+                '<fieldset class="form-group">' +
+                // '<label for="extras_cost'+index+'">Cost: $</label>'+
+                '<input type="text" id="extras_cost'+index+'[]" name="extras_cost[]" class="form-control" placeholder="Cost" maxlength="255">'+
+                '</fieldset>' +
+            // '</div>'+
+            // '<div class="col-xs-3"  id="extras-row-'+index+'">' +
+                '<fieldset class="form-group">' +
+                '<a id="remove-extras-'+index+'" class="btn btn-danger btn-sm btn-block remove-extras"><i class="glyphicon glyphicon-remove"></i></a>'+
+                '</fieldset>' +
+            '</div></span>'
+            );
+            document.getElementById("extras_description"+index+"[]").focus();
+        });
+        $("body").on("click", ".remove-extras", function (){
             $(this).closest("span").remove();
         });
     }
