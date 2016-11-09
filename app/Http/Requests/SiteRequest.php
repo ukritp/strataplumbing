@@ -25,10 +25,10 @@ class SiteRequest extends Request
     {
         return [
             //
-            'company_name.*'     => 'required|max:255',
+            'company_name.*'     => 'max:255',
             'first_name.*'       => 'required|max:255',
-            'last_name.*'        => 'required|max:255',
-            'title.*'            => 'required|max:255',
+            'last_name.*'        => 'max:255',
+            'title.*'            => 'max:255',
 
             'mailing_address'    => 'required|max:255',
             'mailing_city'       => 'max:50',
