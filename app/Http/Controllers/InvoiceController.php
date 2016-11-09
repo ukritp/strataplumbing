@@ -76,9 +76,7 @@ class InvoiceController extends Controller
                     'site.billing_address'   => 10,
                     'client.billing_city'    => 10,
                     'site.billing_city'      => 10,
-                    'first_name'             => 5,
-                    'last_name'              => 5,
-                    'cell_number'            => 5,
+                    'tenant_contact_info'    => 5,
                     ])
                     ->paginate(25)
                     ->appends(['keyword' => $request->keyword]);

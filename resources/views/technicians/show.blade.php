@@ -18,8 +18,8 @@
             @set('contact_last_name', $technician->job->client->last_name)
             @if(isset($technician->job->site))
                 @if(count($technician->job->site->contacts)>0)
-                    @set('contact_first_name', $job->site->contacts->first()->first_name)
-                    @set('contact_last_name', $job->site->contacts->first()->last_name)
+                    @set('contact_first_name', $technician->job->site->contacts->first()->first_name)
+                    @set('contact_last_name', $technician->job->site->contacts->first()->last_name)
                 @endif
                 <h3>Contact: {{$contact_first_name.' '.$contact_last_name}}</h3>
                 <p class="lead-md"><strong>Site Address:</strong> {{$technician->job->site->fullMailingAddress()}}

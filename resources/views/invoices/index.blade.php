@@ -26,7 +26,7 @@
                     {{ Form::text('date_to',null, array('class' => 'form-control','id'=>'date_to', 'maxlength'=>'255'))}}
                 </div>
                 <div class="input-group">
-                    <input type="text" name="keyword" id="keyword" class="form-control " placeholder="keyword..." maxlegnth="255" required>
+                    <input type="text" name="keyword" id="keyword" class="form-control " placeholder="keyword..." maxlegnth="255">
                     <span class="input-group-btn">
                         <button class="btn btn-primary " type="submit"><i class="glyphicon glyphicon-search"></i></button>
                     </span>
