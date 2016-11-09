@@ -67,16 +67,18 @@ class InvoiceController extends Controller
         }
         else if($request->keyword != ''){
             $jobs = Job::where('status',1)->search($request->keyword, [
-                    'project_manager'        => 20,
-                    'purchase_order_number'  => 20,
-                    'client.company_name'    => 10,
-                    'client.first_name'      => 10,
-                    'client.last_name'       => 10,
-                    'client.billing_address' => 10,
-                    'site.billing_address'   => 10,
-                    'client.billing_city'    => 10,
-                    'site.billing_city'      => 10,
-                    'tenant_contact_info'    => 5,
+                    'project_manager'          => 20,
+                    'purchase_order_number'    => 20,
+                    'client.company_name'      => 10,
+                    'client.first_name'        => 10,
+                    'client.last_name'         => 10,
+                    'site.contacts.first_name' => 10,
+                    'site.contacts.last_name'  => 10,
+                    'client.billing_address'   => 10,
+                    'site.billing_address'     => 10,
+                    'client.billing_city'      => 10,
+                    'site.billing_city'        => 10,
+                    'tenant_contact_info'      => 5,
                     ])
                     ->paginate(25)
                     ->appends(['keyword' => $request->keyword]);
