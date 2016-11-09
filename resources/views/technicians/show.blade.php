@@ -128,7 +128,11 @@
         <div class="col-md-4">
             <div class="well">
                 <div class="form-group hidden-xs">
-                    @if(!empty($client->company_name))<h2 class="text-center">{{$client->company_name}}</h2> @endif
+                    @if(!empty($client->company_name))
+                    <h2 class="text-center">
+                        {!! Html::linkRoute('clients.show', $client->company_name, array($client->id), array('class'=>''))!!}</h2>
+                    @endif
+
                     <h3 class="text-center">{{$client->first_name.' '.$client->last_name}}</h3>
                     <br>
                     <p class="lead-md"><strong>Title:</strong> {{$client->title}}</p>
