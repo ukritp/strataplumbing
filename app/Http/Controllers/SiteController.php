@@ -319,6 +319,9 @@ class SiteController extends Controller
 
             Job::destroy($job_delete_ids);
         }
+
+        $client_id = $site->client_id;
+
         // delete the data
         $site->delete();
 
@@ -326,6 +329,7 @@ class SiteController extends Controller
         Session::flash('success','The Site and jobs related were successfully deleted');
 
         // return a view
-        return redirect()->route('sites.index','0');
+        return redirect()->route('clients.show',$client_id);
+
     }
 }
