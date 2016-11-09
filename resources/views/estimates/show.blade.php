@@ -79,7 +79,10 @@
     <div class="col-md-4">
         <div class="well">
             <div class="form-group">
-                @if(!empty($estimate->job->client->company_name))<h2 class="text-center">{{$estimate->job->client->company_name}}</h2> @endif
+                @if(!empty($estimate->job->client->company_name))
+                    <h2 class="text-center">
+                    {!! Html::linkRoute('clients.show', $estimate->job->client->company_name, array($estimate->job->client->id), array('class'=>''))!!}</h2>
+                @endif
                 <h3 class="text-center">{{$estimate->job->client->first_name.' '.$estimate->job->client->last_name}}</h3>
                 <br>
                 <p class="lead-md"><strong>Title:</strong> {{$estimate->job->client->title}}</p>

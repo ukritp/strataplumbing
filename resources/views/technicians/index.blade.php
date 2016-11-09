@@ -85,7 +85,7 @@
                             }}</td>
                         @endif
                         <td data-label="Technician Details" class="hidden-xs">{{substr($technician->tech_details, 0,40)}}{{strlen($technician->tech_details)>40 ? '....' : ''}}</td>
-                        <td data-label="Job Status" class="td-status">{{($technician->job->status) ? 'Completed' : 'Pending'}}</td>
+                        <td data-label="Job Status" class="td-status">{{($technician->job_status) ? 'Completed' : 'Pending'}}</td>
                         <td data-label="Action" class="text-right">
 
                         <div class="btn-group">

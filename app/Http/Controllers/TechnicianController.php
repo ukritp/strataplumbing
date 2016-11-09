@@ -35,6 +35,7 @@ class TechnicianController extends Controller
                 $technicians  = Technician::where('user_id',\Auth::user()->id)
                                 ->join('jobs', 'technicians.job_id', '=', 'jobs.id')
                                 ->select('technicians.*', 'jobs.id AS job_id', 'jobs.status AS job_status')
+                                ->where('jobs.status','=','0')
                                 ->orderby('technicians.pendinginvoiced_at','desc')
                                 ->paginate(25);
 
@@ -43,6 +44,7 @@ class TechnicianController extends Controller
 
                 $technicians  = Technician::join('jobs', 'technicians.job_id', '=', 'jobs.id')
                                 ->select('technicians.*', 'jobs.id AS job_id', 'jobs.status AS job_status')
+                                ->where('jobs.status','=','0')
                                 ->orderby('technicians.pendinginvoiced_at','desc')
                                 ->paginate(25);
                 }
